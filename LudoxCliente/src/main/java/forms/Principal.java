@@ -3,31 +3,32 @@ package forms;
 import data.User;
 import java.net.Socket;
 
-
 /**
  *
  * @author CARLA LLENAS
  */
 public class Principal extends javax.swing.JFrame {
+
     login log;
-//    private Socket socket;
+    User user;
 
     /**
-     * Creates new form Principal
+     * constructor de la classe. verificarà també si l'usuari entrat es admin o
+     * no
+     * @param log paramentre d'objecte de la clase login
+     * @param user paramentre de l'usuari de la clase User
      */
-//    public Principal(login log, Socket socket) {
-//        initComponents();
-//        this.setLocationRelativeTo(null);
-//        this.log = log;
-//        this.socket = socket;
-//    }
-    public Principal(login log) {
+    public Principal(login log, User user) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.log = log;
+        this.user = user;
+
+        if (!user.isIsAdmin()) {
+            MenuAdmin.setVisible(false);
+        }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -340,12 +341,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void MenuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAdminActionPerformed
-        // TODO add your handling code here:
-        if (User.isAdmin == true) {
-            MenuAdmin.setVisible(true);
-        } else {
-            MenuAdmin.setVisible(false);
-        }
+
     }//GEN-LAST:event_MenuAdminActionPerformed
 
     /**

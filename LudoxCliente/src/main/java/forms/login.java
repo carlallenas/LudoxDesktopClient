@@ -31,6 +31,11 @@ public class login extends javax.swing.JFrame implements Runnable {
     private DataInputStream inData;
 // fondoLogIn fondo = new fondoLogIn();
 
+    /**
+     * constructor de conexió amb el servidor.
+     *
+     * @param client socket del client.
+     */
     public login(Socket client) {
 // this.setContentPane(fondo);
         socketClient = client;
@@ -47,7 +52,7 @@ public class login extends javax.swing.JFrame implements Runnable {
     }
 
     /**
-     * Creates new form login
+     * Creates new form login constructor de la clase login.
      */
     public login() {
         initComponents();
@@ -204,7 +209,9 @@ public class login extends javax.swing.JFrame implements Runnable {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-
+    /**
+     * metode on ens pot mostrar la contrasenya del camp de text o no.
+     */
     private void showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassActionPerformed
         if (showPass.isSelected()) {
             txtPassword.setEchoChar((char) 0);
@@ -214,6 +221,10 @@ public class login extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_showPassActionPerformed
 
+    /**
+     * metode on conecta el botó amb la pantalla de registre dels usuaris. es
+     * recicla la connexio del servidor i la base de dades.
+     */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         registro reg = new registro(this, true, inData, outData, ois, oos);
         reg.setVisible(true);
@@ -226,38 +237,57 @@ public class login extends javax.swing.JFrame implements Runnable {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         doLogin(txtUsuario.getText(), txtPassword.getText());
-
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    /**
+     * metode que ja comproba que els camps de text requerits no siguin null. Si
+     * no ho son, l'usuari podra fer login
+     *
+     * @param username parametre del nom d'usuari
+     * @param pass parametre de la constrasenya
+     */
     public void doLogin(String username, String pass) {
         if (!username.isEmpty() && !pass.isEmpty()) {
 
             try {
-                outData.writeByte(1);
-                outData.writeUTF(txtUsuario.getText());
-                outData.writeUTF(txtPassword.getText());
-                boolean ok = inData.readBoolean();
+                boolean ok = sendLogin(username, pass);
 
                 if (!ok) {
                     System.out.println("Error de usuario o contraseña");
                 } else {
                     User user = (User) ois.readObject();
-                    Principal prin = new Principal(this);
+                    Principal prin = new Principal(this, user);
                     prin.setVisible(true);
                     this.setVisible(false);
                 }
 
-            } catch (IOException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Falta ingresar usuario y contraseña");
         }
+    }
 
-        if (txtUsuario.getText().equals("Ludox") && txtPassword.getText().equals("admin")) {
-            User.isAdmin = true;
+    /**
+     * metode per comprobar l'existencia de l'usuari mitjançant el nom d'usuari
+     * i la contrasenya i pugui fer login
+     *
+     * @param username parametro del nombre de usuario
+     * @param userPass parametro de la contraseña
+     * @return
+     */
+    public boolean sendLogin(String username, String userPass) {
+        try {
+            outData.writeByte(1);
+            outData.writeUTF(username);
+            outData.writeUTF(userPass);
+            return inData.readBoolean();
+
+        } catch (IOException ex) {
+            Logger.getLogger(registro.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
@@ -266,11 +296,15 @@ public class login extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
+     * metode on es fa la connexió amb servidor. variables son el numero de
+     * port, la ip del sevridor i el temps limit de connexio.
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException {
         final int PORT = 5000;
-        final String IP = "90.170.253.138";
+        //final String IP = "90.170.253.138";
+        final String IP = "localhost";
         final int connection_time_out = 8000;
 
         Socket s = new Socket();
@@ -302,6 +336,10 @@ public class login extends javax.swing.JFrame implements Runnable {
 
 }
 
+/**
+ * @metode per crear imatge de fons. De moment inactiu.
+ */
+//
 //class fondoLogIn extends JPanel {
 //
 //    private Image img;

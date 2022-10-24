@@ -17,10 +17,18 @@ public class User implements Serializable {
     public String username;
     public String name;
     public String mail;
-    public static boolean isAdmin = false;
+    public boolean isAdmin = false;
     private static final long serialVersionUID = 123456789;
 
-
+    /**
+     * constructor de la clase.
+     *
+     * @param username nom de l'usuari.
+     * @param password contrasenya de l'usuari.
+     * @param name nom i cognoms de l'usuari.
+     * @param mail correu electrònic de l'usuari.
+     * @param isAdmin booleana ens diu si l'usuari és administrador.
+     */
     public User(String password, String username, String name, String mail, boolean isAdmin) {
         this.password = password;
         this.username = username;
@@ -29,7 +37,13 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
+    public User() {
 
+    }
+
+    /**
+     * metodes get i set del constructor.
+     */
     public String getUsername() {
         return username;
     }
