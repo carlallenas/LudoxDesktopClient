@@ -6,6 +6,7 @@
 package data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -13,37 +14,44 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    public String password;
-    public String username;
-    public String name;
-    public String mail;
-    public boolean isAdmin = false;
-    private static final long serialVersionUID = 123456789;
+    private int id;
+    private String password;
+    private String username;
+    private String name;
+    private String mail;
+    private boolean isAdmin;
+    private List<Rental> rental;
+    private List<GameScore> scores;
+    private static final long serialVersionUID = 1;
 
-    /**
-     * constructor de la clase.
-     *
-     * @param username nom de l'usuari.
-     * @param password contrasenya de l'usuari.
-     * @param name nom i cognoms de l'usuari.
-     * @param mail correu electrònic de l'usuari.
-     * @param isAdmin booleana ens diu si l'usuari és administrador.
-     */
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public User(String password, String username, String name, String mail, boolean isAdmin) {
         this.password = password;
         this.username = username;
         this.name = name;
         this.mail = mail;
         this.isAdmin = isAdmin;
+        rental = null;
     }
 
-    public User() {
-
+    public User(int id, String password, String username, String name, String mail, boolean isAdmin, List<Rental> rental, List<GameScore> scores) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
+        this.name = name;
+        this.mail = mail;
+        this.isAdmin = isAdmin;
+        this.rental = rental;
+        this.scores = scores;
     }
 
-    /**
-     * metodes get i set del constructor.
-     */
     public String getUsername() {
         return username;
     }
@@ -82,6 +90,30 @@ public class User implements Serializable {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public List<Rental> getRental() {
+        return rental;
+    }
+
+    public void setRental(List<Rental> rental) {
+        this.rental = rental;
+    }
+
+    public List<GameScore> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<GameScore> scores) {
+        this.scores = scores;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

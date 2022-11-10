@@ -37,7 +37,7 @@ public class login extends javax.swing.JFrame implements Runnable {
      * @param client socket del client.
      */
     public login(Socket client) {
-// this.setContentPane(fondo);
+// this.setContentPane(fondo);    
         socketClient = client;
         try {
             oos = new ObjectOutputStream(socketClient.getOutputStream());
@@ -49,6 +49,8 @@ public class login extends javax.swing.JFrame implements Runnable {
             System.out.println("constructor");
         }
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -56,7 +58,6 @@ public class login extends javax.swing.JFrame implements Runnable {
      */
     public login() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -247,13 +248,17 @@ public class login extends javax.swing.JFrame implements Runnable {
      * @param pass parametre de la constrasenya
      */
     public void doLogin(String username, String pass) {
+        txtUsuario.setText("");
+        txtPassword.setText("");
+        System.out.println("username" + username + " pass" + pass);
+        
         if (!username.isEmpty() && !pass.isEmpty()) {
 
             try {
                 boolean ok = sendLogin(username, pass);
 
                 if (!ok) {
-                    System.out.println("Error de usuario o contraseña");
+                    JOptionPane.showMessageDialog(null, "Error de usuario o contraseña");
                 } else {
                     User user = (User) ois.readObject();
                     Principal prin = new Principal(this, user);

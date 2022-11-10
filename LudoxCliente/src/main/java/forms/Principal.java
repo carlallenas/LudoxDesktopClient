@@ -1,7 +1,11 @@
 package forms;
 
+import forms.admin.MenuAdmin;
 import data.User;
+import java.awt.CardLayout;
+import java.awt.event.ActionListener;
 import java.net.Socket;
+import javax.swing.JPanel;
 
 /**
  *
@@ -9,12 +13,21 @@ import java.net.Socket;
  */
 public class Principal extends javax.swing.JFrame {
 
-    login log;
+    private JPanel contentPanel;
+    final static String PANEL1 = "Panel 1 ";
+    final static String PANEL2 = "Panel 2 ";
+    
+    NewJPanel jPanel = new NewJPanel();
+    NewJPanel2 jPanel2 = new NewJPanel2();
+            
+    login log = new login();
     User user;
+    registro reg;
 
     /**
      * constructor de la classe. verificarà també si l'usuari entrat es admin o
      * no
+     *
      * @param log paramentre d'objecte de la clase login
      * @param user paramentre de l'usuari de la clase User
      */
@@ -25,8 +38,16 @@ public class Principal extends javax.swing.JFrame {
         this.user = user;
 
         if (!user.isIsAdmin()) {
-            MenuAdmin.setVisible(false);
+            btnAdmin.setVisible(false);
         }
+        this.setLocationRelativeTo(null);
+    }
+
+    public Principal() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        contentPanel.add(jPanel, PANEL1);
+        contentPanel.add(jPanel2, PANEL2);
     }
 
     /**
@@ -38,29 +59,29 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel8 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        panelVentana = new javax.swing.JPanel();
+        panelMenu = new javax.swing.JPanel();
+        panelTittle = new javax.swing.JPanel();
+        labelTittle = new javax.swing.JLabel();
+        panelAlquiler = new javax.swing.JPanel();
+        logoAlquiler = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        panelVideojuegos = new javax.swing.JPanel();
+        logoJuegos = new javax.swing.JLabel();
+        labelVideojuegos = new javax.swing.JLabel();
+        panelAjustes = new javax.swing.JPanel();
+        logoAjustes = new javax.swing.JLabel();
+        labelAjustes = new javax.swing.JLabel();
+        panelReseñas = new javax.swing.JPanel();
+        logoReseñas = new javax.swing.JLabel();
+        labelReseñas = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnAdmin = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPrincipal = new javax.swing.JMenu();
         menuSalir = new javax.swing.JMenu();
         itemLogout = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
-        MenuAdmin = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ludox Menu");
@@ -70,178 +91,238 @@ public class Principal extends javax.swing.JFrame {
         setForeground(java.awt.Color.black);
         setLocationByPlatform(true);
         setUndecorated(true);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        panelVentana.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        panelMenu.setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        panelTittle.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\Captura.png")); // NOI18N
+        labelTittle.setBackground(new java.awt.Color(0, 0, 0));
+        labelTittle.setFont(new java.awt.Font("Liberation Sans Narrow", 0, 48)); // NOI18N
+        labelTittle.setForeground(new java.awt.Color(153, 0, 204));
+        labelTittle.setText("Ludox");
+        labelTittle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Liberation Sans Narrow", 0, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 0, 204));
-        jLabel2.setText("LUDOX");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout panelTittleLayout = new javax.swing.GroupLayout(panelTittle);
+        panelTittle.setLayout(panelTittleLayout);
+        panelTittleLayout.setHorizontalGroup(
+            panelTittleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTittleLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(labelTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        panelTittleLayout.setVerticalGroup(
+            panelTittleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTittleLayout.createSequentialGroup()
+                .addGap(0, 38, Short.MAX_VALUE)
+                .addComponent(labelTittle))
         );
 
-        jPanel4.setBackground(new java.awt.Color(153, 0, 255));
+        panelAlquiler.setBackground(new java.awt.Color(153, 102, 255));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-shopping-bags-64.png")); // NOI18N
+        logoAlquiler.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-carrito-de-la-compra-cargado-48.png")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Alquilar");
+        jLabel4.setText("Alquileres");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(15, 19, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(19, 19, 19))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel5.setBackground(new java.awt.Color(153, 0, 255));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-battle-64.png")); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Videojuegos");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(19, 19, 19))
-        );
-
-        jPanel6.setBackground(new java.awt.Color(153, 0, 255));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-battle-64.png")); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Videojuegos");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(19, 19, 19))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(171, 171, 171)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout panelAlquilerLayout = new javax.swing.GroupLayout(panelAlquiler);
+        panelAlquiler.setLayout(panelAlquilerLayout);
+        panelAlquilerLayout.setHorizontalGroup(
+            panelAlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlquilerLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(logoAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(189, 189, 189)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(357, Short.MAX_VALUE)))
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAlquilerLayout.setVerticalGroup(
+            panelAlquilerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoAlquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addGroup(panelAlquilerLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 707, Short.MAX_VALUE))
+        panelVideojuegos.setBackground(new java.awt.Color(153, 0, 255));
+        panelVideojuegos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelVideojuegosMouseClicked(evt);
+            }
+        });
+
+        logoJuegos.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-battle-64.png")); // NOI18N
+
+        labelVideojuegos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelVideojuegos.setForeground(new java.awt.Color(0, 0, 0));
+        labelVideojuegos.setText("Videojuegos");
+        labelVideojuegos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelVideojuegosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelVideojuegosLayout = new javax.swing.GroupLayout(panelVideojuegos);
+        panelVideojuegos.setLayout(panelVideojuegosLayout);
+        panelVideojuegosLayout.setHorizontalGroup(
+            panelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVideojuegosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoJuegos)
+                .addGap(38, 38, 38)
+                .addComponent(labelVideojuegos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        panelVideojuegosLayout.setVerticalGroup(
+            panelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoJuegos)
+            .addGroup(panelVideojuegosLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(labelVideojuegos))
         );
+
+        panelAjustes.setBackground(new java.awt.Color(153, 102, 255));
+
+        logoAjustes.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-engranajes-50.png")); // NOI18N
+
+        labelAjustes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelAjustes.setForeground(new java.awt.Color(0, 0, 0));
+        labelAjustes.setText("Ajustes");
+
+        javax.swing.GroupLayout panelAjustesLayout = new javax.swing.GroupLayout(panelAjustes);
+        panelAjustes.setLayout(panelAjustesLayout);
+        panelAjustesLayout.setHorizontalGroup(
+            panelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAjustesLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(logoAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelAjustes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAjustesLayout.setVerticalGroup(
+            panelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAjustesLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(labelAjustes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(logoAjustes, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+        );
+
+        panelReseñas.setBackground(new java.awt.Color(153, 0, 255));
+
+        logoReseñas.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-mano-con-pluma-50.png")); // NOI18N
+
+        labelReseñas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelReseñas.setForeground(new java.awt.Color(0, 0, 0));
+        labelReseñas.setText("Mis reseñas");
+        labelReseñas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                labelReseñasKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelReseñasLayout = new javax.swing.GroupLayout(panelReseñas);
+        panelReseñas.setLayout(panelReseñasLayout);
+        panelReseñasLayout.setHorizontalGroup(
+            panelReseñasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReseñasLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(logoReseñas, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(labelReseñas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelReseñasLayout.setVerticalGroup(
+            panelReseñasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoReseñas, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addGroup(panelReseñasLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(labelReseñas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jSeparator1.setForeground(new java.awt.Color(153, 102, 255));
+        jSeparator1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+
+        btnAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdmin.setText("ADMINISTRADOR");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
+        panelMenu.setLayout(panelMenuLayout);
+        panelMenuLayout.setHorizontalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelTittle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelVideojuegos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelAlquiler, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelReseñas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelAjustes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(btnAdmin)))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        panelMenuLayout.setVerticalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelTittle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(panelVideojuegos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelReseñas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        javax.swing.GroupLayout panelVentanaLayout = new javax.swing.GroupLayout(panelVentana);
+        panelVentana.setLayout(panelVentanaLayout);
+        panelVentanaLayout.setHorizontalGroup(
+            panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVentanaLayout.createSequentialGroup()
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 694, Short.MAX_VALUE))
+        );
+        panelVentanaLayout.setVerticalGroup(
+            panelVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelVentana, "card2");
 
         jMenuBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 204), null, null));
+        jMenuBar1.setAlignmentX(20.0F);
+        jMenuBar1.setAlignmentY(20.0F);
+        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jMenuBar1.setName(""); // NOI18N
 
-        menuPrincipal.setText("MENU");
+        menuPrincipal.setForeground(new java.awt.Color(0, 0, 0));
+        menuPrincipal.setText("INICIO");
         jMenuBar1.add(menuPrincipal);
 
         menuSalir.setForeground(new java.awt.Color(0, 0, 0));
@@ -267,54 +348,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuSalir);
 
-        MenuAdmin.setForeground(new java.awt.Color(255, 0, 51));
-        MenuAdmin.setText("ADMIN");
-        MenuAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAdminActionPerformed(evt);
-            }
-        });
-
-        jMenuItem1.setText("Administrar Usuarios");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        MenuAdmin.add(jMenuItem1);
-
-        jMenuItem2.setText("Administrar Permisos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        MenuAdmin.add(jMenuItem2);
-
-        jMenuItem3.setText("Administrar Videojuegos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        MenuAdmin.add(jMenuItem3);
-
-        jMenuBar1.add(MenuAdmin);
-
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -328,49 +362,63 @@ public class Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_itemSalirActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void labelReseñasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelReseñasKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_labelReseñasKeyPressed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void labelVideojuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelVideojuegosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        Videogames videogames = new Videogames();
+        videogames.setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_labelVideojuegosMouseClicked
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void panelVideojuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelVideojuegosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        Videogames videogames = new Videogames();
+        videogames.setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_panelVideojuegosMouseClicked
 
-    private void MenuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAdminActionPerformed
-
-    }//GEN-LAST:event_MenuAdminActionPerformed
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        // TODO add your handling code here:
+//        jPanel.btnAltaVideojuegos.addActionListener(new ActionListener()){
+//        CardLayout cl = (CardLayout)(contentPanel.getLayout());
+//        cl.show(contentPanel, PANEL2);
+//        }     
+        
+//        MenuAdmin menuAdmin = new MenuAdmin();
+//        menuAdmin.setVisible(true);
+////        this.setVisible(false);
+    }//GEN-LAST:event_btnAdminActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuAdmin;
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JMenuItem itemLogout;
     private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelAjustes;
+    private javax.swing.JLabel labelReseñas;
+    private javax.swing.JLabel labelTittle;
+    private javax.swing.JLabel labelVideojuegos;
+    private javax.swing.JLabel logoAjustes;
+    private javax.swing.JLabel logoAlquiler;
+    private javax.swing.JLabel logoJuegos;
+    private javax.swing.JLabel logoReseñas;
     private javax.swing.JMenu menuPrincipal;
     private javax.swing.JMenu menuSalir;
+    private javax.swing.JPanel panelAjustes;
+    private javax.swing.JPanel panelAlquiler;
+    private javax.swing.JPanel panelMenu;
+    private javax.swing.JPanel panelReseñas;
+    private javax.swing.JPanel panelTittle;
+    private javax.swing.JPanel panelVentana;
+    private javax.swing.JPanel panelVideojuegos;
     // End of variables declaration//GEN-END:variables
 
 }
