@@ -5,32 +5,33 @@
  */
 package data;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
+
 /**
  *
  * @author CARLA LLENAS
  */
 @Entity
-public class Category implements Serializable {
-    private static final long serialVersionUID = 3;
+public class Platforms implements Serializable {
+    private static final long serialVersionUID = 5;
     private int ID;
-    private String category;
+    private String name;
 
-    public Category() {
+    public Platforms() {
     }
 
-    public Category(String category) {
-        this.category = capitalize(category);
+    public Platforms(String name) {
+        this.name = name;
     }
 
-    public Category(int ID, String category) {
+    public Platforms(int ID, String name) {
         this.ID = ID;
-        this.category = capitalize(category);
+        this.name = name;
     }
 
     @Id
@@ -44,16 +45,15 @@ public class Category implements Serializable {
     }
 
     @Column(unique = true)
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
-    public void setCategory(String category) {
-        this.category = capitalize(category);
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static String capitalize(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
-
 }

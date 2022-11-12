@@ -5,14 +5,22 @@
  */
 package data;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author CARLA LLENAS
  */
-public class Rental {
-
+@Entity
+public class Rental implements Serializable {
+    private static final long serialVersionUID = 6;
     private int rentalID;
     private Date rentalDate;
     private Date finalDate;
@@ -29,6 +37,8 @@ public class Rental {
         this.user = user;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getRentalID() {
         return rentalID;
     }
@@ -53,6 +63,7 @@ public class Rental {
         this.finalDate = finalDate;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
     public Videogame getVideogame() {
         return videogame;
     }
@@ -61,6 +72,7 @@ public class Rental {
         this.videogame = videogame;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
     public User getUser() {
         return user;
     }

@@ -5,12 +5,20 @@
  */
 package data;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 /**
  *
  * @author CARLA LLENAS
  */
-public class GameScore {
-
+@Entity
+public class GameScore implements Serializable {
+    private static final long serialVersionUID = 4;
     private int id;
     private double score;
     private User user;
@@ -33,6 +41,8 @@ public class GameScore {
     public GameScore() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -49,6 +59,7 @@ public class GameScore {
         this.score = score;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
     public User getUser() {
         return user;
     }
@@ -57,6 +68,7 @@ public class GameScore {
         this.user = user;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
     public Videogame getVideogame() {
         return videogame;
     }

@@ -5,14 +5,27 @@
  */
 package data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 /**
  *
  * @author CARLA LLENAS
  */
+@Entity
+@Table(name = "Usuarios")
 public class User implements Serializable {
+
+    private static final long serialVersionUID = 1;
 
     private int id;
     private String password;
@@ -22,16 +35,10 @@ public class User implements Serializable {
     private boolean isAdmin;
     private List<Rental> rental;
     private List<GameScore> scores;
-    private static final long serialVersionUID = 1;
 
     public User() {
     }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
+    
     public User(String password, String username, String name, String mail, boolean isAdmin) {
         this.password = password;
         this.username = username;
@@ -52,22 +59,27 @@ public class User implements Serializable {
         this.scores = scores;
     }
 
+    @Column(name = "username", unique = true)
     public String getUsername() {
         return username;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
 
+    @Column(name = "mail", unique = true)
     public String getMail() {
         return mail;
     }
 
+    @Column(name = "admin")
     public boolean isIsAdmin() {
         return isAdmin;
     }
@@ -92,6 +104,7 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<Rental> getRental() {
         return rental;
     }
@@ -100,6 +113,7 @@ public class User implements Serializable {
         this.rental = rental;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<GameScore> getScores() {
         return scores;
     }
@@ -108,6 +122,8 @@ public class User implements Serializable {
         this.scores = scores;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
