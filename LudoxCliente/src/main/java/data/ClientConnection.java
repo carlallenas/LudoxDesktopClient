@@ -17,14 +17,14 @@ import java.net.Socket;
  * @author CARLA LLENAS
  */
 public class ClientConnection extends Thread {
-    private Socket socket;
-    private DataOutputStream dos;
-    private DataInputStream dis;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
 
+    static private Socket socket;
+    static private DataOutputStream dos;
+    static private DataInputStream dis;
+    static private ObjectInputStream ois;
+    static private ObjectOutputStream oos;
 
-    public  ClientConnection(Socket socket) {
+    public ClientConnection(Socket socket) {
         try {
             this.socket = socket;
             dos = new DataOutputStream(socket.getOutputStream());
@@ -39,20 +39,20 @@ public class ClientConnection extends Thread {
 
     }
 
-    public DataOutputStream getDos() {
+    public static DataOutputStream getDos() {
         return dos;
     }
 
-    public DataInputStream getDis() {
+    public static DataInputStream getDis() {
         return dis;
     }
 
-    public ObjectInputStream getOis() {
+    public static ObjectInputStream getOis() {
         return ois;
     }
 
-    public ObjectOutputStream getOos() {
+    public static ObjectOutputStream getOos() {
         return oos;
     }
-    
+
 }

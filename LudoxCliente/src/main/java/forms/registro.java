@@ -5,6 +5,7 @@
  */
 package forms;
 
+import data.ClientConnection;
 import data.User;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,22 +22,13 @@ import javax.swing.JOptionPane;
  */
 public class registro extends javax.swing.JDialog {
 
-    private DataInputStream dis;
-    private DataOutputStream dos;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
-
     /**
      * Creates new form Registroo
      */
-    public registro(java.awt.Frame parent, boolean modal, DataInputStream dis, DataOutputStream dos, ObjectInputStream ois, ObjectOutputStream oos) {
+    public registro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        this.dis = dis;
-        this.dos = dos;
-        this.ois = ois;
-        this.oos = oos;
     }
 
     /**
@@ -73,7 +65,7 @@ public class registro extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Contraseña");
 
-        btnRegistrar.setBackground(new java.awt.Color(102, 0, 204));
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,8 +82,8 @@ public class registro extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Usuario");
 
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
-        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalir.setBackground(new java.awt.Color(0, 0, 0));
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Atras");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,15 +114,11 @@ public class registro extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jLabel1)
-                .addContainerGap(219, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(110, 110, 110))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -141,51 +129,50 @@ public class registro extends javax.swing.JDialog {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel6)
                             .addComponent(jLabel4))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCorreo)
-                                    .addComponent(txtUsuario)
-                                    .addComponent(txtNombreYApellido)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(22, 22, 22))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtRepeatPass)
-                                .addContainerGap())))))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCorreo)
+                            .addComponent(txtUsuario)
+                            .addComponent(txtNombreYApellido)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRepeatPass))
+                        .addGap(22, 22, 22))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(218, 218, 218)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreYApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(42, 42, 42)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(txtRepeatPass, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                        .addGap(31, 31, 31)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -208,10 +195,10 @@ public class registro extends javax.swing.JDialog {
 
         byte ok;
 
-        if (!txtNombreYApellido.getText().equals(null)
-                && !txtCorreo.getText().equals(null)
-                && !txtUsuario.getText().equals(null)
-                && !txtPassword.getText().equals(null)
+        if (!txtNombreYApellido.getText().trim().equals("")
+                && !txtCorreo.getText().trim().equals("")
+                && !txtUsuario.getText().trim().equals("")
+                && !txtPassword.getText().trim().equals("")
                 && txtRepeatPass.getText().equals(txtPassword.getText())) {
 
             User usuario = new User(txtPassword.getText(), txtUsuario.getText(), txtNombreYApellido.getText(), txtCorreo.getText(), false);
@@ -254,9 +241,9 @@ public class registro extends javax.swing.JDialog {
      */
     public byte sendRegister(User user) {
         try {
-            dos.writeByte(0);
-            oos.writeObject(user);
-            return dis.readByte();
+            ClientConnection.getDos().writeByte(0);
+            ClientConnection.getOos().writeObject(user);
+            return ClientConnection.getDis().readByte();
 
         } catch (IOException ex) {
             Logger.getLogger(registro.class.getName()).log(Level.SEVERE, null, ex);

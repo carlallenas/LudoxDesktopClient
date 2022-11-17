@@ -5,15 +5,35 @@
  */
 package forms.admin;
 
+import data.Category;
+import data.ClientConnection;
+import data.Listas;
+import data.Platforms;
 import data.Videogame;
 import forms.Principal;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -21,25 +41,28 @@ import java.util.logging.Logger;
  */
 public class AltaVideojuegos extends javax.swing.JFrame {
 
-    private DataInputStream dis;
-    private DataOutputStream dos;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
 
     /**
      * Creates new form AltaVideojuegos
      */
-    public AltaVideojuegos(boolean modal, DataInputStream dis, DataOutputStream dos, ObjectInputStream ois, ObjectOutputStream oos) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.dis = dis;
-        this.dos = dos;
-        this.ois = ois;
-        this.oos = oos;
-    }
-    
     public AltaVideojuegos() {
         initComponents();
+        String[] Plat = new String[Listas.listPlataformas.size()];
+        int[] i = {0};
+        Listas.listPlataformas.forEach(p -> {
+            Plat[i[0]] = p.getName();
+            i[0]++;
+        });
+
+        String[] Cat = new String[Listas.listCategory.size()];
+        i[0] = 0;
+        Listas.listCategory.forEach(c -> {
+            Cat[i[0]] = c.getCategory();
+            i[0]++;
+        });
+        boxPlataforma.setModel(new DefaultComboBoxModel<>(Plat));
+
+        boxCategory.setModel(new DefaultComboBoxModel<>(Cat));
         this.setLocationRelativeTo(null);
     }
 
@@ -52,9 +75,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        labelCategory = new javax.swing.JLabel();
-        txtCategory = new javax.swing.JTextField();
+        PanelAltaVideojuegos = new javax.swing.JPanel();
         txtDate = new javax.swing.JTextField();
         btnAlta = new javax.swing.JButton();
         labelName = new javax.swing.JLabel();
@@ -65,15 +86,29 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         txtDescrip = new javax.swing.JTextField();
         labelReleaseDate = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        btnAtras = new javax.swing.JLabel();
+        labelImage = new javax.swing.JLabel();
+        labelPublisher = new javax.swing.JLabel();
+        txtPublisher = new javax.swing.JTextField();
+        txtImg = new javax.swing.JTextField();
+        btnAtras = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnChoose = new javax.swing.JButton();
+        labelPlataforma = new javax.swing.JLabel();
+        labelCategory = new javax.swing.JLabel();
+        boxPlataforma = new javax.swing.JComboBox<>();
+        boxCategory = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        PanelAltaVideojuegos.setBackground(new java.awt.Color(255, 204, 204));
+        PanelAltaVideojuegos.setForeground(new java.awt.Color(0, 0, 0));
 
-        labelCategory.setForeground(new java.awt.Color(0, 0, 0));
-        labelCategory.setText("Categoria");
+        txtDate.setToolTipText("yyyy-mm-dd");
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateActionPerformed(evt);
+            }
+        });
 
         btnAlta.setText("ALTA");
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +118,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         });
 
         labelName.setForeground(new java.awt.Color(0, 0, 0));
-        labelName.setText("Nombre");
+        labelName.setText("Nombre del Videojuego");
 
         labelDeveloper.setForeground(new java.awt.Color(0, 0, 0));
         labelDeveloper.setText("Desarrollador");
@@ -104,92 +139,160 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ALTA DE VIDEJUEGOS");
 
-        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/forms/admin/icons8-atrás-50.png"))); // NOI18N
-        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAtrasMouseClicked(evt);
+        labelImage.setForeground(new java.awt.Color(0, 0, 0));
+        labelImage.setText("Imagen");
+
+        labelPublisher.setForeground(new java.awt.Color(0, 0, 0));
+        labelPublisher.setText("Publisher");
+
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        btnChoose.setText("Cargar Imagen");
+        btnChoose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseActionPerformed(evt);
+            }
+        });
+
+        labelPlataforma.setForeground(new java.awt.Color(0, 0, 0));
+        labelPlataforma.setText("Plataforma");
+
+        labelCategory.setForeground(new java.awt.Color(0, 0, 0));
+        labelCategory.setText("Categoria");
+
+        boxPlataforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxPlataformaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAltaVideojuegosLayout = new javax.swing.GroupLayout(PanelAltaVideojuegos);
+        PanelAltaVideojuegos.setLayout(PanelAltaVideojuegosLayout);
+        PanelAltaVideojuegosLayout.setHorizontalGroup(
+            PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelReleaseDate)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelDeveloper)
-                                .addComponent(labelName)
-                                .addComponent(labelDescrip))
-                            .addComponent(labelCategory)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                            .addComponent(labelPublisher)
+                            .addComponent(labelName)
+                            .addComponent(labelDeveloper)
+                            .addComponent(labelDescrip)))
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(btnAtras)))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(txtDescrip, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(txtDeveloper, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(txtDate)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(172, 172, 172))
+                .addGap(60, 60, 60)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDeveloper, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDescrip, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(56, 56, 56)
+                                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPlataforma)
+                                    .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(labelImage)
+                                        .addComponent(labelCategory))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAltaVideojuegosLayout.createSequentialGroup()
+                                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(131, 131, 131)))
+                        .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(boxPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAltaVideojuegosLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(boxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(63, 63, 63))
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtImg, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAltaVideojuegosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(395, 395, 395)
+                        .addComponent(jLabel1))
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+        PanelAltaVideojuegosLayout.setVerticalGroup(
+            PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(9, 9, 9)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelName))
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPlataforma)
+                    .addComponent(boxPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDeveloper, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDeveloper))
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDeveloper)
+                    .addComponent(labelCategory)
+                    .addComponent(boxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDescrip)
                     .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelReleaseDate)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCategory))
-                        .addGap(54, 54, 54)
-                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtras)
-                        .addContainerGap())))
+                .addGap(8, 8, 8)
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelAltaVideojuegosLayout.createSequentialGroup()
+                                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labelImage)
+                                    .addComponent(btnChoose))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelReleaseDate))
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPublisher, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPublisher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAltaVideojuegosLayout.createSequentialGroup()
+                        .addComponent(txtImg, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)))
+                .addGroup(PanelAltaVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtras))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelAltaVideojuegos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelAltaVideojuegos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -203,51 +306,148 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         // TODO add your handling code here:
         byte ok;
 
-        if (!txtName.getText().equals(null)
-                && !txtDeveloper.getText().equals(null)
-                && !txtDescrip.getText().equals(null)
-                && !txtDate.getText().equals(null)
-                && !txtCategory.getText().equals(null)) {
+        if (!txtName.getText().trim().equals("")
+                && !txtDeveloper.getText().trim().equals("")
+                && !txtDescrip.getText().trim().equals("")
+                && !txtPublisher.getText().trim().equals("")
+                && !txtDate.getText().trim().equals("")
+                && !txtImg.getText().trim().equals("")) {
 
-            //Videogame v = new Videogame(txtName.getText(), txtDeveloper.getText(), txtDescrip.getText(), txtDate.getText(), txtCategory.getText());
+            List<Platforms> listPlatforms = new ArrayList<>();
+            List<Category> listCategory = new ArrayList<>();
+
+            Videogame vg = new Videogame(
+                    txtDescrip.getText(),
+                    txtDeveloper.getText(),
+                    txtName.getText(),
+                    txtPublisher.getText(),
+                    ConvertStringToDate(txtDate.getText()),
+                    listPlatforms,
+                    listCategory,
+                    getImageAsBytes(txtImg.getText()));
+
+            ok = sendVideogame(vg);
+
+            switch (ok) {
+                case 0:
+                    System.out.println("Videjuego registrado");
+                    JOptionPane.showMessageDialog(this, "Videojuego registrado correctamente");
+                    break;
+                case 1:
+                    System.out.println("videojuego ya existe");
+                    JOptionPane.showMessageDialog(this, "Este videojuego ya existe");
+                    break;
+
+                default:
+                    System.out.println("error");
+                    break;
+            }
 
         }
 
     }//GEN-LAST:event_btnAltaActionPerformed
 
-    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+    public Date ConvertStringToDate(String stringDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        Date date = new Date();
+
+        try {
+            date = formatter.parse(stringDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(AltaVideojuegos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return date;
+    }
+    
+    private byte[] getImageAsBytes(String path) {
+        try {
+            BufferedImage b = null;
+            byte[] img;
+            if (path != null && !path.trim().isEmpty()) {
+                b = ImageIO.read(new File(path));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(b, "png", bos);
+                img = bos.toByteArray();
+                return img;
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+
+    public byte sendVideogame(Videogame v) {
+        try {
+            ClientConnection.getDos().writeByte(6);
+            ClientConnection.getOos().writeObject(v);
+            return ClientConnection.getDis().readByte();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Videogame.class.getName()).log(Level.SEVERE, null, ex);
+            return 100;
+        }
+    }
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
+        // TODO add your handling code here:
+//        txtDate = new JTextField();
+//        txtDate.setColumns(10);
+//        txtDate.setBounds(140, 78, 150, 20);
+//        PanelAltaVideojuegos.add(txtDate);
+
+    }//GEN-LAST:event_txtDateActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         Principal prin = new Principal();
         prin.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnAtrasMouseClicked
-   
-//    public byte sendRegister(Videogame v) {
-//        try {
-//            dos.writeByte(0);
-//            oos.writeObject(v);
-//            return dis.readByte();
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(Videogame.class.getName()).log(Level.SEVERE, null, ex);
-//            return 10;
-//        }
-//    }
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
+        // TODO add your handling code here:
+        String ruta = "";
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG", "jpg", "png");
+        jFileChooser.setFileFilter(filtrado);
+
+        int response = jFileChooser.showOpenDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            ruta = jFileChooser.getSelectedFile().getPath();
+            txtImg.setText(ruta);
+        }
+    }//GEN-LAST:event_btnChooseActionPerformed
+
+    private void boxPlataformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxPlataformaActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_boxPlataformaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelAltaVideojuegos;
+    private javax.swing.JComboBox<String> boxCategory;
+    private javax.swing.JComboBox<String> boxPlataforma;
     private javax.swing.JButton btnAlta;
-    private javax.swing.JLabel btnAtras;
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnChoose;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelCategory;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
+    private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelName;
+    private javax.swing.JLabel labelPlataforma;
+    private javax.swing.JLabel labelPublisher;
     private javax.swing.JLabel labelReleaseDate;
-    private javax.swing.JTextField txtCategory;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtDescrip;
     private javax.swing.JTextField txtDeveloper;
+    private javax.swing.JTextField txtImg;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPublisher;
     // End of variables declaration//GEN-END:variables
 }

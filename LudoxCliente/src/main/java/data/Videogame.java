@@ -5,10 +5,16 @@
  */
 package data;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,7 +32,6 @@ import javax.persistence.OneToMany;
 public class Videogame implements Serializable {
 
     private static final long serialVersionUID = 2;
-
 
     private String description;
     private String developer;
@@ -40,25 +45,34 @@ public class Videogame implements Serializable {
     private List<Rental> rentals;
     private List<GameScore> scores;
     private List<Platforms> platforms;
-    private List<Category> category;
-    
+    private List<Category> categories;
+    private transient byte[] gameImage;
+
     public Videogame() {
     }
 
-    public Videogame(String description, String developer, String name, String publisher, Date releaseDate) {
+    public Videogame(String description, String developer, String name, String publisher, Date releaseDate, List<Platforms> platforms, List<Category> categories, byte[] gameImage) {
         this.description = description;
         this.developer = developer;
         this.name = name;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
-        this.category = new ArrayList<>();
+        this.platforms = platforms;
+        this.categories = categories;
+        this.gameImage = gameImage;
         this.scores = new ArrayList<>();
         this.rentals = new ArrayList<>();
-        this.platforms = new ArrayList<>();
+        if (platforms == null) {
+            this.platforms = new ArrayList<>();
+        }
+        if (categories == null) {
+            this.categories = new ArrayList<>();
+        }
     }
 
-    public Videogame(List<Category> category, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, List<Rental> rentals, List<GameScore> scores, int stock, List<Platforms> platforms) {
-        this.category = category;
+    //Constructor de EclipseLink - Base Datos
+    public Videogame(List<Category> categories, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, List<Rental> rentals, List<GameScore> scores, int stock, List<Platforms> platforms) {
+        this.categories = categories;
         this.description = description;
         this.developer = developer;
         this.finalScore = finalScore;
@@ -119,12 +133,12 @@ public class Videogame implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    public List<Category> getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(List<Category> category) {
-        this.category = category;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public int getStock() {
@@ -185,6 +199,15 @@ public class Videogame implements Serializable {
         this.platforms = platforms;
     }
 
+    @Transient
+    public byte[] getGameImage() {
+        return this.gameImage;
+    }
+
+    public void setGameImage(byte[] gameImage) {
+        this.gameImage = gameImage;
+    }
+
     public void addScore(User user, double score) {
         if (this.scores == null) {
             this.scores = new ArrayList<>();
@@ -197,6 +220,7 @@ public class Videogame implements Serializable {
         double finalScore = 0;
         if (this.scores == null) {
             this.scores = new ArrayList<>();
+            return;
         }
 
         for (GameScore gameScore : scores) {

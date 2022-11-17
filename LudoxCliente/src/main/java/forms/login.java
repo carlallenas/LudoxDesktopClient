@@ -1,6 +1,13 @@
 package forms;
 
+import data.Category;
+import data.ClientConnection;
+import data.Listas;
+import data.Platforms;
+import encrypt.Encrypter;
 import data.User;
+import data.Videogame;
+import static encrypt.Encrypter.getEncodedString;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.font.GraphicAttribute;
@@ -11,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -24,40 +32,23 @@ import javax.swing.JPanel;
  */
 public class login extends javax.swing.JFrame implements Runnable {
 
-    private static Socket socketClient;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
-    private DataOutputStream outData;
-    private DataInputStream inData;
 // fondoLogIn fondo = new fondoLogIn();
 
-    /**
-     * constructor de conexió amb el servidor.
-     *
-     * @param client socket del client.
-     */
-    public login(Socket client) {
-// this.setContentPane(fondo);    
-        socketClient = client;
-        try {
-            oos = new ObjectOutputStream(socketClient.getOutputStream());
-            ois = new ObjectInputStream(socketClient.getInputStream());
-            inData = new DataInputStream(socketClient.getInputStream());
-            outData = new DataOutputStream(socketClient.getOutputStream());
-
-        } catch (IOException ex) {
-            System.out.println("constructor");
-        }
-        initComponents();
-        this.setLocationRelativeTo(null);
-
-    }
-
+//// this.setContentPane(fondo);    
     /**
      * Creates new form login constructor de la clase login.
      */
     public login() {
-        initComponents();
+        try {
+            ClientConnection.getDos().writeByte(3);
+            new Listas((List<Videogame>) ClientConnection.getOis().readObject(), (List<Category>) ClientConnection.getOis().readObject(), (List<Platforms>) ClientConnection.getOis().readObject());
+            initComponents();
+            this.setLocationRelativeTo(null);
+        } catch (IOException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -89,6 +80,7 @@ public class login extends javax.swing.JFrame implements Runnable {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +126,7 @@ public class login extends javax.swing.JFrame implements Runnable {
         LabelPassword.setForeground(new java.awt.Color(0, 0, 0));
         LabelPassword.setText("Contraseña");
 
+        showPass.setForeground(new java.awt.Color(0, 0, 0));
         showPass.setText("Mostrar contraseña");
         showPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +240,7 @@ public class login extends javax.swing.JFrame implements Runnable {
      * recicla la connexio del servidor i la base de dades.
      */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        registro reg = new registro(this, true, inData, outData, ois, oos);
+        registro reg = new registro(this, true);
         reg.setVisible(true);
 
     }//GEN-LAST:event_btnRegistroActionPerformed
@@ -257,7 +250,7 @@ public class login extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        doLogin(txtUsuario.getText(), txtPassword.getText());
+        doLogin(txtUsuario.getText(), getEncodedString(txtPassword.getText()));
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -270,9 +263,9 @@ public class login extends javax.swing.JFrame implements Runnable {
     public void doLogin(String username, String pass) {
         txtUsuario.setText("");
         txtPassword.setText("");
-        
+
         System.out.println("username " + username + " pass " + pass);
-        
+
         if (!username.isEmpty() && !pass.isEmpty()) {
 
             try {
@@ -281,7 +274,8 @@ public class login extends javax.swing.JFrame implements Runnable {
                 if (!ok) {
                     JOptionPane.showMessageDialog(null, "Error de usuario o contraseña");
                 } else {
-                    User user = (User) ois.readObject();
+                    User user = (User) ClientConnection.getOis().readObject();
+                    Listas.setUsername(user.getUsername());
                     Principal prin = new Principal(this, user);
                     prin.setVisible(true);
                     this.setVisible(false);
@@ -306,10 +300,10 @@ public class login extends javax.swing.JFrame implements Runnable {
      */
     public boolean sendLogin(String username, String userPass) {
         try {
-            outData.writeByte(1);
-            outData.writeUTF(username);
-            outData.writeUTF(userPass);
-            return inData.readBoolean();
+            ClientConnection.getDos().writeByte(1);
+            ClientConnection.getDos().writeUTF(username);
+            ClientConnection.getDos().writeUTF(userPass);
+            return ClientConnection.getDis().readBoolean();
 
         } catch (IOException ex) {
             Logger.getLogger(registro.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,14 +323,15 @@ public class login extends javax.swing.JFrame implements Runnable {
      */
     public static void main(String args[]) throws IOException {
         final int PORT = 5000;
-        final String IP = "90.170.253.138";
-//        final String IP = "localhost";
+//        final String IP = "90.170.253.138";
+        final String IP = "localhost";
         final int connection_time_out = 8000;
 
         Socket s = new Socket();
         s.connect(new InetSocketAddress(IP, PORT), connection_time_out);
 
-        login hiloC = new login(s);
+        new ClientConnection(s);
+        login hiloC = new login();
         hiloC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hiloC.setVisible(true);
         new Thread(hiloC).start();
