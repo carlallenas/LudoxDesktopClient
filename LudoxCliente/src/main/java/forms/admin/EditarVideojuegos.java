@@ -5,6 +5,8 @@
  */
 package forms.admin;
 
+import data.ClientHelper;
+import data.Videogame;
 import forms.Principal;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,7 +41,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelDeveloper = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         labelImage = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtGameName = new javax.swing.JTextField();
         txtDeveloperEdited = new javax.swing.JTextField();
         txtDescripEdited = new javax.swing.JTextField();
         txtDateEdited = new javax.swing.JTextField();
@@ -58,6 +60,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelCategory = new javax.swing.JLabel();
         txtCategory = new javax.swing.JTextField();
         btnChoose = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,6 +124,13 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setText("Eliminar Videojuego");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelModificarLayout = new javax.swing.GroupLayout(PanelModificar);
         PanelModificar.setLayout(PanelModificarLayout);
         PanelModificarLayout.setHorizontalGroup(
@@ -175,8 +185,10 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
                         .addComponent(labelName)
                         .addGap(58, 58, 58)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(175, 175, 175))
+                        .addComponent(txtGameName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnEliminar)
+                        .addGap(53, 53, 53))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(340, 340, 340))
@@ -200,7 +212,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGameName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,11 +297,20 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChooseActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        Videogame v = new Videogame();
+        v.setName(txtGameName.getText());
+        
+        //ClientHelper.gameName
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelModificar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnChoose;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -307,8 +329,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JTextField txtDateEdited;
     private javax.swing.JTextField txtDescripEdited;
     private javax.swing.JTextField txtDeveloperEdited;
+    private javax.swing.JTextField txtGameName;
     private javax.swing.JTextField txtImgEdited;
-    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNameEdited;
     private javax.swing.JTextField txtPlataforma;
     private javax.swing.JTextField txtPublisherEdited;

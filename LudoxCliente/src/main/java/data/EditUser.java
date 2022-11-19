@@ -8,10 +8,10 @@ import java.io.Serializable;
  */
 public class EditUser implements Serializable {
     private static final long serialVersionUID = 7;
-    String username;
-    String password;
-    String mail;
-    String name;
+    private String username;
+    private String password;
+    private String mail;
+    private String name;
 
     public EditUser() {
     }

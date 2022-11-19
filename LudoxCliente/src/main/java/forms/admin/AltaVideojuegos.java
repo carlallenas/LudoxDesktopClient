@@ -7,7 +7,7 @@ package forms.admin;
 
 import data.Category;
 import data.ClientConnection;
-import data.Listas;
+import data.ClientHelper;
 import data.Platforms;
 import data.Videogame;
 import forms.Principal;
@@ -47,16 +47,16 @@ public class AltaVideojuegos extends javax.swing.JFrame {
      */
     public AltaVideojuegos() {
         initComponents();
-        String[] Plat = new String[Listas.listPlataformas.size()];
+        String[] Plat = new String[ClientHelper.listPlataformas.size()];
         int[] i = {0};
-        Listas.listPlataformas.forEach(p -> {
+        ClientHelper.listPlataformas.forEach(p -> {
             Plat[i[0]] = p.getName();
             i[0]++;
         });
 
-        String[] Cat = new String[Listas.listCategory.size()];
+        String[] Cat = new String[ClientHelper.listCategory.size()];
         i[0] = 0;
-        Listas.listCategory.forEach(c -> {
+        ClientHelper.listCategory.forEach(c -> {
             Cat[i[0]] = c.getCategory();
             i[0]++;
         });
@@ -100,7 +100,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        PanelAltaVideojuegos.setBackground(new java.awt.Color(255, 204, 204));
+        PanelAltaVideojuegos.setBackground(new java.awt.Color(204, 255, 255));
         PanelAltaVideojuegos.setForeground(new java.awt.Color(0, 0, 0));
 
         txtDate.setToolTipText("yyyy-mm-dd");
@@ -337,7 +337,6 @@ public class AltaVideojuegos extends javax.swing.JFrame {
                     System.out.println("videojuego ya existe");
                     JOptionPane.showMessageDialog(this, "Este videojuego ya existe");
                     break;
-
                 default:
                     System.out.println("error");
                     break;

@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author CARLA LLENAS
  */
 public class QueryFilter implements Serializable {
-    
+
     private static final long serialVersionUID = 8;
 
     private String platformName;
