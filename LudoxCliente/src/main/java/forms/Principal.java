@@ -9,6 +9,7 @@ import data.Videogame;
 import encrypt.Encrypter;
 import forms.admin.AltaVideojuegos;
 import forms.admin.EditarVideojuegos;
+import forms.admin.Permisos;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -34,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
     login log;
     User user;
     registro reg;
+    Permisos per;
 
     /**
      * constructor de la classe. verificarà també si l'usuari entrat es admin o
@@ -337,7 +339,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(jSeparator1);
         jSeparator1.setBounds(18, 102, 242, 10);
 
-        btnAdmin.setBackground(new java.awt.Color(102, 102, 102));
+        btnAdmin.setBackground(new java.awt.Color(204, 0, 0));
         btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAdmin.setForeground(new java.awt.Color(0, 0, 0));
         btnAdmin.setText("ADMINISTRADOR");
@@ -347,12 +349,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         panelMenu.add(btnAdmin);
-        btnAdmin.setBounds(90, 670, 140, 49);
+        btnAdmin.setBounds(60, 670, 190, 49);
 
         PanelVentana.setBackground(new java.awt.Color(255, 255, 255));
         PanelVentana.setLayout(new java.awt.CardLayout());
 
-        PanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        PanelPrincipal.setBackground(new java.awt.Color(204, 204, 204));
         PanelPrincipal.setPreferredSize(new java.awt.Dimension(840, 800));
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -642,12 +644,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         PanelMenuAdmin.add(btnAltaVideojuegos);
-        btnAltaVideojuegos.setBounds(110, 670, 226, 49);
+        btnAltaVideojuegos.setBounds(110, 650, 226, 49);
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\altaVid (2).jpg")); // NOI18N
-        jLabel9.setText("jLabel1");
+        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-games-folder-100.png")); // NOI18N
         PanelMenuAdmin.add(jLabel9);
-        jLabel9.setBounds(100, 420, 226, 193);
+        jLabel9.setBounds(180, 420, 120, 193);
 
         btnUsuarios.setBackground(new java.awt.Color(0, 0, 0));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -671,7 +672,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         PanelMenuAdmin.add(btnEditVideojuegos);
-        btnEditVideojuegos.setBounds(500, 670, 226, 49);
+        btnEditVideojuegos.setBounds(500, 650, 226, 49);
 
         btnPermisos.setBackground(new java.awt.Color(0, 0, 0));
         btnPermisos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -685,19 +686,19 @@ public class Principal extends javax.swing.JFrame {
         PanelMenuAdmin.add(btnPermisos);
         btnPermisos.setBounds(480, 240, 226, 49);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\permisos (1).png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-llamada-de-conferencia-100.png")); // NOI18N
         PanelMenuAdmin.add(jLabel7);
-        jLabel7.setBounds(500, 30, 200, 194);
+        jLabel7.setBounds(180, 40, 120, 190);
         PanelMenuAdmin.add(jSeparator4);
         jSeparator4.setBounds(80, 360, 659, 10);
 
-        jLabel11.setText("jLabel11");
+        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-editar-propiedad-100 (1).png")); // NOI18N
         PanelMenuAdmin.add(jLabel11);
-        jLabel11.setBounds(580, 510, 48, 16);
+        jLabel11.setBounds(560, 450, 110, 130);
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\usuarios-removebg-preview.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-user-100.png")); // NOI18N
         PanelMenuAdmin.add(jLabel13);
-        jLabel13.setBounds(130, 50, 200, 160);
+        jLabel13.setBounds(550, 60, 100, 160);
 
         labelFondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         labelFondo.setMaximumSize(new java.awt.Dimension(850, 800));
@@ -900,6 +901,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
+        per.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPermisosActionPerformed
 
     private void btnAltaVideojuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVideojuegosActionPerformed
@@ -967,8 +970,8 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al guardar los cambios");
         }
-
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -977,7 +980,7 @@ public class Principal extends javax.swing.JFrame {
         ClientConnection.getDos().writeByte(2);
         QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
         ClientConnection.getOos().writeObject(qf);
-        //ClientConnection.getDis().readByte();
+        ClientConnection.getDis().readByte();
         List<Videogame> gameList;
         gameList = (List<Videogame>) ClientConnection.getOis().readObject();
 

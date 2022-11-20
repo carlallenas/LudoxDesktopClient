@@ -13,24 +13,21 @@ import java.util.List;
  */
 public class ClientHelper {
 
-    public static List<Videogame> listVideogames;
+    public static List<Videogame> listVideogamesTop5;
     public static List<Platforms> listPlataformas;
     public static List<Category> listCategory;
     public static String username;
-    public static String gameName;
 
-    public ClientHelper(List<Videogame> listVideogames, List<Category> listCategory, List<Platforms> listPlataformas) {
+
+    public ClientHelper(List<Videogame> listVideogamesTop5, List<Category> listCategory, List<Platforms> listPlataformas) {
         this.listPlataformas = listPlataformas;
         this.listCategory = listCategory;
-        this.listVideogames = listVideogames;
+        this.listVideogamesTop5 = listVideogamesTop5;
     }
 
     public static void setUsername(String username) {
         ClientHelper.username = username;
     }
 
-    public static void setgameName(String gameName) {
-        ClientHelper.gameName = gameName;
-    }
 
 }

@@ -7,6 +7,7 @@ package forms;
 
 import data.ClientConnection;
 import data.User;
+import static encrypt.Encrypter.getEncodedString;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -201,7 +202,7 @@ public class registro extends javax.swing.JDialog {
                 && !txtPassword.getText().trim().equals("")
                 && txtRepeatPass.getText().equals(txtPassword.getText())) {
 
-            User usuario = new User(txtPassword.getText(), txtUsuario.getText(), txtNombreYApellido.getText(), txtCorreo.getText(), false);
+            User usuario = new User(getEncodedString(txtPassword.getText()), txtUsuario.getText(), txtNombreYApellido.getText(), txtCorreo.getText(), false);
 
             ok = sendRegister(usuario);
 

@@ -41,6 +41,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class AltaVideojuegos extends javax.swing.JFrame {
 
+    Principal prin;
 
     /**
      * Creates new form AltaVideojuegos
@@ -357,7 +358,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         }
         return date;
     }
-    
+
     private byte[] getImageAsBytes(String path) {
         try {
             BufferedImage b = null;
@@ -375,7 +376,6 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
     }
-    
 
     public byte sendVideogame(Videogame v) {
         try {
@@ -399,7 +399,6 @@ public class AltaVideojuegos extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        Principal prin = new Principal();
         prin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed

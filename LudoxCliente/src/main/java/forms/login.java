@@ -297,8 +297,8 @@ public class login extends javax.swing.JFrame implements Runnable {
      */
     public static void main(String args[]) throws IOException {
         final int PORT = 5000;
-//        final String IP = "90.170.253.138";
-        final String IP = "localhost";
+        final String IP = "90.170.253.138";
+//        final String IP = "localhost";
         final int connection_time_out = 8000;
 
         Socket s = new Socket();
