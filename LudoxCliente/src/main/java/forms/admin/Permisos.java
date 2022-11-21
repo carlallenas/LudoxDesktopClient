@@ -5,7 +5,14 @@
  */
 package forms.admin;
 
+import data.ClientConnection;
+import data.User;
 import forms.Principal;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -20,6 +27,13 @@ public class Permisos extends javax.swing.JFrame {
      */
     public Permisos() {
         initComponents();
+        try {
+            Update();
+        } catch (IOException ex) {
+            Logger.getLogger(Permisos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Permisos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -33,7 +47,7 @@ public class Permisos extends javax.swing.JFrame {
 
         panelPermisos = new javax.swing.JPanel();
         UsersList = new javax.swing.JScrollPane();
-        GamesList = new javax.swing.JList<>();
+        UList = new javax.swing.JList<>();
         btnConvertToAdmin = new javax.swing.JButton();
         btnNoAdmin = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -47,27 +61,37 @@ public class Permisos extends javax.swing.JFrame {
         panelPermisos.setBackground(new java.awt.Color(204, 204, 0));
         panelPermisos.setLayout(null);
 
-        GamesList.setBackground(new java.awt.Color(153, 153, 153));
-        GamesList.setForeground(new java.awt.Color(255, 255, 255));
-        GamesList.addAncestorListener(new javax.swing.event.AncestorListener() {
+        UList.setBackground(new java.awt.Color(153, 153, 153));
+        UList.setForeground(new java.awt.Color(255, 255, 255));
+        UList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                GamesListAncestorAdded(evt);
+                UListAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        UsersList.setViewportView(GamesList);
+        UsersList.setViewportView(UList);
 
         panelPermisos.add(UsersList);
         UsersList.setBounds(38, 89, 582, 481);
 
         btnConvertToAdmin.setText("Convertir Administrador");
+        btnConvertToAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConvertToAdminActionPerformed(evt);
+            }
+        });
         panelPermisos.add(btnConvertToAdmin);
         btnConvertToAdmin.setBounds(630, 160, 170, 32);
 
         btnNoAdmin.setText("Quitar Administrador");
+        btnNoAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoAdminActionPerformed(evt);
+            }
+        });
         panelPermisos.add(btnNoAdmin);
         btnNoAdmin.setBounds(630, 250, 170, 32);
 
@@ -82,6 +106,11 @@ public class Permisos extends javax.swing.JFrame {
         radioBtnIsAdmin.setBounds(641, 360, 130, 28);
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         panelPermisos.add(btnUpdate);
         btnUpdate.setBounds(660, 410, 90, 32);
 
@@ -112,53 +141,73 @@ public class Permisos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void GamesListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_GamesListAncestorAdded
+    private void UListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_UListAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_GamesListAncestorAdded
+    }//GEN-LAST:event_UListAncestorAdded
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        prin.setVisible(true);
         this.setVisible(false);
+        new Principal().setVisible(true);
+        
+        
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Permisos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Permisos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Permisos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Permisos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnConvertToAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertToAdminActionPerformed
+        // TODO add your handling code here:
+        changeAdmin(true);
+    }//GEN-LAST:event_btnConvertToAdminActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Permisos().setVisible(true);
-            }
-        });
+    private void btnNoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoAdminActionPerformed
+        // TODO add your handling code here:
+        changeAdmin(false);
+    }//GEN-LAST:event_btnNoAdminActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        try {
+            // TODO add your handling code here:
+            Update();
+        } catch (IOException ex) {
+            Logger.getLogger(Permisos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Permisos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    public void Update() throws IOException, ClassNotFoundException {
+        ClientConnection.getDos().writeByte(11);
+        List<User> usersList;
+        usersList = (List<User>) ClientConnection.getOis().readObject();
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        UList.setModel(model);
+        String[] usersNames;
+
+        if (radioBtnIsAdmin.isSelected()) {
+            usersNames = usersList.stream().filter(u -> u.isIsAdmin()).map(v -> v.getUsername()).toArray(size -> new String[size]);
+
+        } else {
+            usersNames = usersList.stream().map(v -> v.getUsername()).toArray(size -> new String[size]);
+        }
+
+        for (int i = 0; i < usersNames.length; i++) {
+            model.addElement(usersNames[i]);
+        }
+    }
+
+    public void changeAdmin(boolean admin) {
+        System.out.println(UList.getSelectedValue());
+        try {
+            ClientConnection.getDos().writeByte(7);
+            ClientConnection.getDos().writeUTF(UList.getSelectedValue());
+            ClientConnection.getDos().writeBoolean(admin);
+        } catch (IOException ex) {
+            Logger.getLogger(Permisos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> GamesList;
+    private javax.swing.JList<String> UList;
     private javax.swing.JScrollPane UsersList;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnConvertToAdmin;

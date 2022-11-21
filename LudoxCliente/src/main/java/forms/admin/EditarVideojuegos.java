@@ -30,7 +30,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             i[0]++;
         });
         boxGames.setModel(new DefaultComboBoxModel<>(Games));
-        
+
         this.setLocationRelativeTo(null);
     }
 
@@ -63,44 +63,66 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         txtNameEdited = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        labelPlataforma = new javax.swing.JLabel();
-        txtPlataforma = new javax.swing.JTextField();
-        labelCategory = new javax.swing.JLabel();
-        txtCategory = new javax.swing.JTextField();
         btnChoose = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         boxGames = new javax.swing.JComboBox<>();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelModificar.setBackground(new java.awt.Color(204, 255, 204));
         PanelModificar.setForeground(new java.awt.Color(255, 0, 102));
+        PanelModificar.setLayout(null);
 
-        labelName.setForeground(new java.awt.Color(0, 0, 0));
+        labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Nombre del Videojuego a modificar");
+        PanelModificar.add(labelName);
+        labelName.setBounds(208, 81, 198, 16);
 
-        labelDescrip.setForeground(new java.awt.Color(0, 0, 0));
+        labelDescrip.setForeground(new java.awt.Color(255, 255, 255));
         labelDescrip.setText("Descripcion");
+        PanelModificar.add(labelDescrip);
+        labelDescrip.setBounds(47, 309, 68, 16);
 
-        labelPublisher.setForeground(new java.awt.Color(0, 0, 0));
+        labelPublisher.setForeground(new java.awt.Color(255, 255, 255));
         labelPublisher.setText("Publisher");
+        PanelModificar.add(labelPublisher);
+        labelPublisher.setBounds(47, 443, 54, 16);
 
-        labelDeveloper.setForeground(new java.awt.Color(0, 0, 0));
+        labelDeveloper.setForeground(new java.awt.Color(255, 255, 255));
         labelDeveloper.setText("Desarrollador");
+        PanelModificar.add(labelDeveloper);
+        labelDeveloper.setBounds(47, 248, 78, 16);
 
-        labelDate.setForeground(new java.awt.Color(0, 0, 0));
+        labelDate.setForeground(new java.awt.Color(255, 255, 255));
         labelDate.setText("Fecha de lanzamiento");
+        PanelModificar.add(labelDate);
+        labelDate.setBounds(47, 376, 123, 16);
 
-        labelImage.setForeground(new java.awt.Color(0, 0, 0));
+        labelImage.setForeground(new java.awt.Color(255, 255, 255));
         labelImage.setText("Imagen");
+        PanelModificar.add(labelImage);
+        labelImage.setBounds(508, 327, 42, 16);
 
         txtDeveloperEdited.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDeveloperEditedActionPerformed(evt);
             }
         });
+        PanelModificar.add(txtDeveloperEdited);
+        txtDeveloperEdited.setBounds(211, 240, 250, 32);
+        PanelModificar.add(txtDescripEdited);
+        txtDescripEdited.setBounds(211, 301, 250, 32);
+        PanelModificar.add(txtDateEdited);
+        txtDateEdited.setBounds(211, 368, 250, 32);
+        PanelModificar.add(txtPublisherEdited);
+        txtPublisherEdited.setBounds(211, 435, 250, 32);
+        PanelModificar.add(txtImgEdited);
+        txtImgEdited.setBounds(508, 386, 362, 32);
 
         btnSave.setText("GUARDAR");
+        PanelModificar.add(btnSave);
+        btnSave.setBounds(487, 485, 123, 52);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -108,23 +130,31 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 btnAtrasActionPerformed(evt);
             }
         });
+        PanelModificar.add(btnAtras);
+        btnAtras.setBounds(62, 505, 90, 32);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("NUEVOS DATOS");
+        PanelModificar.add(jLabel5);
+        jLabel5.setBounds(28, 117, 132, 25);
+        PanelModificar.add(jSeparator1);
+        jSeparator1.setBounds(28, 49, 894, 10);
 
-        labelNameEdited.setForeground(new java.awt.Color(0, 0, 0));
+        labelNameEdited.setForeground(new java.awt.Color(255, 255, 255));
         labelNameEdited.setText("Nuevo nombre");
+        PanelModificar.add(labelNameEdited);
+        labelNameEdited.setBounds(47, 184, 82, 16);
+        PanelModificar.add(txtNameEdited);
+        txtNameEdited.setBounds(211, 176, 250, 32);
+        PanelModificar.add(jSeparator2);
+        jSeparator2.setBounds(22, 148, 894, 10);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("MODIFICAR VIDEOJUEGOS");
-
-        labelPlataforma.setForeground(new java.awt.Color(0, 0, 0));
-        labelPlataforma.setText("Plataforma");
-
-        labelCategory.setForeground(new java.awt.Color(0, 0, 0));
-        labelCategory.setText("Categoria");
+        PanelModificar.add(jLabel6);
+        jLabel6.setBounds(366, 18, 216, 25);
 
         btnChoose.setText("Cargar Imagen");
         btnChoose.addActionListener(new java.awt.event.ActionListener() {
@@ -132,156 +162,41 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 btnChooseActionPerformed(evt);
             }
         });
+        PanelModificar.add(btnChoose);
+        btnChoose.setBounds(615, 319, 225, 32);
 
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar Videojuego");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
+        PanelModificar.add(btnEliminar);
+        btnEliminar.setBounds(727, 73, 142, 32);
 
         boxGames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxGamesActionPerformed(evt);
             }
         });
+        PanelModificar.add(boxGames);
+        boxGames.setBounds(424, 76, 285, 26);
 
-        javax.swing.GroupLayout PanelModificarLayout = new javax.swing.GroupLayout(PanelModificar);
-        PanelModificar.setLayout(PanelModificarLayout);
-        PanelModificarLayout.setHorizontalGroup(
-            PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelModificarLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(PanelModificarLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelModificarLayout.createSequentialGroup()
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDeveloper)
-                            .addComponent(labelNameEdited)
-                            .addComponent(labelDescrip))
-                        .addGap(41, 41, 41))
-                    .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelPublisher)
-                        .addComponent(labelDate)))
-                .addGap(41, 41, 41)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelModificarLayout.createSequentialGroup()
-                        .addComponent(txtPublisherEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PanelModificarLayout.createSequentialGroup()
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDateEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNameEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDeveloperEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelModificarLayout.createSequentialGroup()
-                                .addComponent(labelPlataforma)
-                                .addGap(18, 18, 18)
-                                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPlataforma, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                                    .addComponent(txtCategory)))
-                            .addComponent(labelCategory)
-                            .addGroup(PanelModificarLayout.createSequentialGroup()
-                                .addComponent(labelImage)
-                                .addGap(65, 65, 65)
-                                .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtImgEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
-                        .addComponent(labelName)
-                        .addGap(18, 18, 18)
-                        .addComponent(boxGames, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(340, 340, 340))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelModificarLayout.createSequentialGroup()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(PanelModificarLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(btnAtras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(312, 312, 312))
-        );
-        PanelModificarLayout.setVerticalGroup(
-            PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelModificarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelName)
-                    .addComponent(btnEliminar)
-                    .addComponent(boxGames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNameEdited)
-                    .addComponent(txtNameEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPlataforma)
-                    .addComponent(txtPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDeveloperEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDeveloper)
-                    .addComponent(labelCategory)
-                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelModificarLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelDescrip)
-                            .addComponent(txtDescripEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDateEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelDate))
-                        .addGap(35, 35, 35)
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelPublisher)
-                            .addComponent(txtPublisherEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(PanelModificarLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelImage)
-                            .addComponent(btnChoose))
-                        .addGap(35, 35, 35)
-                        .addComponent(txtImgEdited, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(PanelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAtras))
-                .addGap(17, 17, 17))
-        );
+        fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
+        PanelModificar.add(fondo);
+        fondo.setBounds(0, 0, 920, 550);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -289,9 +204,9 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        Principal prin = new Principal();
-        prin.setVisible(true);
         this.setVisible(false);
+        new Principal().setVisible(true);
+        
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void txtDeveloperEditedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeveloperEditedActionPerformed
@@ -314,8 +229,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        Videogame v = new Videogame();
-        v.setName((String) boxGames.getSelectedItem());
+//        Videogame v = new Videogame();
+//        v.setName((String) boxGames.getSelectedItem());
 
         //ClientHelper.gameName
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -332,26 +247,23 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JButton btnChoose;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSave;
+    private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelCategory;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
     private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelNameEdited;
-    private javax.swing.JLabel labelPlataforma;
     private javax.swing.JLabel labelPublisher;
-    private javax.swing.JTextField txtCategory;
     private javax.swing.JTextField txtDateEdited;
     private javax.swing.JTextField txtDescripEdited;
     private javax.swing.JTextField txtDeveloperEdited;
     private javax.swing.JTextField txtImgEdited;
     private javax.swing.JTextField txtNameEdited;
-    private javax.swing.JTextField txtPlataforma;
     private javax.swing.JTextField txtPublisherEdited;
     // End of variables declaration//GEN-END:variables
 }

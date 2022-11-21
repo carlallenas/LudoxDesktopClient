@@ -5,6 +5,8 @@
  */
 
 import data.User;
+import data.Videogame;
+import forms.admin.AltaVideojuegos;
 import forms.login;
 import forms.registro;
 import java.io.DataInputStream;
@@ -48,11 +50,19 @@ public class ClientTest {
     private static User userFail;
     private static User userExistingMail;
 
+    private static Videogame game;
+    private static Videogame gameOk;
+    private static Videogame gameExisting;
+    private static Videogame gameFail;
+
     @Mock
     registro reg = Mockito.mock(registro.class);
 
     @Mock
     login login = Mockito.mock(login.class);
+
+    @Mock
+    AltaVideojuegos altaVid = Mockito.mock(AltaVideojuegos.class);
 
     @BeforeAll
     public static void setUpClass() {
@@ -80,6 +90,20 @@ public class ClientTest {
         userExistingMail.setName("Desktop");
         userExistingMail.setPassword("desktop");
         userExistingMail.setUsername("123456");
+
+        //videogame registrado correctamente
+        gameOk = new Videogame();
+        gameOk.setName("Zelda");
+        gameOk.setDescription("a Nintendo game");
+        gameOk.setDeveloper("Nintendo");
+        gameOk.setPublisher("Nintendo");
+
+        //videogame ya existe
+        gameExisting = new Videogame();
+        gameExisting.setName("Zelda");
+        gameExisting.setDescription("game");
+        gameExisting.setDeveloper("developer");
+        gameExisting.setPublisher("developer");
 
     }
 
@@ -188,4 +212,42 @@ public class ClientTest {
             Logger.getLogger(ClientTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    //------------------------------------------------------------------TEA 3-----------------------------------------------------------------------------------------------
+    /**
+     * Amb Mockito comprovem que el videojoc s'ha donat d'alta correctament
+     * mitjançant el byte rebut del servidor.
+     */
+    @Test
+    @DisplayName("Alta Videojuego Bien")
+    public void testAltaVideojuegoBien() {
+        Mockito.when(altaVid.sendVideogame(gameOk)).thenReturn((byte) 0);
+        byte ok = altaVid.sendVideogame(gameOk);
+        assertEquals(0, ok);
+    }
+
+    /**
+     * Amb Mockito, comprovem s'està intentant donar d'alta un videojoc amb un
+     * nom ja registrat anteriorment mitjançant el byte rebut pel servidor
+     */
+    @Test
+    @DisplayName("Alta Videojuego Existente")
+    public void testAltaVideojuegoYaExiste() {
+        Mockito.when(altaVid.sendVideogame(gameExisting)).thenReturn((byte) 1);
+        byte ok = altaVid.sendVideogame(gameExisting);
+        assertEquals(1, ok);
+    }
+
+    /**
+     * Amb Mockito, comprovem s'està intentant donar d'alta un videojoc pero
+     * alguna cosa ha fallat i no s'ha completat correctament l'alta
+     */
+    @Test
+    @DisplayName("Alta Videojuego Error")
+    public void testAltaVideojuegoError() {
+        Mockito.when(altaVid.sendVideogame(gameFail)).thenReturn((byte) 2);
+        byte ok = altaVid.sendVideogame(gameFail);
+        assertEquals(2, ok);
+    }
+
 }

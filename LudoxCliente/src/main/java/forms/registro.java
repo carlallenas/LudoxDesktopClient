@@ -202,7 +202,7 @@ public class registro extends javax.swing.JDialog {
                 && !txtPassword.getText().trim().equals("")
                 && txtRepeatPass.getText().equals(txtPassword.getText())) {
 
-            User usuario = new User(getEncodedString(txtPassword.getText()), txtUsuario.getText(), txtNombreYApellido.getText(), txtCorreo.getText(), false);
+            User usuario = new User(getEncodedString(txtPassword.getText()), txtUsuario.getText(), txtNombreYApellido.getText(), txtCorreo.getText());
 
             ok = sendRegister(usuario);
 

@@ -104,4 +104,3 @@ public class QueryFilter implements Serializable {
         this.name = name;
     }
 }
-

@@ -6,6 +6,9 @@
 package data;
 
 import jakarta.persistence.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,36 +33,28 @@ public class Videogame implements Serializable {
     private String publisher;
     private Date releaseDate;
     private int stock;
-    private List<Rental> rentals;
-    private List<GameScore> scores;
-    private List<Platforms> platforms;
-    private List<Category> categories;
+    private transient List<Rental> rentals;
+    private transient List<GameScore> scores;
+    private transient List<Platforms> platforms;
+    private transient List<Category> categories;
     private byte[] gameImage;
 
     public Videogame() {
     }
 
-    public Videogame(String description, String developer, String name, String publisher, Date releaseDate, List<Platforms> platforms, List<Category> categories, byte[] gameImage) {
+    public Videogame(String description, String developer, String name, String publisher, Date releaseDate, byte[] gameImage) {
         this.description = description;
         this.developer = developer;
         this.name = name;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
-        this.platforms = platforms;
-        this.categories = categories;
         this.gameImage = gameImage;
         this.scores = new ArrayList<>();
         this.rentals = new ArrayList<>();
-        if (platforms == null) {
-            this.platforms = new ArrayList<>();
-        }
-        if (categories == null) {
-            this.categories = new ArrayList<>();
-        }
     }
 
     //Constructor de EclipseLink - Base Datos
-    public Videogame(List<Category> categories, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, List<Rental> rentals, List<GameScore> scores, int stock, List<Platforms> platforms) {
+    public Videogame(List<Category> categories, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, int stock, List<Platforms> platforms) {
         this.categories = categories;
         this.description = description;
         this.developer = developer;
@@ -69,8 +64,6 @@ public class Videogame implements Serializable {
         this.name = name;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
-        this.rentals = rentals;
-        this.scores = scores;
         this.stock = stock;
         this.platforms = platforms;
     }
@@ -79,6 +72,10 @@ public class Videogame implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getID() {
         return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     @Column(unique = true)
@@ -107,17 +104,13 @@ public class Videogame implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL)
+    @Transient
     public List<Rental> getRentals() {
         return rentals;
     }
 
     public void setRentals(List<Rental> rentals) {
         this.rentals = rentals;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -169,7 +162,7 @@ public class Videogame implements Serializable {
         this.publisher = publisher;
     }
 
-    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL)
+    @Transient
     public List<GameScore> getScores() {
         return scores;
     }
@@ -196,27 +189,54 @@ public class Videogame implements Serializable {
         this.gameImage = gameImage;
     }
 
-    public void addScore(User user, double score) {
-        if (this.scores == null) {
-            this.scores = new ArrayList<>();
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        if (this.categories != null && this.categories.size() > 0) {
+            out.writeInt(this.categories.size());
+            for (int i = 0; i < this.categories.size(); i++) {
+                out.writeUTF(this.categories.get(i).getCategory());
+            }
+        } else {
+            out.writeInt(0);
         }
-        this.scores.add(new GameScore(score, user, this));
-        updateScore();
+
+        if (this.platforms != null && this.platforms.size() > 0) {
+            out.writeInt(this.platforms.size());
+            for (int i = 0; i < this.platforms.size(); i++) {
+                out.writeUTF(this.platforms.get(i).getName());
+            }
+        } else {
+            out.writeInt(0);
+        }
     }
 
-    public void updateScore() {
-        double finalScore = 0;
-        if (this.scores == null) {
-            this.scores = new ArrayList<>();
-            return;
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+
+        if (this.categories == null) {
+            this.categories = new ArrayList<>();
+        }
+        int catNum = in.readInt();
+        if (catNum > 0) {
+            for (int i = 0; i < catNum; i++) {
+                Category cat = new Category();
+                cat.setCategory(in.readUTF());
+                this.categories.add(cat);
+            }
         }
 
-        for (GameScore gameScore : scores) {
-            finalScore += gameScore.getScore();
+        if (this.platforms == null) {
+            this.platforms = new ArrayList<>();
         }
-        finalScore /= scores.size();
-        finalScore = Math.round(finalScore * 100.0) / 100.0;
-        setFinalScore(finalScore);
+
+        int platNum = in.readInt();
+        if (platNum > 0) {
+            for (int i = 0; i < platNum; i++) {
+                Platforms plat = new Platforms();
+                plat.setName(in.readUTF());
+                this.platforms.add(plat);
+            }
+        }
     }
 
 }

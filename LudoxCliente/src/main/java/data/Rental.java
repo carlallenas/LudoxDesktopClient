@@ -16,6 +16,7 @@ import java.util.Date;
  */
 @Entity
 public class Rental implements Serializable {
+
     private static final long serialVersionUID = 6;
     private int rentalID;
     private Date rentalDate;

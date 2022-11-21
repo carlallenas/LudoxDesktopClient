@@ -9,21 +9,13 @@ import data.Videogame;
 import encrypt.Encrypter;
 import forms.admin.AltaVideojuegos;
 import forms.admin.EditarVideojuegos;
-import forms.admin.Permisos;
-import java.awt.CardLayout;
-import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import forms.admin.Permisos;;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -32,10 +24,15 @@ import javax.swing.JPanel;
 public class Principal extends javax.swing.JFrame {
 
     private static Videogame videogames;
-    login log;
+    login log = new login();
     User user;
     registro reg;
-    Permisos per;
+    Permisos per = new Permisos();
+
+    public Principal() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
 
     /**
      * constructor de la classe. verificarà també si l'usuari entrat es admin o
@@ -46,6 +43,13 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal(login log, User user) {
         initComponents();
+        try {
+            getGamesList();
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setLocationRelativeTo(null);
         this.log = log;
         this.user = user;
@@ -53,11 +57,6 @@ public class Principal extends javax.swing.JFrame {
         if (!user.isIsAdmin()) {
             btnAdmin.setVisible(false);
         }
-        this.setLocationRelativeTo(null);
-    }
-
-    public Principal() {
-        initComponents();
         this.setLocationRelativeTo(null);
     }
 
@@ -339,9 +338,9 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(jSeparator1);
         jSeparator1.setBounds(18, 102, 242, 10);
 
-        btnAdmin.setBackground(new java.awt.Color(204, 0, 0));
-        btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        btnAdmin.setBackground(new java.awt.Color(0, 0, 153));
+        btnAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnAdmin.setText("ADMINISTRADOR");
         btnAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -840,6 +839,9 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * event del botó Admin per obrir el frame de menu admin
+     */
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
         PanelVentana.removeAll();
@@ -895,26 +897,37 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        log.setVisible(true);
         this.setVisible(false);
+        new login().setVisible(true);
+        
     }//GEN-LAST:event_btnLogoutActionPerformed
-
+    /**
+     * event del botó del panel del menu admin que ens obrirà el frame de menu
+     * de permisos d'usuari
+     */
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
-        per.setVisible(true);
         this.setVisible(false);
+        new Permisos().setVisible(true);
+        
     }//GEN-LAST:event_btnPermisosActionPerformed
 
+    /**
+     * event del botó del panel del menu admin que ens obrirà el frame d'alta de
+     * videojocs
+     */
     private void btnAltaVideojuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVideojuegosActionPerformed
         // TODO add your handling code here:
-        AltaVideojuegos av = new AltaVideojuegos();
-        av.setVisible(true);
+        new AltaVideojuegos().setVisible(true);;
+        
     }//GEN-LAST:event_btnAltaVideojuegosActionPerformed
-
+    /**
+     * event del botó del panel del menu admin que ens obrirà el frame d'edició
+     * de videojocs
+     */
     private void btnEditVideojuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditVideojuegosActionPerformed
         // TODO add your handling code here:
-        EditarVideojuegos editGames = new EditarVideojuegos();
-        editGames.setVisible(true);
+        new EditarVideojuegos().setVisible(true);
     }//GEN-LAST:event_btnEditVideojuegosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
@@ -948,7 +961,10 @@ public class Principal extends javax.swing.JFrame {
     private void GamesListSFAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_GamesListSFAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_GamesListSFAncestorAdded
-
+    /**
+     * event del botó del panel de editar dades d'usuari que ens guardara els
+     * canvis fets
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
             // TODO add your handling code here:
@@ -958,14 +974,13 @@ public class Principal extends javax.swing.JFrame {
             eu.setUsername(ClientHelper.username);
             if (!txtNameEdit.getText().trim().equals("")) {
                 eu.setName(txtNameEdit.getText());
-                System.out.println("entra");
             }
             if (!txtMailEdit.getText().trim().equals("")) {
                 eu.setMail(txtMailEdit.getText());
             }
             if (!txtPassEdit.getText().trim().equals("")) {
                 eu.setPassword(Encrypter.getEncodedString(txtPassEdit.getText()));
-            }         
+            }
             ClientConnection.getOos().writeObject(eu);
             JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
         } catch (IOException ex) {
@@ -974,13 +989,18 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    /**
+     * metode que envia al servidor un byte perque ens torni un llistat dels
+     * noms dels videojocs actuals de la base de dades Amb el llistat, emplena
+     * el scrollPane
+     */
     public void getGamesList() throws IOException, ClassNotFoundException {
 
         ClientConnection.getDos().writeByte(2);
         QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
         ClientConnection.getOos().writeObject(qf);
         ClientConnection.getDis().readByte();
+        ClientConnection.getDos().writeInt(0);
         List<Videogame> gameList;
         gameList = (List<Videogame>) ClientConnection.getOis().readObject();
 
