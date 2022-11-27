@@ -5,23 +5,46 @@
  */
 package data;
 
+import jakarta.persistence.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author CARLA LLENAS
  */
+@Entity
+@Table(name = "Usuarios")
 public class User implements Serializable {
 
-    public String password;
-    public String username;
-    public String name;
-    public String mail;
-    public static boolean isAdmin = false;
-    private static final long serialVersionUID = 123456789;
+    private static final long serialVersionUID = 1;
 
+    private int id;
+    private String password;
+    private String username;
+    private String name;
+    private String mail;
+    private boolean isAdmin;
+    private List<Rental> rental;
+    private List<GameScore> scores;
 
-    public User(String password, String username, String name, String mail, boolean isAdmin) {
+    public User() {
+    }
+
+    public User(String password, String username, String name, String mail) {
+        this.password = password;
+        this.username = username;
+        this.name = name;
+        this.mail = mail;
+        this.isAdmin = false;
+    }
+
+    public User(int id, String password, String username, String name, String mail, boolean isAdmin) {
+        this.id = id;
         this.password = password;
         this.username = username;
         this.name = name;
@@ -29,45 +52,85 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-
+    @Column(name = "username", unique = true)
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public boolean isIsAdmin() {
-        return isAdmin;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    @Column(name = "mail", unique = true)
+    public String getMail() {
+        return mail;
+    }
+
     public void setMail(String mail) {
         this.mail = mail;
     }
 
+    @Column(name = "admin")
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    @Transient
+    public List<Rental> getRental() {
+        return rental;
+    }
+
+    public void setRental(List<Rental> rental) {
+        this.rental = rental;
+    }
+
+    @Transient
+    public List<GameScore> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<GameScore> scores) {
+        this.scores = scores;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
     }
 
 }

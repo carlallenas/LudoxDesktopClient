@@ -1,22 +1,21 @@
 package forms;
 
+import data.Category;
+import data.ClientConnection;
+import data.ClientHelper;
+import data.Platforms;
 import data.User;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.font.GraphicAttribute;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import data.Videogame;
+import static encrypt.Encrypter.getEncodedString;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -24,34 +23,20 @@ import javax.swing.JPanel;
  */
 public class login extends javax.swing.JFrame implements Runnable {
 
-    private static Socket socketClient;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
-    private DataOutputStream outData;
-    private DataInputStream inData;
-// fondoLogIn fondo = new fondoLogIn();
-
-    public login(Socket client) {
-// this.setContentPane(fondo);
-        socketClient = client;
-        try {
-            oos = new ObjectOutputStream(socketClient.getOutputStream());
-            ois = new ObjectInputStream(socketClient.getInputStream());
-            inData = new DataInputStream(socketClient.getInputStream());
-            outData = new DataOutputStream(socketClient.getOutputStream());
-
-        } catch (IOException ex) {
-            System.out.println("constructor");
-        }
-        initComponents();
-    }
-
     /**
-     * Creates new form login
+     * constructor de la classe
      */
     public login() {
-        initComponents();
-        this.setLocationRelativeTo(null);
+        try {
+            ClientConnection.getDos().writeByte(3);
+            new ClientHelper((List<Videogame>) ClientConnection.getOis().readObject(), (List<Category>) ClientConnection.getOis().readObject(), (List<Platforms>) ClientConnection.getOis().readObject());
+            initComponents();
+            this.setLocationRelativeTo(null);
+        } catch (IOException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -63,6 +48,7 @@ public class login extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -73,129 +59,139 @@ public class login extends javax.swing.JFrame implements Runnable {
         LabelUsuario = new javax.swing.JLabel();
         LabelPassword = new javax.swing.JLabel();
         showPass = new javax.swing.JCheckBox();
+        labelTittle = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        labelFondo = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ludox Login");
         setBackground(new java.awt.Color(204, 0, 255));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setLayout(null);
 
-        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
+        btnLogin.setBackground(new java.awt.Color(0, 0, 0));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
+        jPanel1.add(btnLogin);
+        btnLogin.setBounds(200, 320, 165, 49);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\Captura.png")); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(10, 10, 100, 85);
 
+        btnSalir.setBackground(new java.awt.Color(0, 0, 0));
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSalir);
+        btnSalir.setBounds(50, 400, 69, 40);
 
+        btnRegistro.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistro.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistro.setText("Registrarse");
         btnRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistroActionPerformed(evt);
             }
         });
+        jPanel1.add(btnRegistro);
+        btnRegistro.setBounds(420, 390, 97, 40);
 
+        txtUsuario.setBackground(new java.awt.Color(102, 102, 102));
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
             }
         });
+        jPanel1.add(txtUsuario);
+        txtUsuario.setBounds(180, 150, 241, 32);
 
+        txtPassword.setBackground(new java.awt.Color(102, 102, 102));
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
             }
         });
+        jPanel1.add(txtPassword);
+        txtPassword.setBounds(180, 210, 241, 32);
 
-        LabelUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        LabelUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LabelUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        LabelUsuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-usuario-de-género-neutro-32.png")); // NOI18N
         LabelUsuario.setText("Usuario");
+        jPanel1.add(LabelUsuario);
+        LabelUsuario.setBounds(70, 150, 90, 32);
 
-        LabelPassword.setForeground(new java.awt.Color(0, 0, 0));
+        LabelPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LabelPassword.setForeground(new java.awt.Color(255, 255, 255));
+        LabelPassword.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-desbloquear-2-32.png")); // NOI18N
         LabelPassword.setText("Contraseña");
+        jPanel1.add(LabelPassword);
+        LabelPassword.setBounds(50, 210, 120, 30);
 
+        showPass.setBackground(new java.awt.Color(0, 0, 0));
+        showPass.setForeground(new java.awt.Color(255, 255, 255));
         showPass.setText("Mostrar contraseña");
         showPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPassActionPerformed(evt);
             }
         });
+        jPanel1.add(showPass);
+        showPass.setBounds(350, 260, 141, 24);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(showPass)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 54, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(225, 225, 225))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LabelPassword)
-                                    .addComponent(LabelUsuario))
-                                .addGap(47, 47, 47)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(149, 149, 149))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(259, 259, 259))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelUsuario))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelPassword))
-                .addGap(18, 18, 18)
-                .addComponent(showPass)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
-        );
+        labelTittle.setBackground(new java.awt.Color(0, 0, 0));
+        labelTittle.setFont(new java.awt.Font("Liberation Sans Narrow", 0, 48)); // NOI18N
+        labelTittle.setForeground(new java.awt.Color(153, 0, 255));
+        labelTittle.setText("Ludox");
+        labelTittle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(labelTittle);
+        labelTittle.setBounds(230, 30, 120, 52);
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator1);
+        jSeparator1.setBounds(130, 90, 337, 10);
+
+        labelFondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fonoLogin.jpg")); // NOI18N
+        labelFondo.setPreferredSize(new java.awt.Dimension(580, 480));
+        jPanel1.add(labelFondo);
+        labelFondo.setBounds(0, 0, 580, 480);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -204,7 +200,9 @@ public class login extends javax.swing.JFrame implements Runnable {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-
+    /**
+     * metode on ens pot mostrar la contrasenya del camp de text o no.
+     */
     private void showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassActionPerformed
         if (showPass.isSelected()) {
             txtPassword.setEchoChar((char) 0);
@@ -214,8 +212,12 @@ public class login extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_showPassActionPerformed
 
+    /**
+     * metode on conecta el botó amb la pantalla de registre dels usuaris. es
+     * recicla la connexio del servidor i la base de dades.
+     */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        registro reg = new registro(this, true, inData, outData, ois, oos);
+        registro reg = new registro(this, true);
         reg.setVisible(true);
 
     }//GEN-LAST:event_btnRegistroActionPerformed
@@ -225,39 +227,64 @@ public class login extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        doLogin(txtUsuario.getText(), txtPassword.getText());
-
+        doLogin(txtUsuario.getText(), getEncodedString(txtPassword.getText()));
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    /**
+     * metode que ja comproba que els camps de text requerits no siguin null. Si
+     * no ho son, l'usuari podra fer login
+     *
+     * @param username parametre del nom d'usuari
+     * @param pass parametre de la constrasenya
+     */
     public void doLogin(String username, String pass) {
+        txtUsuario.setText("");
+        txtPassword.setText("");
+
+        System.out.println("username " + username + " pass " + pass);
+
         if (!username.isEmpty() && !pass.isEmpty()) {
 
             try {
-                outData.writeByte(1);
-                outData.writeUTF(txtUsuario.getText());
-                outData.writeUTF(txtPassword.getText());
-                boolean ok = inData.readBoolean();
+                boolean ok = sendLogin(username, pass);
 
                 if (!ok) {
-                    System.out.println("Error de usuario o contraseña");
+                    JOptionPane.showMessageDialog(null, "Error de usuario o contraseña");
                 } else {
-                    User user = (User) ois.readObject();
-                    Principal prin = new Principal(this);
+                    User user = (User) ClientConnection.getOis().readObject();
+                    ClientHelper.setUsername(user.getUsername());
+                    Principal prin = new Principal(this, user);
                     prin.setVisible(true);
                     this.setVisible(false);
                 }
 
-            } catch (IOException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Falta ingresar usuario y contraseña");
         }
+    }
 
-        if (txtUsuario.getText().equals("Ludox") && txtPassword.getText().equals("admin")) {
-            User.isAdmin = true;
+    /**
+     * metode per comprobar l'existencia de l'usuari mitjançant el nom d'usuari
+     * i la contrasenya i pugui fer login
+     *
+     * @param username parametro del nombre de usuario
+     * @param userPass parametro de la contraseña
+     * @return
+     */
+    public boolean sendLogin(String username, String userPass) {
+        try {
+            ClientConnection.getDos().writeByte(1);
+            ClientConnection.getDos().writeUTF(username);
+            ClientConnection.getDos().writeUTF(userPass);
+            return ClientConnection.getDis().readBoolean();
+
+        } catch (IOException ex) {
+            Logger.getLogger(registro.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
@@ -266,17 +293,22 @@ public class login extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
+     * metode on es fa la connexió amb servidor. variables son el numero de
+     * port, la ip del sevridor i el temps limit de connexio.
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException {
         final int PORT = 5000;
-        final String IP = "90.170.253.138";
+//        final String IP = "90.170.253.138";
+        final String IP = "localhost";
         final int connection_time_out = 8000;
 
         Socket s = new Socket();
         s.connect(new InetSocketAddress(IP, PORT), connection_time_out);
 
-        login hiloC = new login(s);
+        new ClientConnection(s);
+        login hiloC = new login();
         hiloC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hiloC.setVisible(true);
         new Thread(hiloC).start();
@@ -290,6 +322,10 @@ public class login extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelFondo;
+    private javax.swing.JLabel labelTittle;
     private javax.swing.JCheckBox showPass;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
@@ -301,17 +337,3 @@ public class login extends javax.swing.JFrame implements Runnable {
     }
 
 }
-
-//class fondoLogIn extends JPanel {
-//
-//    private Image img;
-//
-//    @Override
-//    public void paint(Graphics g) {
-//        img = new ImageIcon(getClass().getResource("/imagenes/img_login.png")).getImage();
-//        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-//        setOpaque(false);
-//        super.paint(g);
-//    }
-//
-//}
