@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Client Test" time="3.181" tests="12" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Client Test" time="3.243" tests="12" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="13"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-13.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire8870552901591387314\surefirebooter8472072040317043011.jar C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire8870552901591387314 2022-11-20T21-14-08_490-jvmRun1 surefire14799419226064267721tmp surefire_017193751686848948366tmp"/>
+    <property name="sun.java.command" value="C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire9381172876627600839\surefirebooter11692795118151421303.jar C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire9381172876627600839 2022-11-21T20-52-00_244-jvmRun1 surefire2133465382080940792tmp surefire_015989040120484273477tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="ClientTest"/>
     <property name="surefire.test.class.path" value="C:\Users\CARLA LLENAS\OneDrive\Documentos\NetBeansProjects\LudoxCliente\target\test-classes;C:\Users\CARLA LLENAS\OneDrive\Documentos\NetBeansProjects\LudoxCliente\target\classes;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\eclipselink\4.0.0\eclipselink-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.0\jakarta.xml.bind-api-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\com\sun\xml\bind\jaxb-xjc\4.0.0\jaxb-xjc-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\com\sun\xml\bind\jaxb-core\4.0.0\jaxb-core-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.asm\9.4.0\org.eclipse.persistence.asm-9.4.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.core\4.0.0\org.eclipse.persistence.core-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.corba\4.0.0\org.eclipse.persistence.corba-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\glassfish\corba\glassfish-corba-omgapi\4.2.4\glassfish-corba-omgapi-4.2.4.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.oracle\4.0.0\org.eclipse.persistence.oracle-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.json\4.0.0\org.eclipse.persistence.json-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\json\jakarta.json-api\2.1.1\jakarta.json-api-2.1.1.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpa\4.0.0\org.eclipse.persistence.jpa-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpa.jpql\4.0.0\org.eclipse.persistence.jpa.jpql-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.moxy\4.0.0\org.eclipse.persistence.moxy-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\angus\angus-activation\1.0.0\angus-activation-1.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\angus\angus-mail\1.0.0\angus-mail-1.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\mail\jakarta.mail-api\2.1.0\jakarta.mail-api-2.1.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.moxy.utils.xjc\4.0.0\org.eclipse.persistence.moxy.utils.xjc-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.0\jakarta.activation-api-2.1.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.sdo\4.0.0\org.eclipse.persistence.sdo-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.dbws\4.0.0\org.eclipse.persistence.dbws-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.dbws.builder\4.0.0\org.eclipse.persistence.dbws.builder-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\wsdl4j\wsdl4j\1.6.3\wsdl4j-1.6.3.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.extension\4.0.0\org.eclipse.persistence.extension-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpa.modelgen.processor\4.0.0\org.eclipse.persistence.jpa.modelgen.processor-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpars\4.0.0\org.eclipse.persistence.jpars-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\ws\rs\jakarta.ws.rs-api\3.1.0\jakarta.ws.rs-api-3.1.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpars.server\4.0.0\org.eclipse.persistence.jpars.server-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.oracleddlparser\3.0.0\org.eclipse.persistence.oracleddlparser-3.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.utils.rename\4.0.0\org.eclipse.persistence.utils.rename-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.nosql\4.0.0\org.eclipse.persistence.nosql-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\resource\jakarta.resource-api\2.1.0\jakarta.resource-api-2.1.0.jar;C:\Users\CARLA LLENAS\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\CARLA LLENAS\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.oracle.nosql\4.0.0\org.eclipse.persistence.oracle.nosql-4.0.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.0\junit-jupiter-engine-5.9.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\CARLA LLENAS\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.0\junit-jupiter-api-5.9.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\junit\platform\junit-platform-commons\1.9.0\junit-platform-commons-1.9.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\junit\platform\junit-platform-engine\1.9.0\junit-platform-engine-1.9.0.jar;C:\Users\CARLA LLENAS\.m2\repository\org\mockito\mockito-core\4.8.1\mockito-core-4.8.1.jar;C:\Users\CARLA LLENAS\.m2\repository\net\bytebuddy\byte-buddy\1.12.16\byte-buddy-1.12.16.jar;C:\Users\CARLA LLENAS\.m2\repository\net\bytebuddy\byte-buddy-agent\1.12.16\byte-buddy-agent-1.12.16.jar;C:\Users\CARLA LLENAS\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire8870552901591387314\surefirebooter8472072040317043011.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\CARLA LLENAS\AppData\Local\Temp\surefire9381172876627600839\surefirebooter11692795118151421303.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="13.0.2+8"/>
@@ -57,8 +57,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="57.0"/>
   </properties>
-  <testcase name="Servidor conectado" classname="Client Test" time="2.06">
-    <system-err><![CDATA[nov. 20, 2022 9:14:12 P. M. ClientTest serverConn
+  <testcase name="Servidor conectado" classname="Client Test" time="2.037">
+    <system-err><![CDATA[nov. 21, 2022 8:52:04 P. M. ClientTest serverConn
 SEVERE: null
 java.net.ConnectException: Connection refused: connect
 	at java.base/sun.nio.ch.Net.connect0(Native Method)
@@ -70,7 +70,7 @@ java.net.ConnectException: Connection refused: connect
 	at java.base/java.net.Socket.connect(Socket.java:552)
 	at java.base/java.net.Socket.<init>(Socket.java:475)
 	at java.base/java.net.Socket.<init>(Socket.java:249)
-	at ClientTest.serverConn(ClientTest.java:188)
+	at ClientTest.serverConn(ClientTest.java:195)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -145,22 +145,22 @@ java.net.ConnectException: Connection refused: connect
 
 ]]></system-err>
   </testcase>
-  <testcase name="Error campo de texto" classname="Client Test" time="0.002">
+  <testcase name="Error campo de texto" classname="Client Test" time="0.003">
     <system-out><![CDATA[Falta especificar nombre de usuario
 ]]></system-out>
   </testcase>
-  <testcase name="LoginFail" classname="Client Test" time="0.017"/>
-  <testcase name="Servidor desconectado" classname="Client Test" time="0.001">
+  <testcase name="LoginFail" classname="Client Test" time="0.021"/>
+  <testcase name="Servidor desconectado" classname="Client Test" time="0.002">
     <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
-	at ClientTest.serverDisconn(ClientTest.java:202)
+	at ClientTest.serverDisconn(ClientTest.java:209)
 ]]></error>
   </testcase>
   <testcase name="Alta Videojuego Error" classname="Client Test" time="0.001"/>
   <testcase name="Test Registro Bien" classname="Client Test" time="0.001"/>
   <testcase name="Alta Videojuego Existente" classname="Client Test" time="0.001"/>
   <testcase name="LoginOK" classname="Client Test" time="0.001"/>
-  <testcase name="Alta Videojuego Bien" classname="Client Test" time="0"/>
-  <testcase name="Test Registro Fail" classname="Client Test" time="0"/>
+  <testcase name="Alta Videojuego Bien" classname="Client Test" time="0.001"/>
+  <testcase name="Test Registro Fail" classname="Client Test" time="0.001"/>
   <testcase name="Correcto campo de texto" classname="Client Test" time="0"/>
-  <testcase name="Test Registro Mail Existente" classname="Client Test" time="0"/>
+  <testcase name="Test Registro Mail Existente" classname="Client Test" time="0.001"/>
 </testsuite>

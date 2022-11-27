@@ -204,9 +204,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        new Principal().setVisible(true);
-        
+        this.dispose();       
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void txtDeveloperEditedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeveloperEditedActionPerformed

@@ -9,7 +9,8 @@ import data.Videogame;
 import encrypt.Encrypter;
 import forms.admin.AltaVideojuegos;
 import forms.admin.EditarVideojuegos;
-import forms.admin.Permisos;;
+import forms.admin.Permisos;
+;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,9 +22,14 @@ import javax.swing.JOptionPane;
  *
  * @author CARLA LLENAS
  */
+
+
 public class Principal extends javax.swing.JFrame {
 
     private static Videogame videogames;
+    private static int totalPaginas;
+    private static int ActualPage = 1;
+
     login log = new login();
     User user;
     registro reg;
@@ -44,7 +50,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal(login log, User user) {
         initComponents();
         try {
-            getGamesList();
+            getTop5();
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -115,7 +121,12 @@ public class Principal extends javax.swing.JFrame {
         btnFiltrar = new javax.swing.JButton();
         btnQuitarFiltros = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        GamesListSF = new javax.swing.JList<>();
+        TotalGamesList = new javax.swing.JList<>();
+        btnFirstPage = new javax.swing.JButton();
+        btnPageBefore = new javax.swing.JButton();
+        btnLastPage = new javax.swing.JButton();
+        btnNextPage = new javax.swing.JButton();
+        labelNumPage = new javax.swing.JLabel();
         PanelMenuAdmin = new javax.swing.JPanel();
         btnAltaVideojuegos = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -546,18 +557,50 @@ public class Principal extends javax.swing.JFrame {
 
         btnQuitarFiltros.setText("Quitar Filtros");
 
-        GamesListSF.setBackground(new java.awt.Color(153, 153, 153));
-        GamesListSF.setForeground(new java.awt.Color(255, 255, 255));
-        GamesListSF.addAncestorListener(new javax.swing.event.AncestorListener() {
+        TotalGamesList.setBackground(new java.awt.Color(153, 153, 153));
+        TotalGamesList.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        TotalGamesList.setForeground(new java.awt.Color(255, 255, 255));
+        TotalGamesList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                GamesListSFAncestorAdded(evt);
+                TotalGamesListAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jScrollPane3.setViewportView(GamesListSF);
+        jScrollPane3.setViewportView(TotalGamesList);
+
+        btnFirstPage.setText("<<");
+        btnFirstPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstPageActionPerformed(evt);
+            }
+        });
+
+        btnPageBefore.setText("<");
+        btnPageBefore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPageBeforeActionPerformed(evt);
+            }
+        });
+
+        btnLastPage.setText(">>");
+        btnLastPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastPageActionPerformed(evt);
+            }
+        });
+
+        btnNextPage.setText(">");
+        btnNextPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextPageActionPerformed(evt);
+            }
+        });
+
+        labelNumPage.setForeground(new java.awt.Color(0, 0, 0));
+        labelNumPage.setText("0/0");
 
         javax.swing.GroupLayout PanelVideojuegosLayout = new javax.swing.GroupLayout(PanelVideojuegos);
         PanelVideojuegos.setLayout(PanelVideojuegosLayout);
@@ -570,6 +613,15 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(panelICONSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
             .addGroup(PanelVideojuegosLayout.createSequentialGroup()
+                .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
+                        .addGap(340, 340, 340)
+                        .addComponent(jLabel12))
+                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(labelFiltros)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVideojuegosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnQuitarFiltros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -579,17 +631,19 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(panelDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFiltrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
+                        .addComponent(btnFirstPage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPageBefore)
+                        .addGap(239, 239, 239)
+                        .addComponent(labelNumPage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNextPage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLastPage))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
-            .addGroup(PanelVideojuegosLayout.createSequentialGroup()
-                .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addComponent(jLabel12))
-                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(labelFiltros)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelVideojuegosLayout.setVerticalGroup(
             PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,9 +659,9 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(panelICONSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addComponent(labelFiltros)
+                .addGap(18, 18, 18)
                 .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelVideojuegosLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -619,11 +673,17 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(btnFiltrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnQuitarFiltros)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVideojuegosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))))
+                        .addGap(0, 50, Short.MAX_VALUE))
+                    .addGroup(PanelVideojuegosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3)
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFirstPage)
+                            .addComponent(btnPageBefore)
+                            .addComponent(btnLastPage)
+                            .addComponent(btnNextPage)
+                            .addComponent(labelNumPage))
+                        .addGap(18, 18, 18))))
         );
 
         PanelVentana.add(PanelVideojuegos, "card3");
@@ -868,14 +928,19 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.add(PanelVideojuegos);
         PanelVentana.repaint();
         PanelVentana.revalidate();
+
+        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+        getGamesLst(qf, ActualPage);
+        getPageNumber();
+
     }//GEN-LAST:event_panelVideojuegosMouseClicked
 
     private void labelVideojuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelVideojuegosMouseClicked
         // TODO add your handling code here:
-        PanelVentana.removeAll();
-        PanelVentana.add(PanelVideojuegos);
-        PanelVentana.repaint();
-        PanelVentana.revalidate();
+//        PanelVentana.removeAll();
+//        PanelVentana.add(PanelVideojuegos);
+//        PanelVentana.repaint();
+//        PanelVentana.revalidate();
     }//GEN-LAST:event_labelVideojuegosMouseClicked
 
     private void txtNameEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameEditActionPerformed
@@ -899,7 +964,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         new login().setVisible(true);
-        
+
     }//GEN-LAST:event_btnLogoutActionPerformed
     /**
      * event del botó del panel del menu admin que ens obrirà el frame de menu
@@ -907,9 +972,8 @@ public class Principal extends javax.swing.JFrame {
      */
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
         new Permisos().setVisible(true);
-        
+
     }//GEN-LAST:event_btnPermisosActionPerformed
 
     /**
@@ -919,7 +983,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnAltaVideojuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVideojuegosActionPerformed
         // TODO add your handling code here:
         new AltaVideojuegos().setVisible(true);;
-        
+
     }//GEN-LAST:event_btnAltaVideojuegosActionPerformed
     /**
      * event del botó del panel del menu admin que ens obrirà el frame d'edició
@@ -946,6 +1010,9 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_GamesListAncestorAdded
 
+    /**
+     * metode de moment inactiu per sistema de filtres
+     */
     private void radioBtnPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBtnPSActionPerformed
         // TODO add your handling code here: 
         try {
@@ -958,9 +1025,9 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_radioBtnPSActionPerformed
 
-    private void GamesListSFAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_GamesListSFAncestorAdded
+    private void TotalGamesListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TotalGamesListAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_GamesListSFAncestorAdded
+    }//GEN-LAST:event_TotalGamesListAncestorAdded
     /**
      * event del botó del panel de editar dades d'usuari que ens guardara els
      * canvis fets
@@ -987,49 +1054,126 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al guardar los cambios");
         }
-
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    /**
+    * acció del botó per anar a la primera pagina
+    */
+    private void btnFirstPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstPageActionPerformed
+        // TODO add your handling code here:
+        ActualPage = 1;
+        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+        getGamesLst(qf, ActualPage);
+        getPageNumber();
+    }//GEN-LAST:event_btnFirstPageActionPerformed
+
+    private void btnLastPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastPageActionPerformed
+        // TODO add your handling code here:
+        ActualPage = totalPaginas;
+        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+        getGamesLst(qf, ActualPage);
+        getPageNumber();
+    }//GEN-LAST:event_btnLastPageActionPerformed
+    /**
+    * acció del botó per retrocedir de pagina
+    */
+    private void btnPageBeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPageBeforeActionPerformed
+        // TODO add your handling code here:
+        if (ActualPage > 1) {
+            ActualPage--;
+            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+            getGamesLst(qf, ActualPage);
+            getPageNumber();
+        }
+    }//GEN-LAST:event_btnPageBeforeActionPerformed
+
+    /**
+    * acció del botó per anar a la seguent pagina
+    */
+    private void btnNextPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextPageActionPerformed
+        // TODO add your handling code here:
+        if (ActualPage < totalPaginas) {
+            ActualPage++;
+            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+            getGamesLst(qf, ActualPage);
+            getPageNumber();
+        }
+    }//GEN-LAST:event_btnNextPageActionPerformed
     /**
      * metode que envia al servidor un byte perque ens torni un llistat dels
-     * noms dels videojocs actuals de la base de dades Amb el llistat, emplena
-     * el scrollPane
+     * noms dels videojocs actuals de la base de dades amb la puntució més alta,
+     * emplena el scrollPane
      */
-    public void getGamesList() throws IOException, ClassNotFoundException {
-
-        ClientConnection.getDos().writeByte(2);
-        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-        ClientConnection.getOos().writeObject(qf);
-        ClientConnection.getDis().readByte();
-        ClientConnection.getDos().writeInt(0);
-        List<Videogame> gameList;
-        gameList = (List<Videogame>) ClientConnection.getOis().readObject();
+    public void getTop5() throws IOException, ClassNotFoundException {
 
         DefaultListModel<String> model = new DefaultListModel<>();
 
         GamesList.setModel(model);
 
-        String[] gameNames = gameList.stream().map(v -> v.getName()).toArray(size -> new String[size]);
+        String[] gameNames = ClientHelper.listVideogamesTop5.stream().map(v -> v.getName()).toArray(size -> new String[size]);
 
         for (int i = 0; i < gameNames.length; i++) {
             model.addElement(gameNames[i]);
         }
+    }
+
+    /**
+     * metode que envia al servidor un byte perque ens torni un llistat dels
+     * noms dels videojocs actuals de la base de dades Amb el llistat, emplena
+     * el scrollPane
+     */
+    public void getGamesLst(QueryFilter qf, int paginaActual) {
+
+        try {
+            ClientConnection.getDos().writeByte(2);
+            ClientConnection.getOos().writeObject(qf);
+            totalPaginas = ClientConnection.getDis().readByte();
+            ClientConnection.getDos().writeInt(paginaActual);
+            List<Videogame> gameList = (List<Videogame>) ClientConnection.getOis().readObject();
+
+            DefaultListModel<String> model = new DefaultListModel<>();
+
+            TotalGamesList.setModel(model);
+
+            String[] gameNames = gameList.stream().map(v -> v.getName()).toArray(size -> new String[size]);
+
+            for (int i = 0; i < gameNames.length; i++) {
+                model.addElement(gameNames[i]);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * metode per escriure al label el numero de pagina actual que es visualitza
+     */
+    public void getPageNumber() {
+
+        labelNumPage.setText(ActualPage + "/" + totalPaginas);
     }
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> GamesList;
-    private javax.swing.JList<String> GamesListSF;
     private javax.swing.JPanel PanelAjustes;
     private javax.swing.JPanel PanelMenuAdmin;
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JPanel PanelVentana;
     private javax.swing.JPanel PanelVideojuegos;
+    private javax.swing.JList<String> TotalGamesList;
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnAltaVideojuegos;
     private javax.swing.JButton btnEditVideojuegos;
     private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnFirstPage;
+    private javax.swing.JButton btnLastPage;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnNextPage;
+    private javax.swing.JButton btnPageBefore;
     private javax.swing.JButton btnPermisos;
     private javax.swing.JButton btnQuitarFiltros;
     private javax.swing.JButton btnSalir;
@@ -1060,6 +1204,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel labelAjustes;
     private javax.swing.JLabel labelFiltros;
     private javax.swing.JLabel labelFondo;
+    private javax.swing.JLabel labelNumPage;
     private javax.swing.JLabel labelPrueba;
     private javax.swing.JLabel labelReseñas;
     private javax.swing.JLabel labelTittle;

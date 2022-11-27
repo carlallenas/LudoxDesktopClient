@@ -18,7 +18,6 @@ import java.net.Socket;
  */
 public class ClientConnection extends Thread {
 
-    static private Socket socket;
     static private DataOutputStream dos;
     static private DataInputStream dis;
     static private ObjectInputStream ois;
@@ -26,7 +25,6 @@ public class ClientConnection extends Thread {
 
     public ClientConnection(Socket socket) {
         try {
-            this.socket = socket;
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             oos = new ObjectOutputStream(socket.getOutputStream());

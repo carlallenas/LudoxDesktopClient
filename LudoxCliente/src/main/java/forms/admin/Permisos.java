@@ -20,8 +20,6 @@ import javax.swing.DefaultListModel;
  */
 public class Permisos extends javax.swing.JFrame {
 
-    Principal prin;
-
     /**
      * Creates new form Permisos
      */
@@ -147,10 +145,7 @@ public class Permisos extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        new Principal().setVisible(true);
-        
-        
+        this.dispose();       
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnConvertToAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertToAdminActionPerformed
@@ -174,6 +169,9 @@ public class Permisos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    /**
+     * metode per actualitzar la llista d'usuaris 
+     */
     public void Update() throws IOException, ClassNotFoundException {
         ClientConnection.getDos().writeByte(11);
         List<User> usersList;

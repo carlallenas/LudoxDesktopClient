@@ -286,7 +286,7 @@ public class registro extends javax.swing.JDialog {
         return false;
     }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtRepeatPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRepeatPassActionPerformed

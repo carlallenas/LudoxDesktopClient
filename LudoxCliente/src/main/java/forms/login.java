@@ -7,13 +7,24 @@ import data.Platforms;
 import data.User;
 import data.Videogame;
 import static encrypt.Encrypter.getEncodedString;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +34,9 @@ import javax.swing.JOptionPane;
  */
 public class login extends javax.swing.JFrame implements Runnable {
 
+    /**
+     * constructor de la classe
+     */
     public login() {
         try {
             ClientConnection.getDos().writeByte(3);
@@ -155,6 +169,7 @@ public class login extends javax.swing.JFrame implements Runnable {
         showPass.setBackground(new java.awt.Color(0, 0, 0));
         showPass.setForeground(new java.awt.Color(255, 255, 255));
         showPass.setText("Mostrar contraseña");
+        showPass.setOpaque(false);
         showPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPassActionPerformed(evt);
@@ -296,19 +311,41 @@ public class login extends javax.swing.JFrame implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException {
-        final int PORT = 5000;
+        try {
+            final int PORT = 5000;
 //        final String IP = "90.170.253.138";
-        final String IP = "localhost";
-        final int connection_time_out = 8000;
+            final String IP = "localhost";
 
-        Socket s = new Socket();
-        s.connect(new InetSocketAddress(IP, PORT), connection_time_out);
+            KeyStore keystore = KeyStore.getInstance("JKS");
+            keystore.load(new FileInputStream("Cert/mykeystore.jks"), "Ludox123.".toCharArray());
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+            tmf.init(keystore);
 
-        new ClientConnection(s);
-        login hiloC = new login();
-        hiloC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        hiloC.setVisible(true);
-        new Thread(hiloC).start();
+            SSLContext context = SSLContext.getInstance("TLS");
+            TrustManager[] trustManagers = tmf.getTrustManagers();
+
+            context.init(null, trustManagers, null);
+
+            SSLSocketFactory sf = context.getSocketFactory();
+
+            SSLSocket s = (SSLSocket) sf.createSocket(IP, PORT);
+            s.startHandshake();
+
+            new ClientConnection(s);
+            login hiloC = new login();
+            hiloC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            hiloC.setVisible(true);
+            new Thread(hiloC).start();
+            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CertificateException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (KeyStoreException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (KeyManagementException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

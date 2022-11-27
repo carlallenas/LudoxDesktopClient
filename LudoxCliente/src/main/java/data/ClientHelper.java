@@ -18,7 +18,12 @@ public class ClientHelper {
     public static List<Category> listCategory;
     public static String username;
 
-
+/**
+ * constructor de la classe
+ * @param listVideogamesTop5
+ * @param listCategory
+ * @param listPlataformas 
+ */
     public ClientHelper(List<Videogame> listVideogamesTop5, List<Category> listCategory, List<Platforms> listPlataformas) {
         this.listPlataformas = listPlataformas;
         this.listCategory = listCategory;
