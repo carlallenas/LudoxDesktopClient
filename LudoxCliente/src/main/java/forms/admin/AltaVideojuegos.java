@@ -59,7 +59,8 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             i[0]++;
         });
         
-
+        txtDate.setText("YYYY/MM/DD");
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -264,7 +265,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
      * @param stringDate
      * @return date
      */
-    public Date ConvertStringToDate(String stringDate) {
+    public static Date ConvertStringToDate(String stringDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
 
@@ -282,7 +283,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
      * @param path
      * @return img
      */
-    private byte[] getImageAsBytes(String path) {
+    public static byte[] getImageAsBytes(String path) {
         try {
             BufferedImage b = null;
             byte[] img;

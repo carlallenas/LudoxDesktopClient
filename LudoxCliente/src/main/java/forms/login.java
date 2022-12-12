@@ -48,6 +48,7 @@ public class login extends javax.swing.JFrame implements Runnable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -128,7 +129,7 @@ public class login extends javax.swing.JFrame implements Runnable {
             }
         });
         jPanel1.add(btnRegistro);
-        btnRegistro.setBounds(420, 390, 97, 40);
+        btnRegistro.setBounds(420, 400, 100, 40);
 
         txtUsuario.setBackground(new java.awt.Color(102, 102, 102));
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -176,11 +177,11 @@ public class login extends javax.swing.JFrame implements Runnable {
             }
         });
         jPanel1.add(showPass);
-        showPass.setBounds(350, 260, 141, 24);
+        showPass.setBounds(350, 260, 134, 24);
 
         labelTittle.setBackground(new java.awt.Color(0, 0, 0));
         labelTittle.setFont(new java.awt.Font("Liberation Sans Narrow", 0, 48)); // NOI18N
-        labelTittle.setForeground(new java.awt.Color(153, 0, 255));
+        labelTittle.setForeground(new java.awt.Color(255, 255, 255));
         labelTittle.setText("Ludox");
         labelTittle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(labelTittle);

@@ -1,11 +1,7 @@
-package data;
+package helpers;
 
 import java.io.Serializable;
 
-/**
- *
- * @author CARLA LLENAS
- */
 public class EditUser implements Serializable {
     private static final long serialVersionUID = 7;
     private String username;

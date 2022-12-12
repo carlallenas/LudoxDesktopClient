@@ -17,6 +17,7 @@ public class ClientHelper {
     public static List<Platforms> listPlataformas;
     public static List<Category> listCategory;
     public static String username;
+    public static String videogameName;
 
 /**
  * constructor de la classe
@@ -33,6 +34,7 @@ public class ClientHelper {
     public static void setUsername(String username) {
         ClientHelper.username = username;
     }
-
-
+    public static void setVideogameName(String videogameName) {
+        ClientHelper.videogameName = videogameName;
+    }
 }

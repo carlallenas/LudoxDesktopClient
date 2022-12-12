@@ -1,22 +1,27 @@
 package forms;
 
 import data.ClientConnection;
-import data.EditUser;
+import helpers.EditUser;
 import data.ClientHelper;
-import data.QueryFilter;
+import helpers.QueryFilter;
 import data.User;
 import data.Videogame;
 import encrypt.Encrypter;
 import forms.admin.AltaVideojuegos;
+import forms.admin.ControlUsuarios;
 import forms.admin.EditarVideojuegos;
 import forms.admin.Permisos;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 ;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -34,6 +39,10 @@ public class Principal extends javax.swing.JFrame {
     User user;
     registro reg;
     Permisos per = new Permisos();
+
+    //cANTIDAD IMAGENES + 1
+    ImageIcon img[] = new ImageIcon[5];
+    int contador = 1;
 
     public Principal() {
         initComponents();
@@ -64,6 +73,11 @@ public class Principal extends javax.swing.JFrame {
             btnAdmin.setVisible(false);
         }
         this.setLocationRelativeTo(null);
+
+        for (int i = 0; i < 5; i++) {
+            img[i] = new ImageIcon(getClass().getResource("/carrusel/" + i + ".png"));
+        }
+        carruselLabel.setIcon(img[1]);
     }
 
     /**
@@ -75,9 +89,6 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grpPlataforma = new javax.swing.ButtonGroup();
-        grpScore = new javax.swing.ButtonGroup();
-        grpDate = new javax.swing.ButtonGroup();
         panelMenu = new javax.swing.JPanel();
         panelTittle = new javax.swing.JPanel();
         labelTittle = new javax.swing.JLabel();
@@ -97,10 +108,15 @@ public class Principal extends javax.swing.JFrame {
         btnAdmin = new javax.swing.JButton();
         PanelVentana = new javax.swing.JPanel();
         PanelPrincipal = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        labelPrueba = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         GamesList = new javax.swing.JList<>();
+        carruselLabel = new javax.swing.JLabel();
+        btnIZQ = new javax.swing.JButton();
+        btnAUTO = new javax.swing.JButton();
+        btnDER = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        labelFondoo = new javax.swing.JLabel();
         PanelVideojuegos = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         panelICONSearch = new javax.swing.JPanel();
@@ -139,7 +155,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
         PanelAjustes = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelNombreApell = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
@@ -151,6 +167,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        labelFondoo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ludox Menu");
@@ -168,7 +185,7 @@ public class Principal extends javax.swing.JFrame {
 
         labelTittle.setBackground(new java.awt.Color(0, 0, 0));
         labelTittle.setFont(new java.awt.Font("Liberation Sans Narrow", 0, 48)); // NOI18N
-        labelTittle.setForeground(new java.awt.Color(153, 0, 204));
+        labelTittle.setForeground(new java.awt.Color(255, 255, 255));
         labelTittle.setText("Ludox");
         labelTittle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         labelTittle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,7 +213,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(panelTittle);
         panelTittle.setBounds(0, 6, 307, 90);
 
-        panelAlquiler.setBackground(new java.awt.Color(153, 102, 255));
+        panelAlquiler.setBackground(new java.awt.Color(102, 102, 255));
 
         logoAlquiler.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-carrito-de-la-compra-cargado-48.png")); // NOI18N
 
@@ -227,7 +244,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(panelAlquiler);
         panelAlquiler.setBounds(0, 247, 307, 62);
 
-        panelVideojuegos.setBackground(new java.awt.Color(153, 0, 255));
+        panelVideojuegos.setBackground(new java.awt.Color(102, 0, 204));
         panelVideojuegos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelVideojuegosMouseClicked(evt);
@@ -267,7 +284,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(panelVideojuegos);
         panelVideojuegos.setBounds(0, 177, 307, 64);
 
-        panelAjustes.setBackground(new java.awt.Color(153, 102, 255));
+        panelAjustes.setBackground(new java.awt.Color(102, 102, 255));
         panelAjustes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelAjustesMouseClicked(evt);
@@ -308,7 +325,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(panelAjustes);
         panelAjustes.setBounds(0, 383, 307, 61);
 
-        panelReseñas.setBackground(new java.awt.Color(153, 0, 255));
+        panelReseñas.setBackground(new java.awt.Color(102, 0, 204));
 
         logoReseñas.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-mano-con-pluma-50.png")); // NOI18N
 
@@ -344,7 +361,7 @@ public class Principal extends javax.swing.JFrame {
         panelMenu.add(panelReseñas);
         panelReseñas.setBounds(0, 315, 307, 62);
 
-        jSeparator1.setForeground(new java.awt.Color(153, 102, 255));
+        jSeparator1.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         panelMenu.add(jSeparator1);
         jSeparator1.setBounds(18, 102, 242, 10);
@@ -366,15 +383,10 @@ public class Principal extends javax.swing.JFrame {
 
         PanelPrincipal.setBackground(new java.awt.Color(204, 204, 204));
         PanelPrincipal.setPreferredSize(new java.awt.Dimension(840, 800));
+        PanelPrincipal.setLayout(null);
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("CARRUSEL VIDEOJUEGOS");
-
-        labelPrueba.setForeground(new java.awt.Color(0, 51, 153));
-        labelPrueba.setText("PAGINA PRINCIPAL");
-
-        GamesList.setBackground(new java.awt.Color(153, 153, 153));
-        GamesList.setForeground(new java.awt.Color(255, 255, 255));
+        GamesList.setBackground(new java.awt.Color(102, 102, 255));
+        GamesList.setForeground(new java.awt.Color(0, 0, 0));
         GamesList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 GamesListAncestorAdded(evt);
@@ -386,35 +398,56 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(GamesList);
 
-        javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
-        PanelPrincipal.setLayout(PanelPrincipalLayout);
-        PanelPrincipalLayout.setHorizontalGroup(
-            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPrincipalLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel2)
-                .addContainerGap(581, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(labelPrueba)
-                        .addGap(362, 362, 362))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
-        );
-        PanelPrincipalLayout.setVerticalGroup(
-            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPrincipalLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(labelPrueba)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
-        );
+        PanelPrincipal.add(jScrollPane2);
+        jScrollPane2.setBounds(580, 100, 226, 240);
+
+        carruselLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelPrincipal.add(carruselLabel);
+        carruselLabel.setBounds(39, 40, 500, 690);
+
+        btnIZQ.setText("jButton1");
+        btnIZQ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIZQActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnIZQ);
+        btnIZQ.setBounds(39, 748, 57, 24);
+
+        btnAUTO.setText("jButton2");
+        btnAUTO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAUTOActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnAUTO);
+        btnAUTO.setBounds(228, 748, 57, 24);
+
+        btnDER.setText("jButton3");
+        btnDER.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDERActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnDER);
+        btnDER.setBounds(424, 748, 57, 24);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NUEVOS AÑADIDOS");
+        PanelPrincipal.add(jLabel10);
+        jLabel10.setBounds(590, 480, 230, 50);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("TOP 5 VIDEOJUEGOS");
+        PanelPrincipal.add(jLabel14);
+        jLabel14.setBounds(580, 50, 230, 50);
+
+        labelFondoo.setForeground(new java.awt.Color(0, 0, 0));
+        labelFondoo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoprincipalbueno.png")); // NOI18N
+        PanelPrincipal.add(labelFondoo);
+        labelFondoo.setBounds(1, -1, 850, 800);
 
         PanelVentana.add(PanelPrincipal, "card4");
 
@@ -449,7 +482,6 @@ public class Principal extends javax.swing.JFrame {
         panelPlataforma.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Plataforma", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         panelPlataforma.setForeground(new java.awt.Color(0, 0, 0));
 
-        grpPlataforma.add(radioBtnPS);
         radioBtnPS.setText("Play Station");
         radioBtnPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,10 +489,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        grpPlataforma.add(radioBtnXBOX);
         radioBtnXBOX.setText("XBOX");
 
-        grpPlataforma.add(radioBtnNintendo);
         radioBtnNintendo.setText("Nintendo");
 
         javax.swing.GroupLayout panelPlataformaLayout = new javax.swing.GroupLayout(panelPlataforma);
@@ -491,10 +521,8 @@ public class Principal extends javax.swing.JFrame {
         panelDate.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Release Date", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         panelDate.setForeground(new java.awt.Color(0, 0, 0));
 
-        grpDate.add(radioBtnMinDate);
         radioBtnMinDate.setText("MinDate");
 
-        grpDate.add(radioBtnMaxDate);
         radioBtnMaxDate.setText("MaxDate");
 
         javax.swing.GroupLayout panelDateLayout = new javax.swing.GroupLayout(panelDate);
@@ -522,10 +550,8 @@ public class Principal extends javax.swing.JFrame {
         panelScore.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Score", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         panelScore.setForeground(new java.awt.Color(0, 0, 0));
 
-        grpScore.add(radioBtnMaxScore);
         radioBtnMaxScore.setText("MaxScore");
 
-        grpScore.add(radioBtnMinScore);
         radioBtnMinScore.setText("MinScore");
 
         javax.swing.GroupLayout panelScoreLayout = new javax.swing.GroupLayout(panelScore);
@@ -636,7 +662,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(btnFirstPage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPageBefore)
-                        .addGap(239, 239, 239)
+                        .addGap(280, 280, 280)
                         .addComponent(labelNumPage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNextPage)
@@ -673,7 +699,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(btnFiltrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnQuitarFiltros)
-                        .addGap(0, 50, Short.MAX_VALUE))
+                        .addGap(0, 67, Short.MAX_VALUE))
                     .addGroup(PanelVideojuegosLayout.createSequentialGroup()
                         .addComponent(jScrollPane3)
                         .addGap(18, 18, 18)
@@ -769,15 +795,22 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.add(PanelMenuAdmin, "card5");
 
         PanelAjustes.setBackground(new java.awt.Color(204, 204, 255));
+        PanelAjustes.setLayout(null);
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Nombre y Apellidos");
+        labelNombreApell.setForeground(new java.awt.Color(255, 255, 255));
+        labelNombreApell.setText("Nombre y Apellidos");
+        PanelAjustes.add(labelNombreApell);
+        labelNombreApell.setBounds(39, 108, 107, 16);
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Correo electrónico");
+        PanelAjustes.add(jLabel3);
+        jLabel3.setBounds(39, 195, 101, 16);
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Constraseña");
+        PanelAjustes.add(jLabel5);
+        jLabel5.setBounds(42, 282, 72, 16);
 
         btnSave.setText("GUARDAR");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -785,12 +818,20 @@ public class Principal extends javax.swing.JFrame {
                 btnSaveActionPerformed(evt);
             }
         });
+        PanelAjustes.add(btnSave);
+        btnSave.setBounds(583, 178, 125, 50);
 
         txtNameEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameEditActionPerformed(evt);
             }
         });
+        PanelAjustes.add(txtNameEdit);
+        txtNameEdit.setBounds(200, 100, 274, 32);
+        PanelAjustes.add(txtMailEdit);
+        txtMailEdit.setBounds(200, 187, 274, 32);
+        PanelAjustes.add(txtPassEdit);
+        txtPassEdit.setBounds(200, 274, 274, 32);
 
         btnLogout.setText("LOG OUT");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -798,6 +839,8 @@ public class Principal extends javax.swing.JFrame {
                 btnLogoutActionPerformed(evt);
             }
         });
+        PanelAjustes.add(btnLogout);
+        btnLogout.setBounds(693, 721, 96, 45);
 
         btnSalir.setText("Salir del programa");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -805,79 +848,27 @@ public class Principal extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+        PanelAjustes.add(btnSalir);
+        btnSalir.setBounds(60, 721, 114, 45);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("MODIFICAR DATOS");
+        PanelAjustes.add(jLabel8);
+        jLabel8.setBounds(39, 26, 159, 25);
 
-        javax.swing.GroupLayout PanelAjustesLayout = new javax.swing.GroupLayout(PanelAjustes);
-        PanelAjustes.setLayout(PanelAjustesLayout);
-        PanelAjustesLayout.setHorizontalGroup(
-            PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAjustesLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelAjustesLayout.createSequentialGroup()
-                        .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelAjustesLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(47, 47, 47))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelAjustesLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btnSalir))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelAjustesLayout.createSequentialGroup()
-                                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61))
-                            .addGroup(PanelAjustesLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMailEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                                    .addComponent(txtNameEdit)
-                                    .addComponent(txtPassEdit))
-                                .addGap(109, 109, 109)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(PanelAjustesLayout.createSequentialGroup()
-                        .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelAjustesLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 173, Short.MAX_VALUE))))
-        );
-        PanelAjustesLayout.setVerticalGroup(
-            PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAjustesLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(46, 46, 46)
-                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMailEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPassEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
-                .addGroup(PanelAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
-        );
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        PanelAjustes.add(jSeparator2);
+        jSeparator2.setBounds(39, 69, 623, 10);
+
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        PanelAjustes.add(jSeparator3);
+        jSeparator3.setBounds(42, 383, 635, 10);
+
+        labelFondoo1.setForeground(new java.awt.Color(0, 0, 0));
+        labelFondoo1.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoprincipalbueno.png")); // NOI18N
+        PanelAjustes.add(labelFondoo1);
+        labelFondoo1.setBounds(1, -1, 850, 800);
 
         PanelVentana.add(PanelAjustes, "card2");
 
@@ -892,7 +883,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelVentana, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+            .addComponent(PanelVentana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -929,8 +920,8 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.repaint();
         PanelVentana.revalidate();
 
-        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-        getGamesLst(qf, ActualPage);
+        //QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+//        getGamesLst(qf, ActualPage);
         getPageNumber();
 
     }//GEN-LAST:event_panelVideojuegosMouseClicked
@@ -973,7 +964,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
         new Permisos().setVisible(true);
-
     }//GEN-LAST:event_btnPermisosActionPerformed
 
     /**
@@ -983,7 +973,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnAltaVideojuegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVideojuegosActionPerformed
         // TODO add your handling code here:
         new AltaVideojuegos().setVisible(true);;
-
     }//GEN-LAST:event_btnAltaVideojuegosActionPerformed
     /**
      * event del botó del panel del menu admin que ens obrirà el frame d'edició
@@ -996,6 +985,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
+        new ControlUsuarios().setVisible(true);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void labelTittleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTittleMouseClicked
@@ -1005,10 +995,6 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.repaint();
         PanelVentana.revalidate();
     }//GEN-LAST:event_labelTittleMouseClicked
-
-    private void GamesListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_GamesListAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GamesListAncestorAdded
 
     /**
      * metode de moment inactiu per sistema de filtres
@@ -1021,7 +1007,7 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (radioBtnPS.isSelected()) {
-            QueryFilter qf = new QueryFilter("PlayStation", null, 0, 0, null, null, null, null, null);
+            //QueryFilter qf = new QueryFilter("PlayStation", null, 0, 0, null, null, null, null, null);
         }
     }//GEN-LAST:event_radioBtnPSActionPerformed
 
@@ -1049,7 +1035,17 @@ public class Principal extends javax.swing.JFrame {
                 eu.setPassword(Encrypter.getEncodedString(txtPassEdit.getText()));
             }
             ClientConnection.getOos().writeObject(eu);
-            JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
+            boolean correct = ClientConnection.getDis().readBoolean();
+
+            if (correct) {
+                if (!txtNameEdit.getText().trim().equals("")) {
+                    user.setName(txtNameEdit.getText());
+                }
+                if (!txtMailEdit.getText().trim().equals("")) {
+                    user.setMail(txtMailEdit.getText());
+                }
+                JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
+            }
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al guardar los cambios");
@@ -1057,48 +1053,83 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
-    * acció del botó per anar a la primera pagina
-    */
+     * acció del botó per anar a la primera pagina
+     */
     private void btnFirstPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstPageActionPerformed
         // TODO add your handling code here:
         ActualPage = 1;
-        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-        getGamesLst(qf, ActualPage);
+//        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+        //  getGamesLst(qf, ActualPage);
         getPageNumber();
     }//GEN-LAST:event_btnFirstPageActionPerformed
 
     private void btnLastPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastPageActionPerformed
         // TODO add your handling code here:
         ActualPage = totalPaginas;
-        QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-        getGamesLst(qf, ActualPage);
+        // QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+        // getGamesLst(qf, ActualPage);
         getPageNumber();
     }//GEN-LAST:event_btnLastPageActionPerformed
     /**
-    * acció del botó per retrocedir de pagina
-    */
+     * acció del botó per retrocedir de pagina
+     */
     private void btnPageBeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPageBeforeActionPerformed
         // TODO add your handling code here:
         if (ActualPage > 1) {
             ActualPage--;
-            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-            getGamesLst(qf, ActualPage);
+            // QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+            //   getGamesLst(qf, ActualPage);
             getPageNumber();
         }
     }//GEN-LAST:event_btnPageBeforeActionPerformed
 
     /**
-    * acció del botó per anar a la seguent pagina
-    */
+     * acció del botó per anar a la seguent pagina
+     */
     private void btnNextPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextPageActionPerformed
         // TODO add your handling code here:
         if (ActualPage < totalPaginas) {
             ActualPage++;
-            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-            getGamesLst(qf, ActualPage);
+//            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
+            //          getGamesLst(qf, ActualPage);
             getPageNumber();
         }
     }//GEN-LAST:event_btnNextPageActionPerformed
+
+    private void GamesListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_GamesListAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GamesListAncestorAdded
+
+    private void btnDERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDERActionPerformed
+        // TODO add your handling code here:
+        if (contador == 4) {
+            contador = 0;
+        }
+        contador++;
+        carruselLabel.setIcon(img[contador]);
+    }//GEN-LAST:event_btnDERActionPerformed
+
+    private void btnIZQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIZQActionPerformed
+        // TODO add your handling code here:
+        if (contador == 1) {
+            contador = 4;
+        }
+        contador--;
+        carruselLabel.setIcon(img[contador]);
+    }//GEN-LAST:event_btnIZQActionPerformed
+
+    private void btnAUTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAUTOActionPerformed
+        // TODO add your handling code here:
+        Timer timer  = new Timer(600, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carruselLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrusel/" + contador + ".png")));
+                contador++;
+                if(contador==4)contador=1;
+            }
+        });
+        timer.start();
+    }//GEN-LAST:event_btnAUTOActionPerformed
     /**
      * metode que envia al servidor un byte perque ens torni un llistat dels
      * noms dels videojocs actuals de la base de dades amb la puntució més alta,
@@ -1140,6 +1171,7 @@ public class Principal extends javax.swing.JFrame {
             for (int i = 0; i < gameNames.length; i++) {
                 model.addElement(gameNames[i]);
             }
+
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -1165,11 +1197,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelVentana;
     private javax.swing.JPanel PanelVideojuegos;
     private javax.swing.JList<String> TotalGamesList;
+    private javax.swing.JButton btnAUTO;
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnAltaVideojuegos;
+    private javax.swing.JButton btnDER;
     private javax.swing.JButton btnEditVideojuegos;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnFirstPage;
+    private javax.swing.JButton btnIZQ;
     private javax.swing.JButton btnLastPage;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnNextPage;
@@ -1179,14 +1214,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUsuarios;
-    private javax.swing.ButtonGroup grpDate;
-    private javax.swing.ButtonGroup grpPlataforma;
-    private javax.swing.ButtonGroup grpScore;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel carruselLabel;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1204,8 +1237,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel labelAjustes;
     private javax.swing.JLabel labelFiltros;
     private javax.swing.JLabel labelFondo;
+    private javax.swing.JLabel labelFondoo;
+    private javax.swing.JLabel labelFondoo1;
+    private javax.swing.JLabel labelNombreApell;
     private javax.swing.JLabel labelNumPage;
-    private javax.swing.JLabel labelPrueba;
     private javax.swing.JLabel labelReseñas;
     private javax.swing.JLabel labelTittle;
     private javax.swing.JLabel labelVideojuegos;

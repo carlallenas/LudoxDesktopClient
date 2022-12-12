@@ -5,11 +5,17 @@
  */
 package forms.admin;
 
+import data.ClientConnection;
 import data.ClientHelper;
 import data.Videogame;
 import forms.Principal;
+import helpers.EditVideogame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -17,6 +23,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author CARLA LLENAS
  */
 public class EditarVideojuegos extends javax.swing.JFrame {
+
+    Videogame v;
 
     /**
      * Creates new form EditarVideojuegos
@@ -64,7 +72,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         btnChoose = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         boxGames = new javax.swing.JComboBox<>();
         fondo = new javax.swing.JLabel();
 
@@ -77,27 +84,27 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Nombre del Videojuego a modificar");
         PanelModificar.add(labelName);
-        labelName.setBounds(208, 81, 198, 16);
+        labelName.setBounds(208, 81, 194, 16);
 
         labelDescrip.setForeground(new java.awt.Color(255, 255, 255));
         labelDescrip.setText("Descripcion");
         PanelModificar.add(labelDescrip);
-        labelDescrip.setBounds(47, 309, 68, 16);
+        labelDescrip.setBounds(47, 309, 66, 16);
 
         labelPublisher.setForeground(new java.awt.Color(255, 255, 255));
         labelPublisher.setText("Publisher");
         PanelModificar.add(labelPublisher);
-        labelPublisher.setBounds(47, 443, 54, 16);
+        labelPublisher.setBounds(47, 443, 53, 16);
 
         labelDeveloper.setForeground(new java.awt.Color(255, 255, 255));
         labelDeveloper.setText("Desarrollador");
         PanelModificar.add(labelDeveloper);
-        labelDeveloper.setBounds(47, 248, 78, 16);
+        labelDeveloper.setBounds(47, 248, 76, 16);
 
         labelDate.setForeground(new java.awt.Color(255, 255, 255));
         labelDate.setText("Fecha de lanzamiento");
         PanelModificar.add(labelDate);
-        labelDate.setBounds(47, 376, 123, 16);
+        labelDate.setBounds(47, 376, 121, 16);
 
         labelImage.setForeground(new java.awt.Color(255, 255, 255));
         labelImage.setText("Imagen");
@@ -121,6 +128,11 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         txtImgEdited.setBounds(508, 386, 362, 32);
 
         btnSave.setText("GUARDAR");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         PanelModificar.add(btnSave);
         btnSave.setBounds(487, 485, 123, 52);
 
@@ -131,7 +143,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelModificar.add(btnAtras);
-        btnAtras.setBounds(62, 505, 90, 32);
+        btnAtras.setBounds(62, 505, 90, 24);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,16 +151,16 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         PanelModificar.add(jLabel5);
         jLabel5.setBounds(28, 117, 132, 25);
         PanelModificar.add(jSeparator1);
-        jSeparator1.setBounds(28, 49, 894, 10);
+        jSeparator1.setBounds(20, 50, 870, 10);
 
         labelNameEdited.setForeground(new java.awt.Color(255, 255, 255));
         labelNameEdited.setText("Nuevo nombre");
         PanelModificar.add(labelNameEdited);
-        labelNameEdited.setBounds(47, 184, 82, 16);
+        labelNameEdited.setBounds(47, 184, 81, 16);
         PanelModificar.add(txtNameEdited);
         txtNameEdited.setBounds(211, 176, 250, 32);
         PanelModificar.add(jSeparator2);
-        jSeparator2.setBounds(22, 148, 894, 10);
+        jSeparator2.setBounds(22, 148, 870, 10);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,18 +175,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelModificar.add(btnChoose);
-        btnChoose.setBounds(615, 319, 225, 32);
-
-        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
-        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEliminar.setText("Eliminar Videojuego");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-        PanelModificar.add(btnEliminar);
-        btnEliminar.setBounds(727, 73, 142, 32);
+        btnChoose.setBounds(615, 319, 225, 24);
 
         boxGames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +205,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        this.dispose();       
+        this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void txtDeveloperEditedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeveloperEditedActionPerformed
@@ -225,17 +226,69 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChooseActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-//        Videogame v = new Videogame();
-//        v.setName((String) boxGames.getSelectedItem());
-
-        //ClientHelper.gameName
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void boxGamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxGamesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxGamesActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ClientConnection.getDos().writeByte(4); //falta poner byte correcto
+            EditVideogame ev = new EditVideogame("");
+
+            boxGames.isShowing();
+            //ev.getCurrentName(ClientHelper.videogameName);
+
+            if (!txtNameEdited.getText().trim().equals("")) {
+                ev.setNewName(txtNameEdited.getText());
+            }
+            if (!txtDeveloperEdited.getText().trim().equals("")) {
+                ev.setDeveloper(txtDeveloperEdited.getText());
+            }
+            if (!txtDescripEdited.getText().trim().equals("")) {
+                ev.setDescription(txtDescripEdited.getText());
+            }
+            if (!txtDateEdited.getText().trim().equals("")) {
+                ev.setReleaseDate(AltaVideojuegos.ConvertStringToDate(txtDateEdited.getText()));
+            }
+            if (!txtPublisherEdited.getText().trim().equals("")) {
+                ev.setPublisher(txtPublisherEdited.getText());
+            }
+//            if (!txtImgEdited.getText().trim().equals("")) {
+//                ev.setGameImage(AltaVideojuegos.getImageAsBytes(txtImgEdited.getText()));
+//            }
+
+            ClientConnection.getOos().writeObject(ev);
+            boolean correct = ClientConnection.getDis().readBoolean();
+            if (correct) {
+                if (!txtNameEdited.getText().trim().equals("")) {
+                    v.setName(txtNameEdited.getText());
+                }
+                if (!txtDeveloperEdited.getText().trim().equals("")) {
+                    v.setDeveloper(txtDeveloperEdited.getText());
+                }
+                if (!txtDescripEdited.getText().trim().equals("")) {
+                    v.setDescription(txtDescripEdited.getText());
+                }
+                if (!txtDateEdited.getText().trim().equals("")) {
+                    v.setReleaseDate(AltaVideojuegos.ConvertStringToDate(txtDateEdited.getText()));
+                }
+                if (!txtPublisherEdited.getText().trim().equals("")) {
+                    v.setPublisher(txtPublisherEdited.getText());
+                }
+                if (!txtImgEdited.getText().trim().equals("")) {
+                    v.setGameImage(AltaVideojuegos.getImageAsBytes(txtImgEdited.getText()));
+                }
+
+                JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al guardar los cambios");
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,7 +296,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> boxGames;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnChoose;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel5;
