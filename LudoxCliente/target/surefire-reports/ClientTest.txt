@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: Client Test
--------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.243 s <<< FAILURE! - in ClientTest
-ClientTest.serverDisconn  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.NullPointerException
-	at ClientTest.serverDisconn(ClientTest.java:209)
-

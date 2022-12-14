@@ -31,6 +31,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -45,6 +46,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
      * constructor de la classe
      */
     public AltaVideojuegos() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         String[] Plat = new String[ClientHelper.listPlataformas.size()];
         int[] i = {0};
@@ -242,8 +244,8 @@ public class AltaVideojuegos extends javax.swing.JFrame {
 
             List<Platforms> listPlatforms = new ArrayList<>();
             List<Category> listCategory = new ArrayList<>();
-            listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedIndex())));
-            listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedIndex())));
+            listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedItem())));
+            listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedItem())));
             
             Videogame vg = new Videogame(
                     txtDescrip.getText(),

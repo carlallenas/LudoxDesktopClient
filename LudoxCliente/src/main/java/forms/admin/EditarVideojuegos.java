@@ -73,6 +73,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnChoose = new javax.swing.JButton();
         boxGames = new javax.swing.JComboBox<>();
+        ComboPlatforms = new javax.swing.JComboBox<>();
+        ComboCategory = new javax.swing.JComboBox<>();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -185,6 +187,12 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         PanelModificar.add(boxGames);
         boxGames.setBounds(424, 76, 285, 26);
 
+        PanelModificar.add(ComboPlatforms);
+        ComboPlatforms.setBounds(640, 190, 170, 26);
+
+        PanelModificar.add(ComboCategory);
+        ComboCategory.setBounds(640, 250, 170, 26);
+
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         PanelModificar.add(fondo);
         fondo.setBounds(0, 0, 920, 550);
@@ -292,6 +300,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboCategory;
+    private javax.swing.JComboBox<String> ComboPlatforms;
     private javax.swing.JPanel PanelModificar;
     private javax.swing.JComboBox<String> boxGames;
     private javax.swing.JButton btnAtras;

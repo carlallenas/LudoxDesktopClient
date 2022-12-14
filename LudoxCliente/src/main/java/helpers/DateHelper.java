@@ -28,8 +28,8 @@ public class DateHelper {
         }
     }
 
-    public static String convertDateToString(Calendar calendar) {
-        return dateFormat.format(calendar.getTime());
+    public static String convertDateToString(Date date) {
+        return dateFormat.format(date.getTime());
     }
 
     private static Calendar convertStringToCalendar(String date) {

@@ -6,6 +6,7 @@
 package forms;
 
 import data.Videogame;
+import helpers.DateHelper;
 import java.awt.image.BufferedImage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         Image.setIcon(icon);
         txtFechaInicio.setText(fechaActual());
         txtFechaFin.setText("00/00/0000");
+        DateLabel.setText(DateHelper.convertDateToString(videogame.getReleaseDate()));
     }
 
     /**
