@@ -18,6 +18,7 @@ public class ClientHelper {
     public static List<Category> listCategory;
     public static String username;
     public static String videogameName;
+    public static List<Videogame> gameList;
 
 /**
  * constructor de la classe

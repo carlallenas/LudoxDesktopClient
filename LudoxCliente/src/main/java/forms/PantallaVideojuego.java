@@ -6,8 +6,12 @@
 package forms;
 
 import data.Videogame;
+import java.awt.image.BufferedImage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -15,19 +19,23 @@ import java.util.Date;
  */
 public class PantallaVideojuego extends javax.swing.JFrame {
 
-    Videogame videogame = new Videogame();
+    Videogame videogame;
+
     /**
      * Creates new form PantallaVideojuego
      */
-    public PantallaVideojuego() {
+    public PantallaVideojuego(Videogame videogame) {
         initComponents();
+        this.setVisible(true);
+        this.videogame = videogame;
+
         GameTittle.setText(videogame.getName());
-        //CategoryLabel.setText(videogame.);
-        //PlatfromLabel.setText(videogame.);
+        CategoryLabel.setText(videogame.getCategories().get(0).getCategory());
+        PlatfromLabel.setText(videogame.getPlatforms().get(0).getName());
         DescriptionLabel.setText(videogame.getDescription());
         PublisherLabel.setText(videogame.getPublisher());
-        //Image.setIcon(videogame.getGameImage());      
-        
+        Icon icon = new ImageIcon(videogame.getGameImage());
+        Image.setIcon(icon);
         txtFechaInicio.setText(fechaActual());
         txtFechaFin.setText("00/00/0000");
     }
@@ -83,6 +91,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
 
         bntRental.setText("Alquilar");
 
+        GameTittle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         GameTittle.setForeground(new java.awt.Color(0, 0, 0));
         GameTittle.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -336,20 +345,20 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         PanelRentalLayout.setHorizontalGroup(
             PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelRentalLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel3)
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(456, 456, 456))
+            .addGroup(PanelRentalLayout.createSequentialGroup()
                 .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRentalLayout.createSequentialGroup()
-                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(61, Short.MAX_VALUE))
+                        .addGap(301, 301, 301)
+                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelRentalLayout.createSequentialGroup()
-                        .addComponent(txtFechaFin)
-                        .addGap(54, 54, 54))))
-            .addGroup(PanelRentalLayout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(300, 300, 300)
+                        .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelRentalLayout.createSequentialGroup()
                     .addGap(31, 31, 31)
@@ -359,15 +368,15 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         PanelRentalLayout.setVerticalGroup(
             PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRentalLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
                 .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(108, 108, 108)
+                .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(149, 149, 149)
                 .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addContainerGap(185, Short.MAX_VALUE))
             .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelRentalLayout.createSequentialGroup()
                     .addGap(65, 65, 65)
@@ -414,19 +423,17 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasScoreActionPerformed
 
     private void btnAlquilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquilarActionPerformed
-        // TODO add your handling code here:
-        
-        
+        // TODO add your handling code here:       
         PanelCard.removeAll();
         PanelCard.add(PanelGame);
         PanelCard.repaint();
         PanelCard.revalidate();
     }//GEN-LAST:event_btnAlquilarActionPerformed
 
-    public String fechaActual(){
-     Date date = new Date();
-     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-     return dateFormat.format(date);
+    public String fechaActual() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        return dateFormat.format(date);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

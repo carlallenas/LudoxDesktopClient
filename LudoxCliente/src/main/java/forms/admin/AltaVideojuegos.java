@@ -40,6 +40,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author CARLA LLENAS
  */
 public class AltaVideojuegos extends javax.swing.JFrame {
+
     /**
      * constructor de la classe
      */
@@ -58,9 +59,13 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             Cat[i[0]] = c.getCategory();
             i[0]++;
         });
-        
+
+        ComboPlatforms.setModel(new DefaultComboBoxModel<>(Plat));
+
+        ComboCategory.setModel(new DefaultComboBoxModel<>(Cat));
+
         txtDate.setText("YYYY/MM/DD");
-        
+
         this.setLocationRelativeTo(null);
     }
 
@@ -91,6 +96,8 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnChoose = new javax.swing.JButton();
+        ComboPlatforms = new javax.swing.JComboBox<>();
+        ComboCategory = new javax.swing.JComboBox<>();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,14 +127,14 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Nombre del Videojuego");
         PanelAltaVideojuegos.add(labelName);
-        labelName.setBounds(79, 96, 131, 16);
+        labelName.setBounds(79, 96, 130, 16);
         PanelAltaVideojuegos.add(txtName);
         txtName.setBounds(270, 88, 282, 32);
 
         labelDeveloper.setForeground(new java.awt.Color(255, 255, 255));
         labelDeveloper.setText("Desarrollador");
         PanelAltaVideojuegos.add(labelDeveloper);
-        labelDeveloper.setBounds(79, 159, 78, 16);
+        labelDeveloper.setBounds(79, 159, 76, 16);
 
         txtDeveloper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,14 +147,14 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         labelDescrip.setForeground(new java.awt.Color(255, 255, 255));
         labelDescrip.setText("Descripcion");
         PanelAltaVideojuegos.add(labelDescrip);
-        labelDescrip.setBounds(79, 223, 68, 16);
+        labelDescrip.setBounds(79, 223, 66, 16);
         PanelAltaVideojuegos.add(txtDescrip);
         txtDescrip.setBounds(270, 215, 282, 32);
 
         labelReleaseDate.setForeground(new java.awt.Color(255, 255, 255));
         labelReleaseDate.setText("Fecha de lanzamiento");
         PanelAltaVideojuegos.add(labelReleaseDate);
-        labelReleaseDate.setBounds(79, 297, 123, 16);
+        labelReleaseDate.setBounds(79, 297, 121, 16);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,7 +170,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         labelPublisher.setForeground(new java.awt.Color(255, 255, 255));
         labelPublisher.setText("Publisher");
         PanelAltaVideojuegos.add(labelPublisher);
-        labelPublisher.setBounds(79, 366, 54, 16);
+        labelPublisher.setBounds(79, 366, 53, 16);
         PanelAltaVideojuegos.add(txtPublisher);
         txtPublisher.setBounds(270, 350, 282, 32);
         PanelAltaVideojuegos.add(txtImg);
@@ -176,7 +183,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(btnAtras);
-        btnAtras.setBounds(42, 444, 80, 32);
+        btnAtras.setBounds(42, 444, 80, 24);
         PanelAltaVideojuegos.add(jSeparator1);
         jSeparator1.setBounds(53, 60, 927, 10);
 
@@ -187,7 +194,13 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(btnChoose);
-        btnChoose.setBounds(698, 259, 225, 32);
+        btnChoose.setBounds(698, 259, 225, 24);
+
+        PanelAltaVideojuegos.add(ComboPlatforms);
+        ComboPlatforms.setBounds(730, 80, 170, 26);
+
+        PanelAltaVideojuegos.add(ComboCategory);
+        ComboCategory.setBounds(730, 150, 170, 26);
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         PanelAltaVideojuegos.add(fondo);
@@ -229,14 +242,18 @@ public class AltaVideojuegos extends javax.swing.JFrame {
 
             List<Platforms> listPlatforms = new ArrayList<>();
             List<Category> listCategory = new ArrayList<>();
-
+            listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedIndex())));
+            listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedIndex())));
+            
             Videogame vg = new Videogame(
                     txtDescrip.getText(),
                     txtDeveloper.getText(),
                     txtName.getText(),
                     txtPublisher.getText(),
                     ConvertStringToDate(txtDate.getText()),
-                    getImageAsBytes(txtImg.getText()));
+                    getImageAsBytes(txtImg.getText()),
+                    listPlatforms,
+                    listCategory);
 
             vg.setPlatforms(listPlatforms);
             vg.setCategories(listCategory);
@@ -325,7 +342,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         this.dispose();
-          
+
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
@@ -347,6 +364,8 @@ public class AltaVideojuegos extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboCategory;
+    private javax.swing.JComboBox<String> ComboPlatforms;
     private javax.swing.JPanel PanelAltaVideojuegos;
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnAtras;
