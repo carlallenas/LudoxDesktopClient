@@ -105,7 +105,7 @@ public class ControlUsuarios extends javax.swing.JFrame {
             }
         });
         panelUsuarios.add(btnEliminar);
-        btnEliminar.setBounds(660, 120, 105, 24);
+        btnEliminar.setBounds(660, 120, 140, 24);
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         panelUsuarios.add(fondo);
@@ -162,7 +162,7 @@ public class ControlUsuarios extends javax.swing.JFrame {
 
         UList.setModel(model);
         String[] usersNames;
-        usersNames = usersList.stream().map(v -> v.getUsername()).toArray(size -> new String[size]);
+        usersNames = usersList.stream().filter(u->!u.isIsAdmin()).map(v -> v.getUsername()).toArray(size -> new String[size]);
 
         for (int i = 0; i < usersNames.length; i++) {
             model.addElement(usersNames[i]);
