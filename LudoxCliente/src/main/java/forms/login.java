@@ -273,7 +273,7 @@ public class login extends javax.swing.JFrame implements Runnable {
 
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }   
 
         } else {
             JOptionPane.showMessageDialog(null, "Falta ingresar usuario y contraseña");

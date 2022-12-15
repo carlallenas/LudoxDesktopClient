@@ -100,6 +100,8 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         btnChoose = new javax.swing.JButton();
         ComboPlatforms = new javax.swing.JComboBox<>();
         ComboCategory = new javax.swing.JComboBox<>();
+        labelCategory = new javax.swing.JLabel();
+        labelPlatform1 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -115,7 +117,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(txtDate);
-        txtDate.setBounds(270, 281, 282, 32);
+        txtDate.setBounds(270, 220, 282, 32);
 
         btnAlta.setText("ALTA");
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
@@ -149,34 +151,34 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         labelDescrip.setForeground(new java.awt.Color(255, 255, 255));
         labelDescrip.setText("Descripcion");
         PanelAltaVideojuegos.add(labelDescrip);
-        labelDescrip.setBounds(79, 223, 66, 16);
+        labelDescrip.setBounds(590, 170, 66, 16);
         PanelAltaVideojuegos.add(txtDescrip);
-        txtDescrip.setBounds(270, 215, 282, 32);
+        txtDescrip.setBounds(670, 80, 282, 220);
 
         labelReleaseDate.setForeground(new java.awt.Color(255, 255, 255));
         labelReleaseDate.setText("Fecha de lanzamiento");
         PanelAltaVideojuegos.add(labelReleaseDate);
-        labelReleaseDate.setBounds(79, 297, 121, 16);
+        labelReleaseDate.setBounds(80, 230, 121, 16);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ALTA DE VIDEJUEGOS");
         PanelAltaVideojuegos.add(jLabel1);
-        jLabel1.setBounds(422, 26, 174, 25);
+        jLabel1.setBounds(400, 20, 174, 25);
 
         labelImage.setForeground(new java.awt.Color(255, 255, 255));
         labelImage.setText("Imagen");
         PanelAltaVideojuegos.add(labelImage);
-        labelImage.setBounds(621, 267, 42, 16);
+        labelImage.setBounds(620, 320, 42, 16);
 
         labelPublisher.setForeground(new java.awt.Color(255, 255, 255));
         labelPublisher.setText("Publisher");
         PanelAltaVideojuegos.add(labelPublisher);
-        labelPublisher.setBounds(79, 366, 53, 16);
+        labelPublisher.setBounds(80, 300, 53, 16);
         PanelAltaVideojuegos.add(txtPublisher);
-        txtPublisher.setBounds(270, 350, 282, 32);
+        txtPublisher.setBounds(270, 290, 282, 32);
         PanelAltaVideojuegos.add(txtImg);
-        txtImg.setBounds(593, 325, 375, 34);
+        txtImg.setBounds(590, 360, 375, 34);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -186,8 +188,10 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         });
         PanelAltaVideojuegos.add(btnAtras);
         btnAtras.setBounds(42, 444, 80, 24);
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         PanelAltaVideojuegos.add(jSeparator1);
-        jSeparator1.setBounds(53, 60, 927, 10);
+        jSeparator1.setBounds(30, 60, 927, 10);
 
         btnChoose.setText("Cargar Imagen");
         btnChoose.addActionListener(new java.awt.event.ActionListener() {
@@ -196,13 +200,23 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(btnChoose);
-        btnChoose.setBounds(698, 259, 225, 24);
+        btnChoose.setBounds(720, 320, 225, 24);
 
         PanelAltaVideojuegos.add(ComboPlatforms);
-        ComboPlatforms.setBounds(730, 80, 170, 26);
+        ComboPlatforms.setBounds(60, 370, 170, 26);
 
         PanelAltaVideojuegos.add(ComboCategory);
-        ComboCategory.setBounds(730, 150, 170, 26);
+        ComboCategory.setBounds(310, 370, 170, 26);
+
+        labelCategory.setForeground(new java.awt.Color(255, 255, 255));
+        labelCategory.setText("Categoria");
+        PanelAltaVideojuegos.add(labelCategory);
+        labelCategory.setBounds(280, 350, 60, 16);
+
+        labelPlatform1.setForeground(new java.awt.Color(255, 255, 255));
+        labelPlatform1.setText("Plataforma");
+        PanelAltaVideojuegos.add(labelPlatform1);
+        labelPlatform1.setBounds(20, 350, 60, 16);
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         PanelAltaVideojuegos.add(fondo);
@@ -252,7 +266,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
                     txtDeveloper.getText(),
                     txtName.getText(),
                     txtPublisher.getText(),
-                    ConvertStringToDate(txtDate.getText()),
+                    ClientHelper.ConvertStringToDate(txtDate.getText()),
                     getImageAsBytes(txtImg.getText()),
                     listPlatforms,
                     listCategory);
@@ -278,23 +292,6 @@ public class AltaVideojuegos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAltaActionPerformed
 
-    /**
-     * metode que converteix una dada string a tipus Date
-     *
-     * @param stringDate
-     * @return date
-     */
-    public static Date ConvertStringToDate(String stringDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
-
-        try {
-            date = formatter.parse(stringDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(AltaVideojuegos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return date;
-    }
 
     /**
      * metode que transforma la imatge en bytes per poder enviarla al sevidor
@@ -375,10 +372,12 @@ public class AltaVideojuegos extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelCategory;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
     private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelName;
+    private javax.swing.JLabel labelPlatform1;
     private javax.swing.JLabel labelPublisher;
     private javax.swing.JLabel labelReleaseDate;
     private javax.swing.JTextField txtDate;

@@ -258,7 +258,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 ev.setDescription(txtDescripEdited.getText());
             }
             if (!txtDateEdited.getText().trim().equals("")) {
-                ev.setReleaseDate(AltaVideojuegos.ConvertStringToDate(txtDateEdited.getText()));
+                ev.setReleaseDate(ClientHelper.ConvertStringToDate(txtDateEdited.getText()));
             }
             if (!txtPublisherEdited.getText().trim().equals("")) {
                 ev.setPublisher(txtPublisherEdited.getText());
@@ -280,7 +280,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                     v.setDescription(txtDescripEdited.getText());
                 }
                 if (!txtDateEdited.getText().trim().equals("")) {
-                    v.setReleaseDate(AltaVideojuegos.ConvertStringToDate(txtDateEdited.getText()));
+                    v.setReleaseDate(ClientHelper.ConvertStringToDate(txtDateEdited.getText()));
                 }
                 if (!txtPublisherEdited.getText().trim().equals("")) {
                     v.setPublisher(txtPublisherEdited.getText());
