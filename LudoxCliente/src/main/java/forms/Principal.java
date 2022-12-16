@@ -1020,8 +1020,8 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (ActualPage < totalPaginas) {
             ActualPage++;
-//            QueryFilter qf = new QueryFilter(null, null, 0, 0, null, null, null, null, null);
-            //          getGamesLst(qf, ActualPage);
+            QueryFilter qf = new QueryFilter(null, null, 0, null, null);
+            getGamesLst(qf, ActualPage);
             getPageNumber();
         }
     }//GEN-LAST:event_btnNextPageActionPerformed

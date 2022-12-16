@@ -66,7 +66,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         txtFechaInicio.setText("0000/00/00");
         txtFechaFin.setText("0000/00/00");
         DateLabel.setText(DateHelper.convertDateToString(videogame.getReleaseDate()));
-        labelScore.setText(score);
+        labelScore.setText(videogame.getFinalScore() + "");
     }
 
     /**
@@ -111,9 +111,8 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         label4 = new javax.swing.JLabel();
         label5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        comboScore = new javax.swing.JComboBox<>();
         btnSaveScore = new javax.swing.JButton();
-        txtScore = new javax.swing.JTextField();
+        txtNewScore = new javax.swing.JTextField();
         PanelRental = new javax.swing.JPanel();
         btnAlquilar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -229,6 +228,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         labelPlat1.setBounds(232, 107, 87, 25);
 
         labelScore.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        labelScore.setForeground(new java.awt.Color(255, 255, 255));
         labelScore.setBorder(new javax.swing.border.MatteBorder(null));
         PanelGame.add(labelScore);
         labelScore.setBounds(140, 500, 150, 30);
@@ -293,12 +293,16 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Indica tu puntuación");
 
-        comboScore.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-
         btnSaveScore.setText("Guardar Puntuación");
         btnSaveScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveScoreActionPerformed(evt);
+            }
+        });
+
+        txtNewScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNewScoreActionPerformed(evt);
             }
         });
 
@@ -330,20 +334,19 @@ public class PantallaVideojuego extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)))
-                                .addGap(122, 122, 122)
-                                .addComponent(label4)
-                                .addGap(122, 122, 122)
-                                .addComponent(label5)))))
+                                .addGroup(PanelScoreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelScoreLayout.createSequentialGroup()
+                                        .addGap(122, 122, 122)
+                                        .addComponent(label4)
+                                        .addGap(122, 122, 122)
+                                        .addComponent(label5))
+                                    .addGroup(PanelScoreLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtNewScore, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelScoreLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtScore, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
             .addGroup(PanelScoreLayout.createSequentialGroup()
                 .addGap(365, 365, 365)
-                .addGroup(PanelScoreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(comboScore, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaveScore, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnSaveScore, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelScoreLayout.setVerticalGroup(
@@ -363,10 +366,8 @@ public class PantallaVideojuego extends javax.swing.JFrame {
                 .addGap(113, 113, 113)
                 .addGroup(PanelScoreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(comboScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(txtScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                    .addComponent(txtNewScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(btnSaveScore, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addComponent(btnAtrasScore)
@@ -402,17 +403,17 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         PanelRentalLayout.setHorizontalGroup(
             PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelRentalLayout.createSequentialGroup()
-                .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(PanelRentalLayout.createSequentialGroup()
-                            .addGap(31, 31, 31)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(PanelRentalLayout.createSequentialGroup()
                             .addGap(300, 300, 300)
-                            .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelRentalLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel3)
+                        .addGap(110, 110, 110)
+                        .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelRentalLayout.createSequentialGroup()
@@ -512,7 +513,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
             ClientConnection.getDos().writeByte(9);
             ClientConnection.getDos().writeUTF(ClientHelper.userName);
             ClientConnection.getDos().writeUTF(ClientHelper.videogameName);
-            ClientConnection.getDos().writeDouble(Double.valueOf(comboScore.getSelectedIndex()));
+            ClientConnection.getDos().writeDouble(Double.parseDouble(txtNewScore.getText()));
             int retorno = ClientConnection.getDis().readInt();
             if (retorno == 1 || retorno == 0) {
                 videogame = (Videogame) ClientConnection.getOis().readObject();
@@ -527,6 +528,10 @@ public class PantallaVideojuego extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
     }//GEN-LAST:event_btnSaveScoreActionPerformed
+
+    private void txtNewScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewScoreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewScoreActionPerformed
 
     private void update() {
         GameTittle.setText(videogame.getName());
@@ -547,7 +552,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         txtFechaInicio.setText("0000/00/00");
         txtFechaFin.setText("0000/00/00");
         DateLabel.setText(DateHelper.convertDateToString(videogame.getReleaseDate()));
-        labelScore.setText(score);
+        labelScore.setText(videogame.getFinalScore() + "");
     }
 
 
@@ -571,7 +576,6 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     private javax.swing.JButton btnAtrasScore;
     private javax.swing.JButton btnSaveScore;
     private javax.swing.JButton btnScore;
-    private javax.swing.JComboBox<String> comboScore;
     private javax.swing.JLabel fondoo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -593,6 +597,6 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     private javax.swing.JLabel labelScore;
     private javax.swing.JTextField txtFechaFin;
     private javax.swing.JTextField txtFechaInicio;
-    private javax.swing.JTextField txtScore;
+    private javax.swing.JTextField txtNewScore;
     // End of variables declaration//GEN-END:variables
 }
