@@ -60,7 +60,8 @@ public class Permisos extends javax.swing.JFrame {
         panelPermisos.setLayout(null);
 
         UList.setBackground(new java.awt.Color(153, 153, 153));
-        UList.setForeground(new java.awt.Color(255, 255, 255));
+        UList.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        UList.setForeground(new java.awt.Color(0, 0, 0));
         UList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 UListAncestorAdded(evt);
@@ -82,7 +83,7 @@ public class Permisos extends javax.swing.JFrame {
             }
         });
         panelPermisos.add(btnConvertToAdmin);
-        btnConvertToAdmin.setBounds(630, 160, 170, 32);
+        btnConvertToAdmin.setBounds(630, 160, 170, 24);
 
         btnNoAdmin.setText("Quitar Administrador");
         btnNoAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +92,7 @@ public class Permisos extends javax.swing.JFrame {
             }
         });
         panelPermisos.add(btnNoAdmin);
-        btnNoAdmin.setBounds(630, 250, 170, 32);
+        btnNoAdmin.setBounds(630, 250, 170, 24);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,7 +111,7 @@ public class Permisos extends javax.swing.JFrame {
             }
         });
         panelPermisos.add(btnUpdate);
-        btnUpdate.setBounds(660, 410, 90, 32);
+        btnUpdate.setBounds(660, 410, 90, 24);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +120,7 @@ public class Permisos extends javax.swing.JFrame {
             }
         });
         panelPermisos.add(btnAtras);
-        btnAtras.setBounds(670, 540, 100, 32);
+        btnAtras.setBounds(670, 540, 100, 24);
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         panelPermisos.add(fondo);

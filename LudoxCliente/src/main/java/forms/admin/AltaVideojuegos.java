@@ -126,7 +126,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(btnAlta);
-        btnAlta.setBounds(430, 423, 122, 53);
+        btnAlta.setBounds(430, 423, 150, 53);
 
         labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Nombre del Videojuego");
@@ -187,7 +187,7 @@ public class AltaVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelAltaVideojuegos.add(btnAtras);
-        btnAtras.setBounds(42, 444, 80, 24);
+        btnAtras.setBounds(42, 444, 100, 24);
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         PanelAltaVideojuegos.add(jSeparator1);

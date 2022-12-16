@@ -57,7 +57,8 @@ public class ControlUsuarios extends javax.swing.JFrame {
         panelUsuarios.setLayout(null);
 
         UList.setBackground(new java.awt.Color(153, 153, 153));
-        UList.setForeground(new java.awt.Color(255, 255, 255));
+        UList.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        UList.setForeground(new java.awt.Color(0, 0, 0));
         UList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 UListAncestorAdded(evt);

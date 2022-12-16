@@ -5,12 +5,16 @@
  */
 package forms.admin;
 
+import data.Category;
 import data.ClientConnection;
 import data.ClientHelper;
+import data.Platforms;
 import data.Videogame;
 import forms.Principal;
 import helpers.EditVideogame;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -39,6 +43,19 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         });
         boxGames.setModel(new DefaultComboBoxModel<>(Games));
 
+        String[] Plat = new String[ClientHelper.listPlataformas.size()];
+        int[] j = {0};
+        ClientHelper.listPlataformas.forEach(p -> {
+            Plat[j[0]] = p.getName();
+            j[0]++;
+        });
+
+        String[] Cat = new String[ClientHelper.listCategory.size()];
+        j[0] = 0;
+        ClientHelper.listCategory.forEach(c -> {
+            Cat[j[0]] = c.getCategory();
+            j[0]++;
+        });
         this.setLocationRelativeTo(null);
     }
 
@@ -75,6 +92,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         boxGames = new javax.swing.JComboBox<>();
         ComboPlatforms = new javax.swing.JComboBox<>();
         ComboCategory = new javax.swing.JComboBox<>();
+        labelPlatform1 = new javax.swing.JLabel();
+        labelCategory = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,12 +110,12 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelDescrip.setForeground(new java.awt.Color(255, 255, 255));
         labelDescrip.setText("Descripcion");
         PanelModificar.add(labelDescrip);
-        labelDescrip.setBounds(47, 309, 66, 16);
+        labelDescrip.setBounds(490, 250, 66, 16);
 
         labelPublisher.setForeground(new java.awt.Color(255, 255, 255));
         labelPublisher.setText("Publisher");
         PanelModificar.add(labelPublisher);
-        labelPublisher.setBounds(47, 443, 53, 16);
+        labelPublisher.setBounds(50, 390, 53, 16);
 
         labelDeveloper.setForeground(new java.awt.Color(255, 255, 255));
         labelDeveloper.setText("Desarrollador");
@@ -106,12 +125,12 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelDate.setForeground(new java.awt.Color(255, 255, 255));
         labelDate.setText("Fecha de lanzamiento");
         PanelModificar.add(labelDate);
-        labelDate.setBounds(47, 376, 121, 16);
+        labelDate.setBounds(50, 320, 121, 16);
 
         labelImage.setForeground(new java.awt.Color(255, 255, 255));
         labelImage.setText("Imagen");
         PanelModificar.add(labelImage);
-        labelImage.setBounds(508, 327, 42, 16);
+        labelImage.setBounds(530, 390, 42, 16);
 
         txtDeveloperEdited.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,13 +140,13 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         PanelModificar.add(txtDeveloperEdited);
         txtDeveloperEdited.setBounds(211, 240, 250, 32);
         PanelModificar.add(txtDescripEdited);
-        txtDescripEdited.setBounds(211, 301, 250, 32);
+        txtDescripEdited.setBounds(580, 160, 320, 200);
         PanelModificar.add(txtDateEdited);
-        txtDateEdited.setBounds(211, 368, 250, 32);
+        txtDateEdited.setBounds(210, 310, 250, 32);
         PanelModificar.add(txtPublisherEdited);
-        txtPublisherEdited.setBounds(211, 435, 250, 32);
+        txtPublisherEdited.setBounds(210, 380, 250, 32);
         PanelModificar.add(txtImgEdited);
-        txtImgEdited.setBounds(508, 386, 362, 32);
+        txtImgEdited.setBounds(520, 420, 362, 32);
 
         btnSave.setText("GUARDAR");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +155,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelModificar.add(btnSave);
-        btnSave.setBounds(487, 485, 123, 52);
+        btnSave.setBounds(490, 480, 190, 52);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +196,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             }
         });
         PanelModificar.add(btnChoose);
-        btnChoose.setBounds(615, 319, 225, 24);
+        btnChoose.setBounds(640, 390, 225, 24);
 
         boxGames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,10 +207,20 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         boxGames.setBounds(424, 76, 285, 26);
 
         PanelModificar.add(ComboPlatforms);
-        ComboPlatforms.setBounds(640, 190, 170, 26);
+        ComboPlatforms.setBounds(40, 450, 170, 26);
 
         PanelModificar.add(ComboCategory);
-        ComboCategory.setBounds(640, 250, 170, 26);
+        ComboCategory.setBounds(260, 450, 170, 26);
+
+        labelPlatform1.setForeground(new java.awt.Color(255, 255, 255));
+        labelPlatform1.setText("Plataforma");
+        PanelModificar.add(labelPlatform1);
+        labelPlatform1.setBounds(20, 430, 60, 16);
+
+        labelCategory.setForeground(new java.awt.Color(255, 255, 255));
+        labelCategory.setText("Categoria");
+        PanelModificar.add(labelCategory);
+        labelCategory.setBounds(240, 430, 60, 16);
 
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         PanelModificar.add(fondo);
@@ -245,8 +274,13 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             ClientConnection.getDos().writeByte(4); //falta poner byte correcto
             EditVideogame ev = new EditVideogame("");
 
-            boxGames.isShowing();
+            boxGames.getSelectedItem();
             //ev.getCurrentName(ClientHelper.videogameName);
+
+            List<Platforms> listPlatforms = new ArrayList<>();
+            List<Category> listCategory = new ArrayList<>();
+            listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedItem())));
+            listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedItem())));
 
             if (!txtNameEdited.getText().trim().equals("")) {
                 ev.setNewName(txtNameEdited.getText());
@@ -288,6 +322,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 if (!txtImgEdited.getText().trim().equals("")) {
                     v.setGameImage(AltaVideojuegos.getImageAsBytes(txtImgEdited.getText()));
                 }
+                v.setCategories(listCategory);
+                v.setPlatforms(listPlatforms);
 
                 JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
             }
@@ -312,12 +348,14 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelCategory;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
     private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelNameEdited;
+    private javax.swing.JLabel labelPlatform1;
     private javax.swing.JLabel labelPublisher;
     private javax.swing.JTextField txtDateEdited;
     private javax.swing.JTextField txtDescripEdited;
