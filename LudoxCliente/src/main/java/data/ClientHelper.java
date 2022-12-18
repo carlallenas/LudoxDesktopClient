@@ -6,6 +6,7 @@
 package data;
 
 import forms.admin.AltaVideojuegos;
+import helpers.QueryFilter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,5 +65,17 @@ public class ClientHelper {
             Logger.getLogger(AltaVideojuegos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return date;
+    }
+    
+    public static boolean filterChange(QueryFilter qf, QueryFilter qfOld) {
+        if (qf == null) {
+            return false;
+        }
+
+        if (qfOld == null) {
+            return false;
+        }
+
+        return !(qf.getName().equals(qfOld.getName()) && qf.getDate().equals(qfOld.getDate()) && qf.getPlatformName().equals(qfOld.getPlatformName()) && qf.getCategoryName().equals(qfOld.getCategoryName()) && qf.getScore() == qfOld.getScore());
     }
 }

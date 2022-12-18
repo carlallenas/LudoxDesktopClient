@@ -109,8 +109,12 @@ public class Principal extends javax.swing.JFrame {
         });
 
         ComboPlatforms.setModel(new DefaultComboBoxModel<>(Plat));
-
         ComboCategory.setModel(new DefaultComboBoxModel<>(Cat));
+        
+        ComboPlatforms.insertItemAt("", 0);
+        ComboCategory.insertItemAt("", 0);
+        ComboPlatforms.setSelectedIndex(0);
+        ComboCategory.setSelectedIndex(0);
     }
 
     /**
@@ -156,7 +160,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         btnFiltrar = new javax.swing.JButton();
-        btnQuitarFiltros = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TotalGamesList = new javax.swing.JList<>();
         btnFirstPage = new javax.swing.JButton();
@@ -523,11 +526,12 @@ public class Principal extends javax.swing.JFrame {
         labelFondoo.setForeground(new java.awt.Color(0, 0, 0));
         labelFondoo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoprincipalbueno.png")); // NOI18N
         PanelPrincipal.add(labelFondoo);
-        labelFondoo.setBounds(1, -1, 850, 800);
+        labelFondoo.setBounds(0, 0, 850, 800);
 
         PanelVentana.add(PanelPrincipal, "card4");
 
         PanelVideojuegos.setBackground(new java.awt.Color(204, 153, 255));
+        PanelVideojuegos.setPreferredSize(new java.awt.Dimension(840, 800));
 
         labelFiltros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelFiltros.setForeground(new java.awt.Color(255, 255, 255));
@@ -545,8 +549,6 @@ public class Principal extends javax.swing.JFrame {
                 btnFiltrarActionPerformed(evt);
             }
         });
-
-        btnQuitarFiltros.setText("Quitar Filtros");
 
         TotalGamesList.setBackground(new java.awt.Color(153, 153, 153));
         TotalGamesList.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -659,12 +661,11 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                            .addComponent(btnQuitarFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                             .addComponent(txtReleaseDate)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVideojuegosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtScore, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelVideojuegosLayout.createSequentialGroup()
                         .addComponent(btnFirstPage)
@@ -682,7 +683,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(PanelVideojuegosLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
                     .addComponent(labelPlatform4)
-                    .addContainerGap(723, Short.MAX_VALUE)))
+                    .addContainerGap(713, Short.MAX_VALUE)))
         );
         PanelVideojuegosLayout.setVerticalGroup(
             PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -717,9 +718,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(txtReleaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(btnFiltrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnQuitarFiltros))
+                        .addComponent(btnFiltrar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVideojuegosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -733,7 +732,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(49, 49, 49))
             .addGroup(PanelVideojuegosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVideojuegosLayout.createSequentialGroup()
-                    .addContainerGap(457, Short.MAX_VALUE)
+                    .addContainerGap(443, Short.MAX_VALUE)
                     .addComponent(labelPlatform4)
                     .addGap(341, 341, 341)))
         );
@@ -900,6 +899,7 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.add(PanelAjustes, "card2");
 
         PanelAlquileres.setBackground(new java.awt.Color(153, 153, 255));
+        PanelAlquileres.setPreferredSize(new java.awt.Dimension(840, 800));
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -1116,7 +1116,7 @@ public class Principal extends javax.swing.JFrame {
         PanelAlquileresLayout.setHorizontalGroup(
             PanelAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAlquileresLayout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(96, Short.MAX_VALUE)
                 .addGroup(PanelAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1135,7 +1135,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(PanelAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1197,7 +1197,6 @@ public class Principal extends javax.swing.JFrame {
         PanelVentana.revalidate();
 
         UpdateFilter();
-        getPageNumber();
     }//GEN-LAST:event_panelVideojuegosMouseClicked
 
     private void labelVideojuegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelVideojuegosMouseClicked
@@ -1314,14 +1313,14 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ActualPage = 1;
         UpdateFilter();
-        getPageNumber();
+        
     }//GEN-LAST:event_btnFirstPageActionPerformed
 
     private void btnLastPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastPageActionPerformed
         // TODO add your handling code here:
         ActualPage = totalPaginas;
         UpdateFilter();
-        getPageNumber();
+        
     }//GEN-LAST:event_btnLastPageActionPerformed
     /**
      * acció del botó per retrocedir de pagina
@@ -1331,7 +1330,7 @@ public class Principal extends javax.swing.JFrame {
         if (ActualPage > 1) {
             ActualPage--;
             UpdateFilter();
-            getPageNumber();
+            
         }
     }//GEN-LAST:event_btnPageBeforeActionPerformed
 
@@ -1343,7 +1342,7 @@ public class Principal extends javax.swing.JFrame {
         if (ActualPage < totalPaginas) {
             ActualPage++;
             UpdateFilter();
-            getPageNumber();
+            
         }
     }//GEN-LAST:event_btnNextPageActionPerformed
 
@@ -1413,37 +1412,38 @@ public class Principal extends javax.swing.JFrame {
 
     public void UpdateFilter() {
 
-        if (ComboCategory.getSelectedItem() != null) {
+        if (ComboCategory.getSelectedItem() != null && ((String)ComboCategory.getSelectedItem()).trim().equals("")) {
             FiltroCat = (String) ComboCategory.getSelectedItem();
         } else {
             FiltroCat = null;
         }
-        if (ComboPlatforms.getSelectedItem() != null) {
+        if (ComboPlatforms.getSelectedItem() != null && ((String)ComboPlatforms.getSelectedItem()).trim().equals("")) {
             FiltroPlat = (String) ComboPlatforms.getSelectedItem();
         } else {
             FiltroPlat = null;
         }
-        if (txtScore.getText() != null && txtScore.getText().trim() != "") {
+        if (txtScore.getText() != null && txtScore.getText().trim().equals("")) {
             FiltroScore = PantallaVideojuego.isScoreValid(txtScore.getText());
         } else {
             FiltroScore = -1;
         }
-        if (txtReleaseDate.getText() != null && txtReleaseDate.getText().trim() != "") {
+        if (txtReleaseDate.getText() != null && txtReleaseDate.getText().trim().equals("")) {
             FiltroDate = txtReleaseDate.getText();
         } else {
             FiltroDate = null;
         }
-        if (txtSearch.getText() != null && txtSearch.getText().trim() != "") {
+        if (txtSearch.getText() != null && txtSearch.getText().trim().equals("")) {
             FiltroName = txtSearch.getText();
         } else {
             FiltroName = null;
         }
         qfOld = qf;
         qf = new QueryFilter(FiltroPlat, FiltroCat, FiltroScore, FiltroDate, FiltroName);
-        if (qfOld != qf) {
-            ActualPage = 0;
+        if (ClientHelper.filterChange(qf, qfOld)) {
+            ActualPage = 1;
         }
         getGamesLst(qf, ActualPage);
+        getPageNumber();
     }
 
     /**
@@ -1475,6 +1475,9 @@ public class Principal extends javax.swing.JFrame {
             ClientConnection.getDos().writeByte(2);
             ClientConnection.getOos().writeObject(qf);
             totalPaginas = ClientConnection.getDis().readByte();
+            if (totalPaginas == 0) {
+                totalPaginas = 1;
+            }
             ClientConnection.getDos().writeInt(paginaActual);
             ClientHelper.gameList = (List<Videogame>) ClientConnection.getOis().readObject();
 
@@ -1531,7 +1534,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnNextPage;
     private javax.swing.JButton btnPageBefore;
     private javax.swing.JButton btnPermisos;
-    private javax.swing.JButton btnQuitarFiltros;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearchGame;
