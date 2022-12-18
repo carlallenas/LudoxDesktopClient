@@ -1412,27 +1412,27 @@ public class Principal extends javax.swing.JFrame {
 
     public void UpdateFilter() {
 
-        if (ComboCategory.getSelectedItem() != null && ((String)ComboCategory.getSelectedItem()).trim().equals("")) {
+        if (ComboCategory.getSelectedItem() != null && !((String)ComboCategory.getSelectedItem()).trim().equals("")) {
             FiltroCat = (String) ComboCategory.getSelectedItem();
         } else {
             FiltroCat = null;
         }
-        if (ComboPlatforms.getSelectedItem() != null && ((String)ComboPlatforms.getSelectedItem()).trim().equals("")) {
+        if (ComboPlatforms.getSelectedItem() != null && !((String)ComboPlatforms.getSelectedItem()).trim().equals("")) {
             FiltroPlat = (String) ComboPlatforms.getSelectedItem();
         } else {
             FiltroPlat = null;
         }
-        if (txtScore.getText() != null && txtScore.getText().trim().equals("")) {
+        if (txtScore.getText() != null && !txtScore.getText().trim().equals("")) {
             FiltroScore = PantallaVideojuego.isScoreValid(txtScore.getText());
         } else {
             FiltroScore = -1;
         }
-        if (txtReleaseDate.getText() != null && txtReleaseDate.getText().trim().equals("")) {
+        if (txtReleaseDate.getText() != null && !txtReleaseDate.getText().trim().equals("")) {
             FiltroDate = txtReleaseDate.getText();
         } else {
             FiltroDate = null;
         }
-        if (txtSearch.getText() != null && txtSearch.getText().trim().equals("")) {
+        if (txtSearch.getText() != null && !txtSearch.getText().trim().equals("")) {
             FiltroName = txtSearch.getText();
         } else {
             FiltroName = null;

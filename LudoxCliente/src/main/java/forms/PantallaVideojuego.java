@@ -10,6 +10,7 @@ import data.ClientHelper;
 import data.Rental;
 import data.Videogame;
 import helpers.DateHelper;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.videogame = videogame;
-
+                
         GameTittle.setText(videogame.getName());
         if (videogame.getCategories().size() > 0) {
             CategoryLabel.setText(videogame.getCategories().get(0).getCategory());
@@ -48,7 +49,9 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         } else {
             PlatformLabel.setText("Not found");
         }
-        DescriptionLabel.setText(videogame.getDescription());
+        textAreaDescr.setText(videogame.getDescription());
+        textAreaDescr.setLineWrap(true);
+        textAreaDescr.setWrapStyleWord(true);
         PublisherLabel.setText(videogame.getPublisher());
         Icon icon = new ImageIcon(new ImageIcon(videogame.getGameImage()).getImage().getScaledInstance(Image.getWidth(), Image.getHeight(), java.awt.Image.SCALE_DEFAULT));
         Image.setIcon(icon);
@@ -73,7 +76,6 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         GameTittle = new javax.swing.JLabel();
         CategoryLabel = new javax.swing.JLabel();
         PlatformLabel = new javax.swing.JLabel();
-        DescriptionLabel = new javax.swing.JLabel();
         DateLabel = new javax.swing.JLabel();
         ScoreLabel = new javax.swing.JLabel();
         PublisherTittle = new javax.swing.JLabel();
@@ -89,6 +91,8 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
+        DescriptionLabel = new javax.swing.JScrollPane();
+        textAreaDescr = new javax.swing.JTextArea();
         fondoo = new javax.swing.JLabel();
         PanelScore = new javax.swing.JPanel();
         btnAtrasScore = new javax.swing.JButton();
@@ -145,12 +149,6 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         PlatformLabel.setBorder(new javax.swing.border.MatteBorder(null));
         PanelGame.add(PlatformLabel);
         PlatformLabel.setBounds(232, 145, 150, 33);
-
-        DescriptionLabel.setForeground(new java.awt.Color(255, 255, 255));
-        DescriptionLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        DescriptionLabel.setBorder(new javax.swing.border.MatteBorder(null));
-        PanelGame.add(DescriptionLabel);
-        DescriptionLabel.setBounds(47, 215, 530, 232);
 
         DateLabel.setForeground(new java.awt.Color(255, 255, 255));
         DateLabel.setBorder(new javax.swing.border.MatteBorder(null));
@@ -237,6 +235,16 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
         PanelGame.add(jSeparator5);
         jSeparator5.setBounds(410, 130, 190, 10);
+
+        DescriptionLabel.setBackground(new java.awt.Color(204, 204, 255));
+
+        textAreaDescr.setEditable(false);
+        textAreaDescr.setColumns(20);
+        textAreaDescr.setRows(5);
+        DescriptionLabel.setViewportView(textAreaDescr);
+
+        PanelGame.add(DescriptionLabel);
+        DescriptionLabel.setBounds(40, 200, 540, 230);
 
         fondoo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondogameee.png")); // NOI18N
         PanelGame.add(fondoo);
@@ -393,10 +401,10 @@ public class PantallaVideojuego extends javax.swing.JFrame {
             PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelRentalLayout.createSequentialGroup()
                 .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(PanelRentalLayout.createSequentialGroup()
-                            .addGap(300, 300, 300)
+                    .addGroup(PanelRentalLayout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addGroup(PanelRentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelRentalLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -539,24 +547,24 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNewScoreActionPerformed
 
     private void update() {
-        GameTittle.setText(videogame.getName());
-        if (videogame.getCategories().size() > 0) {
-            CategoryLabel.setText(videogame.getCategories().get(0).getCategory());
-        } else {
-            CategoryLabel.setText("Not found");
-        }
-        if (videogame.getPlatforms().size() > 0) {
-            PlatformLabel.setText(videogame.getPlatforms().get(0).getName());
-        } else {
-            PlatformLabel.setText("Not found");
-        }
-        DescriptionLabel.setText(videogame.getDescription());
-        PublisherLabel.setText(videogame.getPublisher());
-        Icon icon = new ImageIcon(new ImageIcon(videogame.getGameImage()).getImage().getScaledInstance(Image.getWidth(), Image.getHeight(), java.awt.Image.SCALE_DEFAULT));
-        Image.setIcon(icon);
-        txtFechaInicio.setText("0000/00/00");
-        txtFechaFin.setText("0000/00/00");
-        DateLabel.setText(DateHelper.convertDateToString(videogame.getReleaseDate()));
+//        GameTittle.setText(videogame.getName());
+//        if (videogame.getCategories().size() > 0) {
+//            CategoryLabel.setText(videogame.getCategories().get(0).getCategory());
+//        } else {
+//            CategoryLabel.setText("Not found");
+//        }
+//        if (videogame.getPlatforms().size() > 0) {
+//            PlatformLabel.setText(videogame.getPlatforms().get(0).getName());
+//        } else {
+//            PlatformLabel.setText("Not found");
+//        }
+//        textAreaDescr.setText(videogame.getDescription());
+//        PublisherLabel.setText(videogame.getPublisher());
+//        Icon icon = new ImageIcon(new ImageIcon(videogame.getGameImage()).getImage().getScaledInstance(Image.getWidth(), Image.getHeight(), java.awt.Image.SCALE_DEFAULT));
+//        Image.setIcon(icon);
+//        txtFechaInicio.setText("0000/00/00");
+//        txtFechaFin.setText("0000/00/00");
+//        DateLabel.setText(DateHelper.convertDateToString(videogame.getReleaseDate()));
         labelScore.setText(videogame.getFinalScore() + "");
     }
 
@@ -564,7 +572,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CategoryLabel;
     private javax.swing.JLabel DateLabel;
-    private javax.swing.JLabel DescriptionLabel;
+    private javax.swing.JScrollPane DescriptionLabel;
     private javax.swing.JLabel GameTittle;
     private javax.swing.JLabel Image;
     private javax.swing.JPanel PanelCard;
@@ -600,6 +608,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelPlat1;
     private javax.swing.JLabel labelScore;
+    private javax.swing.JTextArea textAreaDescr;
     private javax.swing.JTextField txtFechaFin;
     private javax.swing.JTextField txtFechaInicio;
     private javax.swing.JTextField txtNewScore;

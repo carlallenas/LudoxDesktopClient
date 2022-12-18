@@ -57,6 +57,11 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             j[0]++;
         });
         this.setLocationRelativeTo(null);
+        
+        ComboPlatforms.insertItemAt("", 0);
+        ComboCategory.insertItemAt("", 0);
+        ComboPlatforms.setSelectedIndex(0);
+        ComboCategory.setSelectedIndex(0);
     }
 
     /**
@@ -74,12 +79,10 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         labelPublisher = new javax.swing.JLabel();
         labelDeveloper = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
-        labelImage = new javax.swing.JLabel();
         txtDeveloperEdited = new javax.swing.JTextField();
         txtDescripEdited = new javax.swing.JTextField();
         txtDateEdited = new javax.swing.JTextField();
         txtPublisherEdited = new javax.swing.JTextField();
-        txtImgEdited = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -88,7 +91,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         txtNameEdited = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        btnChoose = new javax.swing.JButton();
         boxGames = new javax.swing.JComboBox<>();
         ComboPlatforms = new javax.swing.JComboBox<>();
         ComboCategory = new javax.swing.JComboBox<>();
@@ -127,11 +129,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         PanelModificar.add(labelDate);
         labelDate.setBounds(50, 320, 121, 16);
 
-        labelImage.setForeground(new java.awt.Color(255, 255, 255));
-        labelImage.setText("Imagen");
-        PanelModificar.add(labelImage);
-        labelImage.setBounds(530, 390, 42, 16);
-
         txtDeveloperEdited.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDeveloperEditedActionPerformed(evt);
@@ -145,8 +142,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         txtDateEdited.setBounds(210, 310, 250, 32);
         PanelModificar.add(txtPublisherEdited);
         txtPublisherEdited.setBounds(210, 380, 250, 32);
-        PanelModificar.add(txtImgEdited);
-        txtImgEdited.setBounds(520, 420, 362, 32);
 
         btnSave.setText("GUARDAR");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +183,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         jLabel6.setText("MODIFICAR VIDEOJUEGOS");
         PanelModificar.add(jLabel6);
         jLabel6.setBounds(366, 18, 216, 25);
-
-        btnChoose.setText("Cargar Imagen");
-        btnChoose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChooseActionPerformed(evt);
-            }
-        });
-        PanelModificar.add(btnChoose);
-        btnChoose.setBounds(640, 390, 225, 24);
 
         boxGames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,20 +235,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDeveloperEditedActionPerformed
 
-    private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
-        // TODO add your handling code here:
-        String ruta = "";
-        JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG", "jpg", "png");
-        jFileChooser.setFileFilter(filtrado);
-
-        int response = jFileChooser.showOpenDialog(this);
-        if (response == JFileChooser.APPROVE_OPTION) {
-            ruta = jFileChooser.getSelectedFile().getPath();
-            txtImgEdited.setText(ruta);
-        }
-    }//GEN-LAST:event_btnChooseActionPerformed
-
     private void boxGamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxGamesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxGamesActionPerformed
@@ -272,20 +244,17 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             ClientConnection.getDos().writeByte(5);
-            ClientConnection.getDos().writeUTF((String) boxGames.getSelectedItem());
-            EditVideogame ev = new EditVideogame("");
-          
-            //ev.getCurrentName((String)boxGames.getSelectedItem());
+            EditVideogame ev = new EditVideogame((String)boxGames.getSelectedItem());
 
             List<Platforms> listPlatforms = new ArrayList<>();
             List<Category> listCategory = new ArrayList<>();
             listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedItem())));
             listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedItem())));
 
-            if (!txtNameEdited.getText().trim().equals("")) {
+            if (txtNameEdited.getText() != null && !txtNameEdited.getText().trim().equals("")) {
                 ev.setNewName(txtNameEdited.getText());
             }
-            if (!txtDeveloperEdited.getText().trim().equals("")) {
+            if (txtDeveloperEdited.getText() != null && !txtDeveloperEdited.getText().trim().equals("")) {
                 ev.setDeveloper(txtDeveloperEdited.getText());
             }
             if (!txtDescripEdited.getText().trim().equals("")) {
@@ -298,31 +267,9 @@ public class EditarVideojuegos extends javax.swing.JFrame {
                 ev.setPublisher(txtPublisherEdited.getText());
             }
 
-
             ClientConnection.getOos().writeObject(ev);
             boolean correct = ClientConnection.getDis().readBoolean();
             if (correct) {
-                if (!txtNameEdited.getText().trim().equals("")) {
-                    v.setName(txtNameEdited.getText());
-                }
-                if (!txtDeveloperEdited.getText().trim().equals("")) {
-                    v.setDeveloper(txtDeveloperEdited.getText());
-                }
-                if (!txtDescripEdited.getText().trim().equals("")) {
-                    v.setDescription(txtDescripEdited.getText());
-                }
-                if (!txtDateEdited.getText().trim().equals("")) {
-                    v.setReleaseDate(ClientHelper.ConvertStringToDate(txtDateEdited.getText()));
-                }
-                if (!txtPublisherEdited.getText().trim().equals("")) {
-                    v.setPublisher(txtPublisherEdited.getText());
-                }
-                if (!txtImgEdited.getText().trim().equals("")) {
-                    v.setGameImage(AltaVideojuegos.getImageAsBytes(txtImgEdited.getText()));
-                }
-                v.setCategories(listCategory);
-                v.setPlatforms(listPlatforms);
-
                 JOptionPane.showMessageDialog(this, "Se han guardado los cambios correctamente");
             }
 
@@ -339,7 +286,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JPanel PanelModificar;
     private javax.swing.JComboBox<String> boxGames;
     private javax.swing.JButton btnAtras;
-    private javax.swing.JButton btnChoose;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel5;
@@ -350,7 +296,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
-    private javax.swing.JLabel labelImage;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelNameEdited;
     private javax.swing.JLabel labelPlatform1;
@@ -358,7 +303,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JTextField txtDateEdited;
     private javax.swing.JTextField txtDescripEdited;
     private javax.swing.JTextField txtDeveloperEdited;
-    private javax.swing.JTextField txtImgEdited;
     private javax.swing.JTextField txtNameEdited;
     private javax.swing.JTextField txtPublisherEdited;
     // End of variables declaration//GEN-END:variables

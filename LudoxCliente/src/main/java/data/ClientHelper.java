@@ -27,29 +27,32 @@ public class ClientHelper {
     public static String videogameName;
     public static List<Videogame> gameList;
 
-/**
- * constructor de la classe
- * @param listVideogamesTop5
- * @param listCategory
- * @param listPlataformas 
- */
+    /**
+     * constructor de la classe
+     *
+     * @param listVideogamesTop5
+     * @param listCategory
+     * @param listPlataformas
+     */
     public ClientHelper(List<Videogame> listVideogamesTop5, List<Category> listCategory, List<Platforms> listPlataformas) {
         this.listPlataformas = listPlataformas;
         this.listCategory = listCategory;
         this.listVideogamesTop5 = listVideogamesTop5;
     }
 
-     public static String getUserName() {
+    public static String getUserName() {
         return userName;
-    }  
+    }
+
     public static void setUsername(String username) {
         ClientHelper.userName = username;
     }
+
     public static void setVideogameName(String videogameName) {
         ClientHelper.videogameName = videogameName;
     }
-    
-     /**
+
+    /**
      * metode que converteix una dada string a tipus Date
      *
      * @param stringDate
@@ -58,7 +61,6 @@ public class ClientHelper {
     public static Date ConvertStringToDate(String stringDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
-
         try {
             date = formatter.parse(stringDate);
         } catch (ParseException ex) {
@@ -66,7 +68,7 @@ public class ClientHelper {
         }
         return date;
     }
-    
+
     public static boolean filterChange(QueryFilter qf, QueryFilter qfOld) {
         if (qf == null) {
             return false;
@@ -76,6 +78,37 @@ public class ClientHelper {
             return false;
         }
 
+        if (qf.getName() == null) {
+            qf.setName("");
+        }
+
+        if (qf.getCategoryName() == null) {
+            qf.setCategoryName("");
+        }
+
+        if (qf.getDate() == null) {
+            qf.setDate("");
+        }
+
+        if (qf.getPlatformName() == null) {
+            qf.setPlatformName("");
+        }
+
+        if (qfOld.getName() == null) {
+            qfOld.setName("");
+        }
+
+        if (qfOld.getCategoryName() == null) {
+            qfOld.setCategoryName("");
+        }
+
+        if (qfOld.getDate() == null) {
+            qfOld.setDate("");
+        }
+
+        if (qfOld.getPlatformName() == null) {
+            qfOld.setPlatformName("");
+        }
         return !(qf.getName().equals(qfOld.getName()) && qf.getDate().equals(qfOld.getDate()) && qf.getPlatformName().equals(qfOld.getPlatformName()) && qf.getCategoryName().equals(qfOld.getCategoryName()) && qf.getScore() == qfOld.getScore());
     }
 }
