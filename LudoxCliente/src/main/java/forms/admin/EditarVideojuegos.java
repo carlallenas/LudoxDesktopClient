@@ -271,11 +271,11 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            ClientConnection.getDos().writeByte(4); //falta poner byte correcto
+            ClientConnection.getDos().writeByte(5);
+            ClientConnection.getDos().writeUTF((String) boxGames.getSelectedItem());
             EditVideogame ev = new EditVideogame("");
-
-            boxGames.getSelectedItem();
-            //ev.getCurrentName(ClientHelper.videogameName);
+          
+            //ev.getCurrentName((String)boxGames.getSelectedItem());
 
             List<Platforms> listPlatforms = new ArrayList<>();
             List<Category> listCategory = new ArrayList<>();
@@ -297,9 +297,7 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             if (!txtPublisherEdited.getText().trim().equals("")) {
                 ev.setPublisher(txtPublisherEdited.getText());
             }
-//            if (!txtImgEdited.getText().trim().equals("")) {
-//                ev.setGameImage(AltaVideojuegos.getImageAsBytes(txtImgEdited.getText()));
-//            }
+
 
             ClientConnection.getOos().writeObject(ev);
             boolean correct = ClientConnection.getDis().readBoolean();

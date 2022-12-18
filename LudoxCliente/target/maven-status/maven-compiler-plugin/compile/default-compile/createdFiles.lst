@@ -44,6 +44,7 @@ forms\Principal.class
 forms\admin\Permisos$4.class
 forms\Principal$1.class
 forms\admin\Permisos.class
+forms\PantallaVideojuego$7.class
 forms\Principal$22.class
 forms\Principal$19.class
 forms\admin\EditarVideojuegos$4.class
@@ -80,4 +81,5 @@ forms\PantallaVideojuego$5.class
 forms\login$3.class
 forms\admin\Permisos$3.class
 forms\Principal$3.class
+forms\Principal$28.class
 data\Videogame.class

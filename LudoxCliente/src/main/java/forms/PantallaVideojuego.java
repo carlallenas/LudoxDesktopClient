@@ -7,17 +7,10 @@ package forms;
 
 import data.ClientConnection;
 import data.ClientHelper;
-import data.GameScore;
 import data.Rental;
 import data.Videogame;
 import helpers.DateHelper;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -32,12 +25,8 @@ import javax.swing.JOptionPane;
 public class PantallaVideojuego extends javax.swing.JFrame {
 
     Videogame videogame;
-    Rental rental;
     private static String score;
-    private String title;
-    private String userName;
-    private String rentalInitial;
-    private String rentalFinal;
+
 
     /**
      * Creates new form PantallaVideojuego
@@ -489,7 +478,7 @@ public class PantallaVideojuego extends javax.swing.JFrame {
             int retorno = ClientConnection.getDis().readInt();
             if (retorno == 1 || retorno == 0) {
                 if (JOptionPane.showConfirmDialog(null, retorno == 0 ? "Alquiler registrado correctamente" : "Alquiler actualizado correctamente", ClientHelper.videogameName, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE) == 0) {
-                this.dispose();
+                    this.dispose();
                 }
             }
         } catch (IOException ex) {
@@ -505,27 +494,43 @@ public class PantallaVideojuego extends javax.swing.JFrame {
         PanelCard.revalidate();
     }//GEN-LAST:event_bntRentalActionPerformed
 
+    public static double isScoreValid(String score) {
+        try {
+            double scoreDouble = Double.parseDouble(score.replace(",", "."));
+            if (scoreDouble >= 0 && scoreDouble <= 10) {
+                return scoreDouble;
+            }
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+        return -1;
+    } 
 
     private void btnSaveScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveScoreActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            ClientConnection.getDos().writeByte(9);
-            ClientConnection.getDos().writeUTF(ClientHelper.userName);
-            ClientConnection.getDos().writeUTF(ClientHelper.videogameName);
-            ClientConnection.getDos().writeDouble(Double.parseDouble(txtNewScore.getText()));
-            int retorno = ClientConnection.getDis().readInt();
-            if (retorno == 1 || retorno == 0) {
-                videogame = (Videogame) ClientConnection.getOis().readObject();
-                update();
-                if (JOptionPane.showConfirmDialog(null, retorno == 0 ? "Puntuacion registrada correctamente" : "Puntuacion actualizada correctamente", ClientHelper.videogameName, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE) == 0) {
-                this.dispose();
+        double score = isScoreValid(txtNewScore.getText());
+        if (score != 1) {
+            try {
+                // TODO add your handling code here:
+                ClientConnection.getDos().writeByte(9);
+                ClientConnection.getDos().writeUTF(ClientHelper.userName);
+                ClientConnection.getDos().writeUTF(ClientHelper.videogameName);
+                ClientConnection.getDos().writeDouble(Double.parseDouble(txtNewScore.getText()));
+                int retorno = ClientConnection.getDis().readInt();
+                if (retorno == 1 || retorno == 0) {
+                    videogame = (Videogame) ClientConnection.getOis().readObject();
+                    update();
+                    if (JOptionPane.showConfirmDialog(null, retorno == 0 ? "Puntuacion registrada correctamente" : "Puntuacion actualizada correctamente", ClientHelper.videogameName, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE) == 0) {
+                        this.dispose();
+                    }
                 }
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaVideojuego.class.getName()).log(Level.SEVERE, "Error score", ex);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(PantallaVideojuego.class.getName()).log(Level.SEVERE, "Error score", ex);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        }else{
+        JOptionPane.showMessageDialog(null, "El valor debe ser entre 0 y 10", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveScoreActionPerformed
 
