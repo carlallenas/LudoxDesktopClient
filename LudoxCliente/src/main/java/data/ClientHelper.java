@@ -69,6 +69,13 @@ public class ClientHelper {
         return date;
     }
 
+    /**
+     * metode que ens actualitzara les llistes de videojocs filtrats o no.
+     *
+     * @param qf
+     * @param qfOld
+     * @return
+     */
     public static boolean filterChange(QueryFilter qf, QueryFilter qfOld) {
         if (qf == null) {
             return false;
@@ -110,5 +117,24 @@ public class ClientHelper {
             qfOld.setPlatformName("");
         }
         return !(qf.getName().equals(qfOld.getName()) && qf.getDate().equals(qfOld.getDate()) && qf.getPlatformName().equals(qfOld.getPlatformName()) && qf.getCategoryName().equals(qfOld.getCategoryName()) && qf.getScore() == qfOld.getScore());
+    }
+
+    /**
+     * metode que ens ajudara a validar si la puntuacio esta entre dos valors i,
+     * per tant, si es valida o no
+     * el parametre es la puntuacio
+     * @param score
+     * @return
+     */
+    public static double isScoreValid(String score) {
+        try {
+            double scoreDouble = Double.parseDouble(score.replace(",", "."));
+            if (scoreDouble >= 0 && scoreDouble <= 10) {
+                return scoreDouble;
+            }
+        } catch (NumberFormatException ex) {
+            return -1;
+        }
+        return -1;
     }
 }

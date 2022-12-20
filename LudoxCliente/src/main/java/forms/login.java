@@ -47,8 +47,7 @@ public class login extends javax.swing.JFrame implements Runnable {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }
 
     /**
@@ -104,10 +103,8 @@ public class login extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(btnLogin);
         btnLogin.setBounds(200, 320, 165, 49);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\Captura.png")); // NOI18N
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 10, 100, 85);
+        jLabel1.setBounds(10, 10, 0, 85);
 
         btnSalir.setBackground(new java.awt.Color(0, 0, 0));
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,7 +155,7 @@ public class login extends javax.swing.JFrame implements Runnable {
         LabelUsuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\icons8-usuario-de-género-neutro-32.png")); // NOI18N
         LabelUsuario.setText("Usuario");
         jPanel1.add(LabelUsuario);
-        LabelUsuario.setBounds(70, 150, 90, 32);
+        LabelUsuario.setBounds(70, 150, 90, 30);
 
         LabelPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LabelPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,8 +223,7 @@ public class login extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_showPassActionPerformed
 
     /**
-     * metode on conecta el botó amb la pantalla de registre dels usuaris. es
-     * recicla la connexio del servidor i la base de dades.
+     * metode on conecta el botó amb la pantalla de registre dels usuaris
      */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         registro reg = new registro(this, true);
@@ -239,6 +235,10 @@ public class login extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
 
+    /**
+     * metode del boto per fer login
+     * @param evt 
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         doLogin(txtUsuario.getText(), getEncodedString(txtPassword.getText()));
     }//GEN-LAST:event_btnLoginActionPerformed

@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
+import data.ClientHelper;
+import data.Rental;
 import data.User;
 import data.Videogame;
+import forms.PantallaVideojuego;
 import forms.admin.AltaVideojuegos;
 import forms.login;
 import forms.registro;
@@ -63,6 +66,12 @@ public class ClientTest {
 
     @Mock
     AltaVideojuegos altaVid = Mockito.mock(AltaVideojuegos.class);
+    
+    @Mock
+    PantallaVideojuego RegAlquiler = Mockito.mock(PantallaVideojuego.class);
+    
+    @Mock
+    PantallaVideojuego RegScore = Mockito.mock(PantallaVideojuego.class);
 
     @BeforeAll
     public static void setUpClass() {
@@ -104,7 +113,6 @@ public class ClientTest {
         gameExisting.setDescription("game");
         gameExisting.setDeveloper("developer");
         gameExisting.setPublisher("developer");
-
     }
 
     /**
@@ -249,5 +257,56 @@ public class ClientTest {
         byte ok = altaVid.sendVideogame(gameFail);
         assertEquals(2, ok);
     }
+
+    //------------------------------------------------------------------TEA 4-----------------------------------------------------------------------------------------------
+    /**
+     * Amb Mockito comprovem que l'alquiler s'ha donat d'alta correctament
+     * mitjançant el byte rebut del servidor.
+     */
+    @Test
+    @DisplayName("Registro Alquiler Bien")
+    public void testAlquilerBien() {
+        Mockito.when(RegAlquiler.sendRental("2023/05/01", "2023/06/01", "Halo", "admin")).thenReturn((int) 0);
+        int ok = RegAlquiler.sendRental("2023/05/01", "2023/06/01", "Halo", "admin");
+        assertEquals(0, ok);
+    }
+    
+    /**
+     * Amb Mockito comprovem que l'alquiler s'ha actualizat correctament
+     * mitjançant el byte rebut del servidor.
+     */
+    @Test
+    @DisplayName("Actualizacion Alquiler Bien")
+    public void testUpdateAlquilerBien() {
+        Mockito.when(RegAlquiler.sendRental("2023/05/01", "2023/06/01", "Halo", "admin")).thenReturn((int) 1);
+        int ok = RegAlquiler.sendRental("2024/05/01", "2024/06/01", "Halo", "admin");
+        assertEquals(0, ok);
+    }
+    
+    /**
+     * Amb Mockito comprovem que la puntuacio s'ha donat d'alta correctament
+     * mitjançant el byte rebut del servidor.
+     */
+    @Test
+    @DisplayName("Registro Puntuación Bien")
+    public void testScoreAlquilerBien() {
+        Mockito.when(RegScore.sendScore(4.3, "Zelda", "admin")).thenReturn((int) 0);
+        int ok = RegScore.sendScore(4.3, "Zelda", "admin");
+        assertEquals(0, ok);
+    }
+    
+    /**
+     * Amb Mockito comprovem que la puntuacio s'ha actualizat correctament
+     * mitjançant el byte rebut del servidor.
+     */
+    @Test
+    @DisplayName("Actualizacion Puntuación Bien")
+    public void testUpdateScorerBien() {
+       Mockito.when(RegScore.sendScore(4.3, "Zelda", "admin")).thenReturn((int) 1);
+        int ok = RegScore.sendScore(6.7, "Zelda", "admin");
+        assertEquals(0, ok);
+    }
+    
+    
 
 }

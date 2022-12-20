@@ -31,7 +31,6 @@ public class Videogame implements Serializable {
     private String name;
     private String publisher;
     private Date releaseDate;
-    private int stock;
     private transient List<Rental> rentals;
     private transient List<GameScore> scores;
     private transient List<Platforms> platforms;
@@ -55,7 +54,7 @@ public class Videogame implements Serializable {
     }
 
     //Constructor de EclipseLink - Base Datos
-    public Videogame(List<Category> categories, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, int stock, List<Platforms> platforms) {
+    public Videogame(List<Category> categories, String description, String developer, double finalScore, int ID, String imagePath, String name, String publisher, Date releaseDate, List<Platforms> platforms) {
         this.categories = categories;
         this.description = description;
         this.developer = developer;
@@ -65,7 +64,6 @@ public class Videogame implements Serializable {
         this.name = name;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
-        this.stock = stock;
         this.platforms = platforms;
     }
 
@@ -121,14 +119,6 @@ public class Videogame implements Serializable {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public double getFinalScore() {
@@ -218,6 +208,15 @@ public class Videogame implements Serializable {
         } else {
             out.writeInt(0);
         }
+
+        if (this.rentals != null && this.rentals.size() > 0) {
+            out.writeInt(this.rentals.size());
+            for (Rental ren : this.getRentals()) {
+                out.writeObject(ren);
+            }
+        } else {
+            out.writeInt(0);
+        }
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -252,6 +251,17 @@ public class Videogame implements Serializable {
         if (scoresNum > 0) {
             for (int i = 0; i < scoresNum; i++) {
                 this.scores.add((GameScore) in.readObject());
+            }
+        }
+
+        if (this.rentals == null) {
+            this.rentals = new ArrayList<>();
+        }
+
+        int rentalsNum = in.readInt();
+        if (rentalsNum > 0) {
+            for (int i = 0; i < rentalsNum; i++) {
+                this.rentals.add((Rental) in.readObject());
             }
         }
     }

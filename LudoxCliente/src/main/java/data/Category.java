@@ -30,6 +30,10 @@ public class Category implements Serializable {
         this.category = capitalize(category);
     }
 
+    public static String capitalize(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getID() {
@@ -47,10 +51,6 @@ public class Category implements Serializable {
 
     public void setCategory(String category) {
         this.category = capitalize(category);
-    }
-
-    public static String capitalize(String word) {
-        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
 
 }

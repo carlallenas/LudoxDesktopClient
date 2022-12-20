@@ -5,23 +5,16 @@
  */
 package forms.admin;
 
-import data.Category;
 import data.ClientConnection;
 import data.ClientHelper;
-import data.Platforms;
 import data.Videogame;
 import forms.Principal;
 import helpers.EditVideogame;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 /**
  *
  * @author CARLA LLENAS
@@ -42,26 +35,8 @@ public class EditarVideojuegos extends javax.swing.JFrame {
             i[0]++;
         });
         boxGames.setModel(new DefaultComboBoxModel<>(Games));
-
-        String[] Plat = new String[ClientHelper.listPlataformas.size()];
-        int[] j = {0};
-        ClientHelper.listPlataformas.forEach(p -> {
-            Plat[j[0]] = p.getName();
-            j[0]++;
-        });
-
-        String[] Cat = new String[ClientHelper.listCategory.size()];
-        j[0] = 0;
-        ClientHelper.listCategory.forEach(c -> {
-            Cat[j[0]] = c.getCategory();
-            j[0]++;
-        });
-        this.setLocationRelativeTo(null);
         
-        ComboPlatforms.insertItemAt("", 0);
-        ComboCategory.insertItemAt("", 0);
-        ComboPlatforms.setSelectedIndex(0);
-        ComboCategory.setSelectedIndex(0);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -92,10 +67,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         boxGames = new javax.swing.JComboBox<>();
-        ComboPlatforms = new javax.swing.JComboBox<>();
-        ComboCategory = new javax.swing.JComboBox<>();
-        labelPlatform1 = new javax.swing.JLabel();
-        labelCategory = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,22 +163,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         PanelModificar.add(boxGames);
         boxGames.setBounds(424, 76, 285, 26);
 
-        PanelModificar.add(ComboPlatforms);
-        ComboPlatforms.setBounds(40, 450, 170, 26);
-
-        PanelModificar.add(ComboCategory);
-        ComboCategory.setBounds(260, 450, 170, 26);
-
-        labelPlatform1.setForeground(new java.awt.Color(255, 255, 255));
-        labelPlatform1.setText("Plataforma");
-        PanelModificar.add(labelPlatform1);
-        labelPlatform1.setBounds(20, 430, 60, 16);
-
-        labelCategory.setForeground(new java.awt.Color(255, 255, 255));
-        labelCategory.setText("Categoria");
-        PanelModificar.add(labelCategory);
-        labelCategory.setBounds(240, 430, 60, 16);
-
         fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\CARLA LLENAS\\OneDrive\\Documentos\\NetBeansProjects\\LudoxCliente\\src\\main\\images\\fondoMenuAdmin.jpg")); // NOI18N
         PanelModificar.add(fondo);
         fondo.setBounds(0, 0, 920, 550);
@@ -226,6 +181,10 @@ public class EditarVideojuegos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * metode del boto per tornar enrere
+     * @param evt 
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -238,18 +197,17 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private void boxGamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxGamesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxGamesActionPerformed
-
+    /**
+     * metode del boto de guardar els canvis comprova si els camps estan vuits.
+     * Si contenen valors, es fa l'edició dels camps.
+     * @param evt
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
             ClientConnection.getDos().writeByte(5);
-            EditVideogame ev = new EditVideogame((String)boxGames.getSelectedItem());
-
-            List<Platforms> listPlatforms = new ArrayList<>();
-            List<Category> listCategory = new ArrayList<>();
-            listPlatforms.add(new Platforms(String.valueOf(ComboPlatforms.getSelectedItem())));
-            listCategory.add(new Category(String.valueOf(ComboCategory.getSelectedItem())));
+            EditVideogame ev = new EditVideogame((String) boxGames.getSelectedItem());
 
             if (txtNameEdited.getText() != null && !txtNameEdited.getText().trim().equals("")) {
                 ev.setNewName(txtNameEdited.getText());
@@ -281,8 +239,6 @@ public class EditarVideojuegos extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboCategory;
-    private javax.swing.JComboBox<String> ComboPlatforms;
     private javax.swing.JPanel PanelModificar;
     private javax.swing.JComboBox<String> boxGames;
     private javax.swing.JButton btnAtras;
@@ -292,13 +248,11 @@ public class EditarVideojuegos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelCategory;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelDescrip;
     private javax.swing.JLabel labelDeveloper;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelNameEdited;
-    private javax.swing.JLabel labelPlatform1;
     private javax.swing.JLabel labelPublisher;
     private javax.swing.JTextField txtDateEdited;
     private javax.swing.JTextField txtDescripEdited;

@@ -144,21 +144,37 @@ public class Permisos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UListAncestorAdded
 
+    /**
+     * metode del boto per tornar enrere
+     * @param evt 
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         this.dispose();       
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    /**
+     * metode del boto per canviar a usuari administrador
+     * @param evt 
+     */
     private void btnConvertToAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertToAdminActionPerformed
         // TODO add your handling code here:
         changeAdmin(true);
     }//GEN-LAST:event_btnConvertToAdminActionPerformed
 
+    /**
+     * metode del boto per canviar a usuari normal
+     * @param evt 
+     */
     private void btnNoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoAdminActionPerformed
         // TODO add your handling code here:
         changeAdmin(false);
     }//GEN-LAST:event_btnNoAdminActionPerformed
 
+    /**
+     * metode del boto per actualizar la llista d'usuaris
+     * @param evt 
+     */
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
             // TODO add your handling code here:
@@ -194,6 +210,10 @@ public class Permisos extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * metode per fer el canvi de usuari normal a usuari administrador
+     * @param admin 
+     */
     public void changeAdmin(boolean admin) {
         System.out.println(UList.getSelectedValue());
         try {

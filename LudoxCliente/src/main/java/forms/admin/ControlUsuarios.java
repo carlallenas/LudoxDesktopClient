@@ -130,6 +130,10 @@ public class ControlUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UListAncestorAdded
 
+    /**
+     * metode del boto per actualitzar la llista d'usuaris
+     * @param evt 
+     */
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         // TODO add your handling code here:
@@ -142,11 +146,19 @@ public class ControlUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    /**
+     * metode del boto per tornar enrere
+     * @param evt 
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    /**
+     * metode del boto que crida al metode per eliminar usuaris
+     * @param evt 
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         removeUser(false);
@@ -172,6 +184,7 @@ public class ControlUsuarios extends javax.swing.JFrame {
 
     /**
      * metode per eliminar usuaris
+     * @param enabled 
      */
     public void removeUser(boolean enabled) {
         System.out.println(UList.getSelectedValue());
